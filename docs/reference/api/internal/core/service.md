@@ -30,7 +30,7 @@ It depends on domain and port. It must never import an adapter — the depguard 
 
 
 <a name="Health"></a>
-## type [Health](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/service/health.go#L17-L21>)
+## type Health
 
 Health is the use case behind the \`check\` command.
 
@@ -41,7 +41,7 @@ type Health struct {
 ```
 
 <a name="NewHealth"></a>
-### func [NewHealth](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/service/health.go#L42>)
+### func NewHealth
 
 ```go
 func NewHealth(prober port.Prober, opts ...Option) *Health
@@ -50,7 +50,7 @@ func NewHealth(prober port.Prober, opts ...Option) *Health
 NewHealth wires the use case to an outbound prober.
 
 <a name="Health.Check"></a>
-### func \(\*Health\) [Check](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/service/health.go#L55>)
+### func \(\*Health\) Check
 
 ```go
 func (h *Health) Check(ctx context.Context, target domain.Target) domain.Health
@@ -59,7 +59,7 @@ func (h *Health) Check(ctx context.Context, target domain.Target) domain.Health
 Check inspects a single target.
 
 <a name="Health.CheckAll"></a>
-### func \(\*Health\) [CheckAll](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/service/health.go#L66>)
+### func \(\*Health\) CheckAll
 
 ```go
 func (h *Health) CheckAll(ctx context.Context, targets []domain.Target) []domain.Health
@@ -68,7 +68,7 @@ func (h *Health) CheckAll(ctx context.Context, targets []domain.Target) []domain
 CheckAll inspects every target concurrently, preserving input order. A cancelled context is not an error either: the targets that did not get a verdict come back as unreachable, which is what the user needs to see.
 
 <a name="Option"></a>
-## type [Option](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/service/health.go#L24>)
+## type Option
 
 Option customises a Health service.
 
@@ -77,7 +77,7 @@ type Option func(*Health)
 ```
 
 <a name="WithConcurrency"></a>
-### func [WithConcurrency](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/service/health.go#L33>)
+### func WithConcurrency
 
 ```go
 func WithConcurrency(n int) Option
@@ -86,7 +86,7 @@ func WithConcurrency(n int) Option
 WithConcurrency caps how many targets are probed at once. Values below one are ignored.
 
 <a name="WithThresholds"></a>
-### func [WithThresholds](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/service/health.go#L27>)
+### func WithThresholds
 
 ```go
 func WithThresholds(t domain.Thresholds) Option

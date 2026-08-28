@@ -53,7 +53,7 @@ They are shipped as ordinary adapters rather than hidden in \_test.go files on p
 
 
 <a name="Clock"></a>
-## type [Clock](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L130-L134>)
+## type Clock
 
 Clock is a deterministic port.Clock. Every reading advances by Step, so a test can assert on an exact latency instead of a range.
 
@@ -64,7 +64,7 @@ type Clock struct {
 ```
 
 <a name="NewClock"></a>
-### func [NewClock](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L138>)
+### func NewClock
 
 ```go
 func NewClock(start time.Time, step time.Duration) *Clock
@@ -73,7 +73,7 @@ func NewClock(start time.Time, step time.Duration) *Clock
 NewClock returns a clock starting at a fixed instant and advancing by step on every call to Since.
 
 <a name="Clock.Advance"></a>
-### func \(\*Clock\) [Advance](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L158>)
+### func \(\*Clock\) Advance
 
 ```go
 func (c *Clock) Advance(d time.Duration)
@@ -82,7 +82,7 @@ func (c *Clock) Advance(d time.Duration)
 Advance moves the clock forward by d.
 
 <a name="Clock.Now"></a>
-### func \(\*Clock\) [Now](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L143>)
+### func \(\*Clock\) Now
 
 ```go
 func (c *Clock) Now() time.Time
@@ -91,7 +91,7 @@ func (c *Clock) Now() time.Time
 Now implements port.Clock.
 
 <a name="Clock.Since"></a>
-### func \(\*Clock\) [Since](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L150>)
+### func \(\*Clock\) Since
 
 ```go
 func (c *Clock) Since(t time.Time) time.Duration
@@ -100,7 +100,7 @@ func (c *Clock) Since(t time.Time) time.Duration
 Since implements port.Clock, advancing the clock by one step.
 
 <a name="Logger"></a>
-## type [Logger](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L216-L219>)
+## type Logger
 
 Logger is an in\-memory port.Logger.
 
@@ -111,7 +111,7 @@ type Logger struct {
 ```
 
 <a name="NewLogger"></a>
-### func [NewLogger](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L222>)
+### func NewLogger
 
 ```go
 func NewLogger() *Logger
@@ -120,7 +120,7 @@ func NewLogger() *Logger
 NewLogger returns an empty logger.
 
 <a name="Logger.Debug"></a>
-### func \(\*Logger\) [Debug](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L225>)
+### func \(\*Logger\) Debug
 
 ```go
 func (l *Logger) Debug(_ context.Context, msg string, attrs ...any)
@@ -129,7 +129,7 @@ func (l *Logger) Debug(_ context.Context, msg string, attrs ...any)
 Debug implements port.Logger.
 
 <a name="Logger.Error"></a>
-### func \(\*Logger\) [Error](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L234>)
+### func \(\*Logger\) Error
 
 ```go
 func (l *Logger) Error(_ context.Context, msg string, attrs ...any)
@@ -138,7 +138,7 @@ func (l *Logger) Error(_ context.Context, msg string, attrs ...any)
 Error implements port.Logger.
 
 <a name="Logger.Info"></a>
-### func \(\*Logger\) [Info](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L228>)
+### func \(\*Logger\) Info
 
 ```go
 func (l *Logger) Info(_ context.Context, msg string, attrs ...any)
@@ -147,7 +147,7 @@ func (l *Logger) Info(_ context.Context, msg string, attrs ...any)
 Info implements port.Logger.
 
 <a name="Logger.Messages"></a>
-### func \(\*Logger\) [Messages](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L250>)
+### func \(\*Logger\) Messages
 
 ```go
 func (l *Logger) Messages() []string
@@ -156,7 +156,7 @@ func (l *Logger) Messages() []string
 Messages returns just the messages, which is usually what an assertion wants.
 
 <a name="Logger.Records"></a>
-### func \(\*Logger\) [Records](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L243>)
+### func \(\*Logger\) Records
 
 ```go
 func (l *Logger) Records() []Record
@@ -165,7 +165,7 @@ func (l *Logger) Records() []Record
 Records returns everything logged so far.
 
 <a name="Logger.Warn"></a>
-### func \(\*Logger\) [Warn](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L231>)
+### func \(\*Logger\) Warn
 
 ```go
 func (l *Logger) Warn(_ context.Context, msg string, attrs ...any)
@@ -174,7 +174,7 @@ func (l *Logger) Warn(_ context.Context, msg string, attrs ...any)
 Warn implements port.Logger.
 
 <a name="Prober"></a>
-## type [Prober](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L37-L42>)
+## type Prober
 
 Prober is an in\-memory port.Prober. The zero value is usable and answers every address with 200 OK.
 
@@ -185,7 +185,7 @@ type Prober struct {
 ```
 
 <a name="NewProber"></a>
-### func [NewProber](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L46>)
+### func NewProber
 
 ```go
 func NewProber() *Prober
@@ -194,7 +194,7 @@ func NewProber() *Prober
 NewProber returns a prober that answers 200 OK for anything it has not been told about.
 
 <a name="Prober.CallCount"></a>
-### func \(\*Prober\) [CallCount](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L115>)
+### func \(\*Prober\) CallCount
 
 ```go
 func (p *Prober) CallCount() int
@@ -203,7 +203,7 @@ func (p *Prober) CallCount() int
 CallCount returns how many probes were made.
 
 <a name="Prober.Calls"></a>
-### func \(\*Prober\) [Calls](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L108>)
+### func \(\*Prober\) Calls
 
 ```go
 func (p *Prober) Calls() []domain.Target
@@ -212,7 +212,7 @@ func (p *Prober) Calls() []domain.Target
 Calls returns the targets probed so far, in the order they were seen.
 
 <a name="Prober.Probe"></a>
-### func \(\*Prober\) [Probe](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L81>)
+### func \(\*Prober\) Probe
 
 ```go
 func (p *Prober) Probe(ctx context.Context, target domain.Target) (domain.Probe, error)
@@ -221,7 +221,7 @@ func (p *Prober) Probe(ctx context.Context, target domain.Target) (domain.Probe,
 Probe implements port.Prober.
 
 <a name="Prober.Reset"></a>
-### func \(\*Prober\) [Reset](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L122>)
+### func \(\*Prober\) Reset
 
 ```go
 func (p *Prober) Reset()
@@ -230,7 +230,7 @@ func (p *Prober) Reset()
 Reset forgets recorded calls, keeping the programmed responses.
 
 <a name="Prober.With"></a>
-### func \(\*Prober\) [With](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L55>)
+### func \(\*Prober\) With
 
 ```go
 func (p *Prober) With(address string, response Response) *Prober
@@ -239,7 +239,7 @@ func (p *Prober) With(address string, response Response) *Prober
 With programs the response for one address and returns the prober, so several can be chained in a test setup.
 
 <a name="Prober.WithFailure"></a>
-### func \(\*Prober\) [WithFailure](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L74>)
+### func \(\*Prober\) WithFailure
 
 ```go
 func (p *Prober) WithFailure(address, reason string) *Prober
@@ -248,7 +248,7 @@ func (p *Prober) WithFailure(address, reason string) *Prober
 WithFailure is shorthand for programming an unreachable address.
 
 <a name="Prober.WithFallback"></a>
-### func \(\*Prober\) [WithFallback](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L66>)
+### func \(\*Prober\) WithFallback
 
 ```go
 func (p *Prober) WithFallback(response Response) *Prober
@@ -257,7 +257,7 @@ func (p *Prober) WithFallback(response Response) *Prober
 WithFallback changes the answer given for unprogrammed addresses.
 
 <a name="Record"></a>
-## type [Record](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L209-L213>)
+## type Record
 
 Record is one captured log line.
 
@@ -270,7 +270,7 @@ type Record struct {
 ```
 
 <a name="Reporter"></a>
-## type [Reporter](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L166-L170>)
+## type Reporter
 
 Reporter is an in\-memory port.Reporter that keeps what it was asked to render, so a test can assert on verdicts rather than on formatting.
 
@@ -281,7 +281,7 @@ type Reporter struct {
 ```
 
 <a name="NewReporter"></a>
-### func [NewReporter](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L173>)
+### func NewReporter
 
 ```go
 func NewReporter() *Reporter
@@ -290,7 +290,7 @@ func NewReporter() *Reporter
 NewReporter returns an empty reporter.
 
 <a name="Reporter.Last"></a>
-### func \(\*Reporter\) [Last](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L199>)
+### func \(\*Reporter\) Last
 
 ```go
 func (r *Reporter) Last() []domain.Health
@@ -299,7 +299,7 @@ func (r *Reporter) Last() []domain.Health
 Last returns the most recent batch, or nil if Report was never called.
 
 <a name="Reporter.Report"></a>
-### func \(\*Reporter\) [Report](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L184>)
+### func \(\*Reporter\) Report
 
 ```go
 func (r *Reporter) Report(checks []domain.Health) error
@@ -308,7 +308,7 @@ func (r *Reporter) Report(checks []domain.Health) error
 Report implements port.Reporter.
 
 <a name="Reporter.Reports"></a>
-### func \(\*Reporter\) [Reports](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L192>)
+### func \(\*Reporter\) Reports
 
 ```go
 func (r *Reporter) Reports() [][]domain.Health
@@ -317,7 +317,7 @@ func (r *Reporter) Reports() [][]domain.Health
 Reports returns every batch handed to Report.
 
 <a name="Reporter.WithError"></a>
-### func \(\*Reporter\) [WithError](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L176>)
+### func \(\*Reporter\) WithError
 
 ```go
 func (r *Reporter) WithError(err error) *Reporter
@@ -326,7 +326,7 @@ func (r *Reporter) WithError(err error) *Reporter
 WithError makes Report fail, to exercise the error path.
 
 <a name="Response"></a>
-## type [Response](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/fake/fake.go#L22-L33>)
+## type Response
 
 Response is what a Prober should return for one address.
 
