@@ -1,3 +1,13 @@
+title: go-cli-go-template
+description: A cookiecutter template for Go command line tools — hexagonal core, OpenTelemetry out of the box, three tiers of tests.
+
 remote_theme: pages-themes/tactile@v0.2.0
 plugins:
-- jekyll-remote-theme
+  - jekyll-remote-theme
+
+# Repository furniture, not site content.
+exclude:
+  - README.md
+  - LICENSE
+  - .gitignore
+  - .github
