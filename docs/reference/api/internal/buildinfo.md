@@ -35,7 +35,7 @@ const Name = "probe-cli"
 ```
 
 <a name="Info"></a>
-## type [Info](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/buildinfo/buildinfo.go#L22-L29>)
+## type Info
 
 Info describes the running binary.
 
@@ -51,7 +51,7 @@ type Info struct {
 ```
 
 <a name="Get"></a>
-### func [Get](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/buildinfo/buildinfo.go#L37>)
+### func Get
 
 ```go
 func Get() Info
@@ -60,7 +60,7 @@ func Get() Info
 Get assembles the build information, filling any gaps from the module's embedded VCS stamps.
 
 <a name="Info.String"></a>
-### func \(Info\) [String](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/buildinfo/buildinfo.go#L72>)
+### func \(Info\) String
 
 ```go
 func (i Info) String() string

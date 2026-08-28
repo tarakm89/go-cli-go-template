@@ -58,7 +58,7 @@ const DefaultShutdownTimeout = 5 * time.Second
 ```
 
 <a name="DetectCI"></a>
-## func [DetectCI](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/ci.go#L16>)
+## func DetectCI
 
 ```go
 func DetectCI() []attribute.KeyValue
@@ -69,7 +69,7 @@ DetectCI returns resource attributes describing the pipeline this process is run
 Nothing here fails: outside CI the slice comes back empty.
 
 <a name="LogFormats"></a>
-## func [LogFormats](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/config.go#L62>)
+## func LogFormats
 
 ```go
 func LogFormats() []string
@@ -78,7 +78,7 @@ func LogFormats() []string
 LogFormats lists every supported log format.
 
 <a name="ParseLevel"></a>
-## func [ParseLevel](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/config.go#L156>)
+## func ParseLevel
 
 ```go
 func ParseLevel(raw string) (slog.Level, error)
@@ -87,7 +87,7 @@ func ParseLevel(raw string) (slog.Level, error)
 ParseLevel validates a log level.
 
 <a name="ProcessAttributes"></a>
-## func [ProcessAttributes](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/ci.go#L76>)
+## func ProcessAttributes
 
 ```go
 func ProcessAttributes(command string, args []string) []attribute.KeyValue
@@ -96,7 +96,7 @@ func ProcessAttributes(command string, args []string) []attribute.KeyValue
 ProcessAttributes describes the invocation itself: which command ran and with what arguments.
 
 <a name="Protocols"></a>
-## func [Protocols](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/config.go#L43>)
+## func Protocols
 
 ```go
 func Protocols() []string
@@ -105,7 +105,7 @@ func Protocols() []string
 Protocols lists every supported protocol, for flag help and validation.
 
 <a name="Config"></a>
-## type [Config](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/config.go#L69-L91>)
+## type Config
 
 Config is everything the SDK needs. Build it with ConfigFromEnv and let command line flags override individual fields.
 
@@ -136,7 +136,7 @@ type Config struct {
 ```
 
 <a name="ConfigFromEnv"></a>
-### func [ConfigFromEnv](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/config.go#L95>)
+### func ConfigFromEnv
 
 ```go
 func ConfigFromEnv(serviceName, serviceVersion string) Config
@@ -145,7 +145,7 @@ func ConfigFromEnv(serviceName, serviceVersion string) Config
 ConfigFromEnv reads the standard OTEL\_\* environment variables and this application's own overrides, returning a Config that is safe to use as is.
 
 <a name="LogFormat"></a>
-## type [LogFormat](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/config.go#L51>)
+## type LogFormat
 
 LogFormat selects the console log encoding.
 
@@ -165,7 +165,7 @@ const (
 ```
 
 <a name="ParseLogFormat"></a>
-### func [ParseLogFormat](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/config.go#L146>)
+### func ParseLogFormat
 
 ```go
 func ParseLogFormat(raw string) (LogFormat, error)
@@ -174,7 +174,7 @@ func ParseLogFormat(raw string) (LogFormat, error)
 ParseLogFormat validates a console log format.
 
 <a name="Protocol"></a>
-## type [Protocol](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/config.go#L28>)
+## type Protocol
 
 Protocol selects how telemetry leaves the process.
 
@@ -198,7 +198,7 @@ const (
 ```
 
 <a name="ParseProtocol"></a>
-### func [ParseProtocol](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/config.go#L134>)
+### func ParseProtocol
 
 ```go
 func ParseProtocol(raw string) (Protocol, error)
@@ -207,7 +207,7 @@ func ParseProtocol(raw string) (Protocol, error)
 ParseProtocol validates a protocol name.
 
 <a name="Telemetry"></a>
-## type [Telemetry](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/otel.go#L34-L49>)
+## type Telemetry
 
 Telemetry is the handle a wired application holds onto. Everything on it is safe to use even when export is disabled: the providers are then no\-ops.
 
@@ -229,7 +229,7 @@ type Telemetry struct {
 ```
 
 <a name="Disabled"></a>
-### func [Disabled](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/otel.go#L117>)
+### func Disabled
 
 ```go
 func Disabled(cfg Config) *Telemetry
@@ -238,7 +238,7 @@ func Disabled(cfg Config) *Telemetry
 Disabled returns a fully functional handle that exports nothing. Use it when the SDK could not be built, or in tests that do not care about telemetry.
 
 <a name="Setup"></a>
-### func [Setup](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/otel.go#L56>)
+### func Setup
 
 ```go
 func Setup(ctx context.Context, cfg Config) (*Telemetry, error)
@@ -249,7 +249,7 @@ Setup builds the SDK from cfg and installs it as the process\-wide default.
 It never returns a partially installed SDK: if any provider fails to build, everything already created is shut down and the error is returned. Callers that would rather degrade than fail should log the error and call Disabled.
 
 <a name="WithProviders"></a>
-### func [WithProviders](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/otel.go#L290>)
+### func WithProviders
 
 ```go
 func WithProviders(name string, tracerProvider trace.TracerProvider, meterProvider metric.MeterProvider, logger *slog.Logger) *Telemetry
@@ -260,7 +260,7 @@ WithProviders builds a handle around providers the caller already owns.
 This is the seam the functional suite uses: it hands in an in\-memory span exporter and a manual metric reader, then asserts on the telemetry the run produced. Shutdown is a no\-op here — whoever supplied the providers is responsible for flushing them.
 
 <a name="Telemetry.ContextFromEnvironment"></a>
-### func \(\*Telemetry\) [ContextFromEnvironment](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/otel.go#L170>)
+### func \(\*Telemetry\) ContextFromEnvironment
 
 ```go
 func (t *Telemetry) ContextFromEnvironment(ctx context.Context) context.Context
@@ -269,7 +269,7 @@ func (t *Telemetry) ContextFromEnvironment(ctx context.Context) context.Context
 ContextFromEnvironment adopts a TRACEPARENT/TRACESTATE pair published by the surrounding CI system, so this process becomes a child span of the pipeline step rather than the root of its own trace.
 
 <a name="Telemetry.InjectIntoEnvironment"></a>
-### func \(\*Telemetry\) [InjectIntoEnvironment](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/otel.go#L185>)
+### func \(\*Telemetry\) InjectIntoEnvironment
 
 ```go
 func (t *Telemetry) InjectIntoEnvironment(ctx context.Context) []string
@@ -278,7 +278,7 @@ func (t *Telemetry) InjectIntoEnvironment(ctx context.Context) []string
 InjectIntoEnvironment renders the current span context as environment variables, ready to hand to a child process so the trace keeps going.
 
 <a name="Telemetry.Shutdown"></a>
-### func \(\*Telemetry\) [Shutdown](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/observability/otel.go#L145>)
+### func \(\*Telemetry\) Shutdown
 
 ```go
 func (t *Telemetry) Shutdown(ctx context.Context) error

@@ -6,10 +6,10 @@ eyebrow: "Docs"
 doc_path: "docs/README.md"
 doc_source: "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/README.md"
 doc_history: "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/README.md"
-doc_updated: "2026-08-27"
-doc_commit: "03b166d"
-doc_commit_url: "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
-doc_subject: "Add the spec-driven documentation set"
+doc_updated: "2026-08-28"
+doc_commit: "f5232c7"
+doc_commit_url: "https://github.com/tarakm89/go-cli-go-template/commit/f5232c76e480ddf4d4e69c6e375826f44a251f1b"
+doc_subject: "Publish the Go reference, and deploy the site from this branch"
 doc_index: true
 ---
 
@@ -25,6 +25,12 @@ push to `main`, so the site and the source can never disagree.
 | [`architecture.md`](architecture.html) | The shape of the system and the decisions behind it | *How is this built, and why that way?* |
 | [`specs/`](specs/) | One document per capability, written before it is built | *What should this do, and how will we know it does?* |
 | [`plans/`](plans/) | Implementation plans for work in flight | *How are we going to get there, in what order?* |
+| [Reference](reference/) | Package and command documentation, generated | *What does this package expose? What flags does this command take?* |
+
+The reference is not in this directory: it is generated in CI from the
+template's worked example, so it is only ever visible on the published site.
+`make docs` in your own project produces the same pages into `docs/api` and
+`docs/cli`.
 
 ## Spec-driven, in practice
 

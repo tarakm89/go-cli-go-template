@@ -7,12 +7,12 @@
       "section": "root",
       "status": null,
       "commit": {
-        "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
-        "short_sha": "03b166d",
-        "date": "2026-08-27",
+        "sha": "f5232c76e480ddf4d4e69c6e375826f44a251f1b",
+        "short_sha": "f5232c7",
+        "date": "2026-08-28",
         "author": "tarakm89",
-        "subject": "Add the spec-driven documentation set",
-        "url": "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
+        "subject": "Publish the Go reference, and deploy the site from this branch",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/f5232c76e480ddf4d4e69c6e375826f44a251f1b"
       },
       "release": null,
       "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/README.md",

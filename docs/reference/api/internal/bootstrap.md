@@ -27,7 +27,7 @@ Keeping this out of main\(\) means the functional suite can run the entire appli
 
 
 <a name="Run"></a>
-## func [Run](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/bootstrap/bootstrap.go#L41>)
+## func Run
 
 ```go
 func Run(ctx context.Context, opts Options) int
@@ -36,7 +36,7 @@ func Run(ctx context.Context, opts Options) int
 Run executes the command tree and returns the process exit code. It never panics on a caller's behalf and never leaves telemetry unflushed.
 
 <a name="Options"></a>
-## type [Options](<https://github.com/tarakm89/go-cli-go-template/blob/main/.out/probe-cli/internal/bootstrap/bootstrap.go#L25-L37>)
+## type Options
 
 Options describes one run. The zero value runs the real application against the real os.Args.
 
