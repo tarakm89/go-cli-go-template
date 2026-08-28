@@ -567,7 +567,15 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
   padding-bottom: var(--s-8);
   align-items: start;
 }
-.page-layout > .content { min-width: 0; max-width: var(--content); justify-self: center; }
+.page-layout > .content {
+  /* `justify-self` alone sizes a grid item to fit-content, which lets any wide
+     descendant hold the column open. An explicit width pins it to the grid
+     area and leaves overflow to the element that actually has it. */
+  width: 100%;
+  min-width: 0;
+  max-width: var(--content);
+  justify-self: center;
+}
 
 /* Two column: content and contents */
 @media (min-width: 1080px) {
