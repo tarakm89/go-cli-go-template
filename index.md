@@ -38,29 +38,20 @@ point inward.
 flowchart LR
   CLI["Cobra CLI<br/><small>driving adapter</small>"]
 
-  subgraph core["internal/core"]
-    direction TB
-    D["domain<br/><small>entities, rules</small>"]
-    P["port<br/><small>the interfaces</small>"]
+  subgraph core["internal/core — no outward dependencies"]
+    direction LR
     S["service<br/><small>use cases</small>"]
+    P["port<br/><small>the interfaces</small>"]
+    D["domain<br/><small>entities, rules</small>"]
     S --> P
     S --> D
     P --> D
   end
 
-  HTTP["httpprobe<br/><small>real HTTP</small>"]
-  REP["report<br/><small>text / json</small>"]
-  LOG["logging<br/><small>slog</small>"]
-  FAKE["fake<br/><small>in-memory, for tests</small>"]
+  ADP["driven adapters<br/><small>httpprobe · report · logging · fake</small>"]
 
-  CLI --> S
-  HTTP -.implements.-> P
-  REP -.implements.-> P
-  LOG -.implements.-> P
-  FAKE -.implements.-> P
-
-  classDef adapter fill:transparent,stroke-dasharray:4 3;
-  class HTTP,REP,LOG,FAKE adapter;
+  CLI -- drives --> S
+  ADP -. implement .-> P
 ```
 
 ## What you get

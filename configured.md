@@ -1,5 +1,6 @@
 ---
 layout: default
+eyebrow: Reference
 nav_id: configured
 title: What's configured
 description: Every moving part in a generated project, and the reasoning behind it.

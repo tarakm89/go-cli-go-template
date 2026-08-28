@@ -1,5 +1,6 @@
 ---
 layout: default
+eyebrow: Guide
 nav_id: usage
 title: Getting started
 description: Generating a project, what the prompts mean, and the commands you will use every day.

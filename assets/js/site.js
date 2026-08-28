@@ -233,19 +233,69 @@ async function initMermaid() {
 
   let sequence = 0;
 
+  // Mermaid's palette is derived from the stylesheet's tokens rather than
+  // duplicated here, so a colour change in main.css reaches the diagrams.
+  const themeVariables = () => {
+    const css = getComputedStyle(document.documentElement);
+    const token = (name, fallback) => css.getPropertyValue(name).trim() || fallback;
+
+    const surface = token('--surface', '#ffffff');
+    const raise = token('--surface-raise', '#f2f4f7');
+    const border = token('--border', '#e4e7ec');
+    const borderStrong = token('--border-strong', '#d0d5dd');
+    const text = token('--text', '#16191d');
+    const muted = token('--text-muted', '#5b6472');
+    const faint = token('--text-faint', '#8a94a3');
+    const accentSoft = token('--accent-soft', '#eef2fe');
+    const accentBorder = token('--accent-border', '#c3d0f8');
+
+    return {
+      background: surface,
+      mainBkg: raise,
+      nodeBorder: borderStrong,
+      primaryColor: raise,
+      primaryTextColor: text,
+      primaryBorderColor: borderStrong,
+      secondaryColor: accentSoft,
+      secondaryBorderColor: accentBorder,
+      secondaryTextColor: text,
+      tertiaryColor: token('--bg-subtle', '#f7f8fa'),
+      tertiaryBorderColor: border,
+      tertiaryTextColor: muted,
+      lineColor: faint,
+      textColor: text,
+      titleColor: muted,
+      edgeLabelBackground: surface,
+      clusterBkg: token('--bg-subtle', '#f7f8fa'),
+      clusterBorder: border,
+      // Sequence diagrams
+      actorBkg: raise,
+      actorBorder: borderStrong,
+      actorTextColor: text,
+      actorLineColor: faint,
+      signalColor: text,
+      signalTextColor: text,
+      labelBoxBkgColor: raise,
+      labelBoxBorderColor: borderStrong,
+      labelTextColor: text,
+      loopTextColor: muted,
+      noteBkgColor: accentSoft,
+      noteBorderColor: accentBorder,
+      noteTextColor: text,
+      activationBkgColor: accentSoft,
+      activationBorderColor: accentBorder,
+    };
+  };
+
   const render = async (theme) => {
     mermaid.initialize({
       startOnLoad: false,
       securityLevel: 'strict',
-      theme: theme === 'dark' ? 'dark' : 'default',
+      // 'base' plus explicit variables, rather than the stock light and dark
+      // themes, so the diagrams match the page instead of merely coexisting.
+      theme: 'base',
       fontFamily: getComputedStyle(document.body).fontFamily,
-      themeVariables: {
-        background: 'transparent',
-        primaryColor: theme === 'dark' ? '#1a212a' : '#eef2fe',
-        primaryTextColor: theme === 'dark' ? '#e6eaf0' : '#16191d',
-        primaryBorderColor: theme === 'dark' ? '#2c3f6b' : '#c3d0f8',
-        lineColor: theme === 'dark' ? '#6f7c8d' : '#8a94a3',
-      },
+      themeVariables: { darkMode: theme === 'dark', ...themeVariables() },
     });
 
     for (const { host, source } of diagrams) {
