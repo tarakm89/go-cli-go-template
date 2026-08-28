@@ -1,0 +1,88 @@
+# Publish docs/ to the documentation site.
+#
+# The site lives on the gh_pages branch; the documents live here. On any push
+# that touches them, this renders them into that branch, commits, and asks the
+# site to rebuild.
+#
+# It commits rather than letting the site pull at build time, so gh_pages is a
+# readable, diffable record of what was published — see docs/specs/0003.
+name: Publish docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'CHANGELOG.md'
+      - 'scripts/sync-docs.py'
+      - '.github/workflows/publish-docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-docs
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync docs to gh_pages
+    runs-on: ubuntu-latest
+    steps:
+      # Full history and tags: the sync works out when each document last
+      # changed and which release carried it.
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout the site
+        uses: actions/checkout@v4
+        with:
+          ref: gh_pages
+          path: .site
+
+      - name: Render the documents
+        run: python3 scripts/sync-docs.py --site .site
+
+      - name: Commit to gh_pages
+        id: commit
+        working-directory: .site
+        run: |
+          set -euo pipefail
+
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A docs _data
+
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "documentation is unchanged; nothing to publish"
+            exit 0
+          fi
+
+          git commit -m "docs: sync from ${GITHUB_SHA::12}
+
+          $(git diff --cached --name-status | head -20)"
+          git push origin HEAD:gh_pages
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # A push made with GITHUB_TOKEN does not start another workflow, but a
+      # repository_dispatch does, so this is what actually rebuilds the site.
+      - name: Ask the site to rebuild
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/dispatches" \
+            -f event_type=docs-updated \
+            -F "client_payload[sha]=${GITHUB_SHA}"
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.commit.outputs.changed }}" = "true" ]; then
+            echo "Synced \`docs/\` to \`gh_pages\` and triggered a rebuild." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No documentation changes to publish." >> "$GITHUB_STEP_SUMMARY"
+          fi

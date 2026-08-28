@@ -42,6 +42,11 @@ def title_of(text: str, fallback: str) -> str:
     return match.group(1) if match else fallback
 
 
+def strip_title(text: str) -> str:
+    """Remove the leading H1; the layout renders it from the front matter."""
+    return re.sub(r"\A\s*#\s+.+?\n+", "", text, count=1)
+
+
 def status_of(text: str) -> str | None:
     """Specs and plans carry `- **Status:** Accepted` near the top."""
     match = re.search(r"^-\s*\*\*Status:\*\*\s*(.+?)\s*$", text, flags=re.MULTILINE)
@@ -204,10 +209,11 @@ def main() -> int:
                 "doc_commit_url": commit["url"] if commit else None,
                 "doc_subject": commit["subject"] if commit else None,
                 "doc_release": document["release"],
+                "doc_index": relative.as_posix() == "README.md",
             })
             # The docs quote `{{cookiecutter.…}}` and Actions expressions, which
             # Liquid would try to evaluate.
-            + "\n{% raw %}\n" + rewrite_links(text).strip() + "\n{% endraw %}\n",
+            + "\n{% raw %}\n" + strip_title(rewrite_links(text)).strip() + "\n{% endraw %}\n",
             encoding="utf-8",
         )
 
