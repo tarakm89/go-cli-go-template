@@ -117,6 +117,7 @@ def main() -> int:
     out.mkdir(parents=True)
 
     packages, commands = [], []
+    api_pages, cli_pages = [], []
 
     # gomarkdoc: docs/api/<import path>.md, one per package.
     for page in sorted((source / "api").rglob("*.md")):
@@ -124,14 +125,16 @@ def main() -> int:
         import_path = str(relative.with_suffix("")).replace("\\", "/")
         text = retarget_source_links(page.read_text(encoding="utf-8"), render_path)
 
-        write_page(out / "api" / relative, {
+        api_pages.append((out / "api" / relative, {
             "layout": "doc",
             "nav_id": "reference",
             "eyebrow": "Package",
             "title": import_path,
+            "breadcrumb_section": "Reference",
+            "breadcrumb_url": "/docs/reference/index.html",
             "doc_generated": True,
             "doc_generator": "gomarkdoc",
-        }, text)
+        }, text))
 
         packages.append({
             "import_path": import_path,
@@ -147,14 +150,16 @@ def main() -> int:
         text = page.read_text(encoding="utf-8")
         name = title_of(text, page.stem).strip()
 
-        write_page(out / "cli" / page.name, {
+        cli_pages.append((out / "cli" / page.name, {
             "layout": "doc",
             "nav_id": "reference",
             "eyebrow": "Command",
             "title": name,
+            "breadcrumb_section": "Reference",
+            "breadcrumb_url": "/docs/reference/index.html",
             "doc_generated": True,
             "doc_generator": "cobra",
-        }, text)
+        }, text))
 
         commands.append({
             "name": name,
@@ -163,11 +168,24 @@ def main() -> int:
             "depth": name.count(" "),
         })
 
+    # Written last, so each page can point at its neighbours in the listing.
+    for group, entries in (("packages", packages), ("commands", commands)):
+        pages = api_pages if group == "packages" else cli_pages
+        for position, (target, fields, body) in enumerate(pages):
+            if position > 0:
+                fields["doc_prev_url"] = entries[position - 1]["url"]
+                fields["doc_prev_title"] = title_for(entries[position - 1], group)
+            if position + 1 < len(pages):
+                fields["doc_next_url"] = entries[position + 1]["url"]
+                fields["doc_next_title"] = title_for(entries[position + 1], group)
+            write_page(target, fields, body)
+
     write_page(out / "index.md", {
         "layout": "doc",
         "nav_id": "reference",
         "eyebrow": "Reference",
         "title": "Reference",
+        "description": "Package and command documentation, generated from the worked example.",
         "reference_index": True,
     }, REFERENCE_INTRO)
 
@@ -287,6 +305,10 @@ def layer_of(import_path: str) -> str:
 
 
 LAYER_ORDER = ["Core", "Driving adapters", "Driven adapters", "Infrastructure", "Entry point"]
+
+
+def title_for(entry: dict, group: str) -> str:
+    return entry["import_path"] if group == "packages" else entry["name"]
 
 
 def summary_of(text: str) -> str:

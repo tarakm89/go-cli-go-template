@@ -47,10 +47,56 @@ def strip_title(text: str) -> str:
     return re.sub(r"\A\s*#\s+.+?\n+", "", text, count=1)
 
 
-def status_of(text: str) -> str | None:
-    """Specs and plans carry `- **Status:** Accepted` near the top."""
-    match = re.search(r"^-\s*\*\*Status:\*\*\s*(.+?)\s*$", text, flags=re.MULTILINE)
-    return match.group(1) if match else None
+# Specs and plans open with a short definition list: Status, Date, Author.
+META_LINE = re.compile(r"^-\s*\*\*(?P<key>[A-Za-z ]+):\*\*\s*(?P<value>.*?)\s*$")
+
+
+def meta_of(text: str) -> dict[str, str]:
+    """Read the leading `- **Key:** value` block, if there is one."""
+    fields: dict[str, str] = {}
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            if fields:
+                break
+            continue
+        if stripped.startswith("#"):
+            continue
+        match = META_LINE.match(stripped)
+        if not match:
+            break
+        value = match.group("value").strip()
+        if value and value not in {"—", "-"}:
+            fields[match.group("key").strip().lower()] = value
+    return fields
+
+
+def strip_meta_block(text: str) -> str:
+    """Drop that block from the body; the page header shows it instead."""
+    lines = text.splitlines()
+    out, removing, seen = [], False, False
+    for line in lines:
+        stripped = line.strip()
+        if not seen and META_LINE.match(stripped):
+            removing, seen = True, True
+            continue
+        if removing:
+            if not stripped:
+                continue
+            if META_LINE.match(stripped):
+                continue
+            removing = False
+        out.append(line)
+    return "\n".join(out).lstrip("\n")
+
+
+def role_of(relative: pathlib.Path) -> str:
+    """Whether a file is a section landing page, a template, or a document."""
+    if relative.name == "README.md":
+        return "index"
+    if relative.stem.upper() == "TEMPLATE":
+        return "template"
+    return "doc"
 
 
 def last_commit(path: pathlib.Path) -> dict | None:
@@ -109,6 +155,51 @@ def nav_id_for(relative: pathlib.Path) -> str:
     if relative.as_posix() == "architecture.md":
         return "architecture"
     return "specification"
+
+
+def breadcrumb_section(relative: pathlib.Path) -> str | None:
+    """The section a document sits in, for the trail above its title."""
+    if relative.as_posix() == "README.md":
+        return None
+    if relative.parts[0] == "specs":
+        return "Specification"
+    if relative.parts[0] == "plans":
+        return "Plans"
+    return "Documentation"
+
+
+def breadcrumb_url(relative: pathlib.Path) -> str | None:
+    if relative.as_posix() == "README.md":
+        return None
+    if relative.parts[0] == "specs":
+        return "/docs/specs/index.html"
+    if relative.parts[0] == "plans":
+        return "/docs/plans/index.html"
+    return "/docs/index.html"
+
+
+def neighbours_of(relative: pathlib.Path, by_section: dict, root: pathlib.Path) -> dict:
+    """The previous and next document in the same section.
+
+    Index pages are skipped: they are a way in, not a step in a sequence.
+    """
+    section = relative.parts[0] if len(relative.parts) > 1 else "root"
+    ordered = [r for r in by_section[section] if r.name != "README.md"]
+    if relative.name == "README.md" or relative not in ordered:
+        return {"prev": None, "next": None}
+
+    at = ordered.index(relative)
+
+    def entry(other: pathlib.Path | None):
+        if other is None:
+            return None
+        text = (root / other).read_text(encoding="utf-8")
+        return (page_url(other), title_of(text, other.stem))
+
+    return {
+        "prev": entry(ordered[at - 1] if at > 0 else None),
+        "next": entry(ordered[at + 1] if at + 1 < len(ordered) else None),
+    }
 
 
 def page_url(relative: pathlib.Path) -> str:
@@ -173,17 +264,31 @@ def main() -> int:
         print(f"error: {SOURCE} does not exist", file=sys.stderr)
         return 1
 
+    # This script owns docs/ apart from docs/reference, which sync-reference.py
+    # writes. Clearing the whole tree would delete the reference whenever this
+    # ran on its own, so remove only what belongs to this script.
     out = site / "docs"
-    if out.exists():
-        shutil.rmtree(out)
-    out.mkdir(parents=True)
+    out.mkdir(parents=True, exist_ok=True)
+    for entry in out.iterdir():
+        if entry.name == "reference":
+            continue
+        shutil.rmtree(entry) if entry.is_dir() else entry.unlink()
 
     tags = tags_newest_first()
     documents = []
+    sources = sorted(SOURCE.rglob("*.md"))
 
-    for source in sorted(SOURCE.rglob("*.md")):
+    # Neighbours within a section, so a reader can walk the specs in order.
+    by_section: dict[str, list[pathlib.Path]] = {}
+    for candidate in sources:
+        rel = candidate.relative_to(SOURCE)
+        by_section.setdefault(rel.parts[0] if len(rel.parts) > 1 else "root", []).append(rel)
+
+    for source in sources:
         relative = source.relative_to(SOURCE)
         text = source.read_text(encoding="utf-8")
+        fields = meta_of(text)
+        role = role_of(relative)
         commit = last_commit(source.relative_to(ROOT))
 
         document = {
@@ -191,13 +296,18 @@ def main() -> int:
             "path": f"docs/{relative.as_posix()}",
             "url": page_url(relative),
             "section": relative.parts[0] if len(relative.parts) > 1 else "root",
-            "status": status_of(text),
+            "status": fields.get("status"),
+            "date": fields.get("date"),
+            "role": role,
+            "listed": role == "doc",
             "commit": commit,
             "release": release_for(commit["sha"], tags) if commit else None,
             "source_url": f"{REPO}/blob/main/docs/{relative.as_posix()}",
             "history_url": f"{REPO}/commits/main/docs/{relative.as_posix()}",
         }
         documents.append(document)
+
+        neighbours = neighbours_of(relative, by_section, SOURCE)
 
         target = out / relative
         if relative.name == "README.md":
@@ -211,6 +321,11 @@ def main() -> int:
                 "eyebrow": {"specs": "Spec", "plans": "Plan"}.get(document["section"], "Docs"),
                 "doc_path": document["path"],
                 "doc_status": document["status"],
+                "doc_date": document["date"],
+                "doc_author": fields.get("author"),
+                "doc_supersedes": fields.get("supersedes"),
+                "doc_shipped": fields.get("shipped in"),
+                "doc_implements": fields.get("implements"),
                 "doc_source": document["source_url"],
                 "doc_history": document["history_url"],
                 "doc_updated": commit["date"] if commit else None,
@@ -219,10 +334,16 @@ def main() -> int:
                 "doc_subject": commit["subject"] if commit else None,
                 "doc_release": document["release"],
                 "doc_index": relative.as_posix() == "README.md",
+                "breadcrumb_section": breadcrumb_section(relative),
+                "breadcrumb_url": breadcrumb_url(relative),
+                "doc_prev_url": neighbours["prev"][0] if neighbours["prev"] else None,
+                "doc_prev_title": neighbours["prev"][1] if neighbours["prev"] else None,
+                "doc_next_url": neighbours["next"][0] if neighbours["next"] else None,
+                "doc_next_title": neighbours["next"][1] if neighbours["next"] else None,
             })
             # The docs quote `{{cookiecutter.…}}` and Actions expressions, which
             # Liquid would try to evaluate.
-            + "\n{% raw %}\n" + strip_title(rewrite_links(text)).strip() + "\n{% endraw %}\n",
+            + "\n{% raw %}\n" + strip_meta_block(strip_title(rewrite_links(text))).strip() + "\n{% endraw %}\n",
             encoding="utf-8",
         )
 
