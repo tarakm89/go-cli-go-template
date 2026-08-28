@@ -6,6 +6,9 @@
       "url": "/docs/index.html",
       "section": "root",
       "status": null,
+      "date": null,
+      "role": "index",
+      "listed": false,
       "commit": {
         "sha": "c29c2bbca092e57be6cf66818d5b50d07bc8c5d9",
         "short_sha": "c29c2bb",
@@ -24,6 +27,9 @@
       "url": "/docs/architecture.html",
       "section": "root",
       "status": null,
+      "date": null,
+      "role": "doc",
+      "listed": true,
       "commit": {
         "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
         "short_sha": "03b166d",
@@ -42,6 +48,9 @@
       "url": "/docs/plans/0001-template-foundation.html",
       "section": "plans",
       "status": "Done",
+      "date": null,
+      "role": "doc",
+      "listed": true,
       "commit": {
         "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
         "short_sha": "03b166d",
@@ -60,6 +69,9 @@
       "url": "/docs/plans/index.html",
       "section": "plans",
       "status": null,
+      "date": null,
+      "role": "index",
+      "listed": false,
       "commit": {
         "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
         "short_sha": "03b166d",
@@ -78,6 +90,9 @@
       "url": "/docs/specs/0001-hexagonal-core.html",
       "section": "specs",
       "status": "Implemented",
+      "date": "2026-08-27",
+      "role": "doc",
+      "listed": true,
       "commit": {
         "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
         "short_sha": "03b166d",
@@ -96,6 +111,9 @@
       "url": "/docs/specs/0002-observability-in-ci.html",
       "section": "specs",
       "status": "Implemented",
+      "date": "2026-08-27",
+      "role": "doc",
+      "listed": true,
       "commit": {
         "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
         "short_sha": "03b166d",
@@ -114,6 +132,9 @@
       "url": "/docs/specs/0003-spec-driven-docs.html",
       "section": "specs",
       "status": "Implemented",
+      "date": "2026-08-27",
+      "role": "doc",
+      "listed": true,
       "commit": {
         "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
         "short_sha": "03b166d",
@@ -132,6 +153,9 @@
       "url": "/docs/specs/index.html",
       "section": "specs",
       "status": null,
+      "date": null,
+      "role": "index",
+      "listed": false,
       "commit": {
         "sha": "c29c2bbca092e57be6cf66818d5b50d07bc8c5d9",
         "short_sha": "c29c2bb",
@@ -150,6 +174,9 @@
       "url": "/docs/specs/TEMPLATE.html",
       "section": "specs",
       "status": "Draft",
+      "date": "YYYY-MM-DD",
+      "role": "template",
+      "listed": false,
       "commit": {
         "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
         "short_sha": "03b166d",

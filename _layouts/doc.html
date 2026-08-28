@@ -9,10 +9,16 @@ layout: default
 {% endcomment %}
 
 {% if page.doc_updated %}
-<p class="doc-meta">
+<div class="doc-meta">
   {% if page.doc_status %}
   <span class="doc-status doc-status--{{ page.doc_status | slugify }}">{{ page.doc_status }}</span>
   {% endif %}
+  {% if page.doc_date %}<span class="doc-fact"><b>Written</b> {{ page.doc_date }}</span>{% endif %}
+  {% if page.doc_author %}<span class="doc-fact"><b>Author</b> {{ page.doc_author }}</span>{% endif %}
+  {% if page.doc_supersedes %}<span class="doc-fact"><b>Supersedes</b> {{ page.doc_supersedes }}</span>{% endif %}
+  {% if page.doc_implements %}<span class="doc-fact"><b>Implements</b> {{ page.doc_implements }}</span>{% endif %}
+  {% if page.doc_shipped %}<span class="doc-fact"><b>Shipped in</b> {{ page.doc_shipped }}</span>{% endif %}
+
   <span class="doc-updated">
     Updated {{ page.doc_updated }}
     {% if page.doc_commit_url %}
@@ -21,7 +27,7 @@ layout: default
     {% if page.doc_release %}· released in <a href="{{ '/versions.html' | relative_url }}#release-{{ page.doc_release | remove_first: 'v' | replace: '.', '-' }}">{{ page.doc_release }}</a>
     {% else %}· not yet released{% endif %}
   </span>
-</p>
+</div>
 {% endif %}
 
 {{ content }}

@@ -5,6 +5,7 @@ title: "0001 — A hexagonal core with an enforced dependency rule"
 eyebrow: "Spec"
 doc_path: "docs/specs/0001-hexagonal-core.md"
 doc_status: "Implemented"
+doc_date: "2026-08-27"
 doc_source: "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/specs/0001-hexagonal-core.md"
 doc_history: "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/specs/0001-hexagonal-core.md"
 doc_updated: "2026-08-27"
@@ -19,9 +20,6 @@ doc_next_title: "0002 — OpenTelemetry for tools that run inside pipelines"
 ---
 
 {% raw %}
-- **Status:** Implemented
-- **Date:** 2026-08-27
-
 ## Problem
 
 Our command line tools call a lot of external systems. Left alone, transport

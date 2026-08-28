@@ -5,6 +5,7 @@ title: "0002 — OpenTelemetry for tools that run inside pipelines"
 eyebrow: "Spec"
 doc_path: "docs/specs/0002-observability-in-ci.md"
 doc_status: "Implemented"
+doc_date: "2026-08-27"
 doc_source: "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/specs/0002-observability-in-ci.md"
 doc_history: "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/specs/0002-observability-in-ci.md"
 doc_updated: "2026-08-27"
@@ -21,9 +22,6 @@ doc_next_title: "0003 — Publish these documents, and show what changed"
 ---
 
 {% raw %}
-- **Status:** Implemented
-- **Date:** 2026-08-27
-
 ## Problem
 
 When a pipeline step built on one of our tools is slow or flaky, there is

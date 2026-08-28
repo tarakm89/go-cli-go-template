@@ -5,6 +5,8 @@ title: "0001 — Bringing the template to v0.1.0"
 eyebrow: "Plan"
 doc_path: "docs/plans/0001-template-foundation.md"
 doc_status: "Done"
+doc_shipped: "[v0.1.0](../../CHANGELOG.md)"
+doc_implements: "[0001](../specs/0001-hexagonal-core.md), [0002](../specs/0002-observability-in-ci.md)"
 doc_source: "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/plans/0001-template-foundation.md"
 doc_history: "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/plans/0001-template-foundation.md"
 doc_updated: "2026-08-27"
@@ -17,10 +19,6 @@ breadcrumb_url: "/docs/plans/index.html"
 ---
 
 {% raw %}
-- **Status:** Done
-- **Shipped in:** [v0.1.0](https://github.com/tarakm89/go-cli-go-template/blob/main/CHANGELOG.md)
-- **Implements:** [0001](../specs/0001-hexagonal-core.html), [0002](../specs/0002-observability-in-ci.html)
-
 ## Order of work
 
 Each step had to leave the generated project passing `make check`, so the

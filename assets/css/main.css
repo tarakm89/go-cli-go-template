@@ -572,8 +572,15 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
   .page-layout--docs { grid-template-columns: var(--sidebar) minmax(0, 1fr) var(--toc); }
 }
 
-.page-layout--full { display: block; padding-top: 0; }
-.page-layout--full > .content { max-width: none; }
+.page-layout--landing > .content { justify-self: start; max-width: 52rem; }
+/* The landing page has its own rhythm; a contents rail would only stack
+   underneath it in a single-column grid. */
+.page-layout--landing .rail { display: none; }
+
+/* Facts lifted out of a document's body into its header bar. */
+.doc-fact { display: inline-flex; align-items: baseline; gap: .3rem; }
+.doc-fact b { font-weight: 650; color: var(--text-faint); font-size: var(--step--2); text-transform: uppercase; letter-spacing: .05em; }
+.doc-meta > * + *::before { content: ""; }
 
 .rail { display: none; }
 @media (min-width: 1080px) {

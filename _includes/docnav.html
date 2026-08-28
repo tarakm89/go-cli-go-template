@@ -44,8 +44,10 @@
 
 {% elsif site.data.docs %}
 
-  {% assign specs = site.data.docs.documents | where: "section", "specs" %}
-  {% assign plans = site.data.docs.documents | where: "section", "plans" %}
+  {% assign listed = site.data.docs.documents | where: "listed", true %}
+  {% assign specs = listed | where: "section", "specs" %}
+  {% assign plans = listed | where: "section", "plans" %}
+  {% assign templates = site.data.docs.documents | where: "role", "template" %}
 
   <div class="docnav-group">
     <p class="docnav-title">Documents</p>
@@ -66,6 +68,9 @@
           {% if bits.size > 1 %}<span class="docnav-num">{{ bits[0] | strip }}</span>{{ bits[1] | strip }}{% else %}{{ doc.title }}{% endif %}
         </a>
       </li>
+      {% endfor %}
+      {% for doc in templates %}
+      <li><a href="{{ doc.url | relative_url }}"{% if page.url == doc.url %} class="is-current"{% endif %}>Spec template</a></li>
       {% endfor %}
     </ul>
   </div>

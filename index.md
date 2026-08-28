@@ -43,7 +43,7 @@ make check
   </div>
 </section>
 
-<div class="wrap page-layout page-layout--plain">
+<div class="wrap page-layout page-layout--landing">
 <main class="content" markdown="1">
 
 `make check` is green on a freshly generated project — formatting, linting,

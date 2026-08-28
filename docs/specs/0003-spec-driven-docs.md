@@ -5,6 +5,7 @@ title: "0003 — Publish these documents, and show what changed"
 eyebrow: "Spec"
 doc_path: "docs/specs/0003-spec-driven-docs.md"
 doc_status: "Implemented"
+doc_date: "2026-08-27"
 doc_source: "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/specs/0003-spec-driven-docs.md"
 doc_history: "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/specs/0003-spec-driven-docs.md"
 doc_updated: "2026-08-27"
@@ -21,9 +22,6 @@ doc_next_title: "NNNN — Short title"
 ---
 
 {% raw %}
-- **Status:** Implemented
-- **Date:** 2026-08-27
-
 ## Problem
 
 We work spec first, but the specs live in a directory that people have to

@@ -5,6 +5,8 @@ title: "NNNN — Short title"
 eyebrow: "Spec"
 doc_path: "docs/specs/TEMPLATE.md"
 doc_status: "Draft"
+doc_date: "YYYY-MM-DD"
+doc_author: "you"
 doc_source: "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/specs/TEMPLATE.md"
 doc_history: "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/specs/TEMPLATE.md"
 doc_updated: "2026-08-27"
@@ -19,11 +21,6 @@ doc_prev_title: "0003 — Publish these documents, and show what changed"
 ---
 
 {% raw %}
-- **Status:** Draft
-- **Author:** you
-- **Date:** YYYY-MM-DD
-- **Supersedes:** —
-
 ## Problem
 
 What is wrong today, for whom, and what does it cost? Concrete over abstract:
