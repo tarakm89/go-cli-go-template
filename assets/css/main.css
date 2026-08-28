@@ -559,6 +559,9 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
    5  Layout, section nav, table of contents
    ========================================================================== */
 
+/* One shell for every page: section navigation, content, contents. The
+   landing page adds a full-width hero above it and nothing else, so moving
+   between any two pages never moves the column the reader is following. */
 .page-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -567,6 +570,7 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
   padding-bottom: var(--s-8);
   align-items: start;
 }
+
 .page-layout > .content {
   /* `justify-self` alone sizes a grid item to fit-content, which lets any wide
      descendant hold the column open. An explicit width pins it to the grid
@@ -574,33 +578,15 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
   width: 100%;
   min-width: 0;
   max-width: var(--content);
-  justify-self: center;
+  justify-self: start;
 }
 
-/* Two column: content and contents */
 @media (min-width: 1080px) {
-  .page-layout--plain { grid-template-columns: minmax(0, 1fr) var(--toc); }
-  .page-layout--plain > .content { justify-self: end; }
-}
-
-/* Three column: section nav, content, contents */
-@media (min-width: 1080px) {
-  .page-layout--docs { grid-template-columns: var(--sidebar) minmax(0, 1fr); }
-  .page-layout--docs > .content { justify-self: start; }
+  .page-layout { grid-template-columns: var(--sidebar) minmax(0, 1fr); }
 }
 @media (min-width: 1360px) {
-  .page-layout--docs { grid-template-columns: var(--sidebar) minmax(0, 1fr) var(--toc); }
+  .page-layout { grid-template-columns: var(--sidebar) minmax(0, 1fr) var(--toc); }
 }
-
-.page-layout--landing > .content { justify-self: start; max-width: 52rem; }
-/* The landing page has its own rhythm; a contents rail would only stack
-   underneath it in a single-column grid. */
-.page-layout--landing .rail { display: none; }
-
-/* Facts lifted out of a document's body into its header bar. */
-.doc-fact { display: inline-flex; align-items: baseline; gap: .3rem; }
-.doc-fact b { font-weight: 650; color: var(--text-faint); font-size: var(--step--2); text-transform: uppercase; letter-spacing: .05em; }
-.doc-meta > * + *::before { content: ""; }
 
 .rail { display: none; }
 @media (min-width: 1080px) {
@@ -610,6 +596,7 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
     padding-bottom: var(--s-5);
   }
 }
+/* The contents rail only earns its column once there is room for all three. */
 @media (max-width: 1359px) { .rail--toc { display: none; } }
 
 /* Section navigation ------------------------------------------------------ */
@@ -890,6 +877,9 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
 }
 
 .hero-inner { position: relative; z-index: 1; padding-top: var(--s-8); padding-bottom: var(--s-7); }
+@media (min-width: 1080px) {
+  .hero-inner { padding-left: calc(var(--sidebar) + var(--s-7) + var(--s-5)); }
+}
 
 .hero-badge {
   display: inline-flex; align-items: center; gap: .45rem;

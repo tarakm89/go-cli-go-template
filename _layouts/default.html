@@ -107,27 +107,17 @@
 </header>
 
 {% comment %}
-  Three shells. The landing page lays itself out full width; document sections
-  get a section navigation on the left; everything else is content plus
-  contents.
+  One shell for every page. The landing page adds a hero band above it; nothing
+  else differs, so the content column sits in the same place throughout.
 {% endcomment %}
-{% assign doc_sections = "architecture,specification,reference" | split: "," %}
-{% assign has_docnav = false %}
-{% if doc_sections contains page.nav_id %}{% assign has_docnav = true %}{% endif %}
+{% if page.nav_id == 'overview' %}{% include hero.html %}{% endif %}
 
-{% if page.nav_id == 'overview' %}
-<main id="content">{{ content }}</main>
-{% else %}
-
-<div class="wrap page-layout {% if has_docnav %}page-layout--docs{% else %}page-layout--plain{% endif %}">
-
-  {% if has_docnav %}
+<div class="wrap page-layout">
   <aside class="rail rail--nav">
     <nav aria-label="Section">
       {% include docnav.html %}
     </nav>
   </aside>
-  {% endif %}
 
   <main id="content" class="content">
     {% if page.breadcrumb_section %}
@@ -138,9 +128,11 @@
     </ol>
     {% endif %}
 
-    {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
-    <h1 class="page-title">{{ page.title }}</h1>
-    {% if page.description %}<p class="lede">{{ page.description }}</p>{% endif %}
+    {% unless page.nav_id == 'overview' %}
+      {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
+      <h1 class="page-title">{{ page.title }}</h1>
+      {% if page.description %}<p class="lede">{{ page.description }}</p>{% endif %}
+    {% endunless %}
 
     {{ content }}
 
@@ -169,7 +161,6 @@
     </nav>
   </aside>
 </div>
-{% endif %}
 
 <footer class="site-footer">
   <div class="wrap">

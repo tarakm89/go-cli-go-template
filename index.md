@@ -5,47 +5,6 @@ title: go-cli-go-template
 description: A cookiecutter template for Go command line tools — hexagonal core, OpenTelemetry out of the box, three tiers of tests.
 ---
 
-<section class="hero">
-  <div class="wrap hero-inner">
-    <a class="hero-badge" href="{{ '/versions.html' | relative_url }}">
-      <span class="dot" aria-hidden="true"></span>
-      {% if site.data.versions.latest %}<b>v{{ site.data.versions.latest }}</b> released{% else %}Actively maintained{% endif %}
-    </a>
-
-    <h1 class="hero-title">Go CLI scaffolding that<br><span class="grad">already passes its own checks</span></h1>
-
-    <p class="hero-sub">
-      A cookiecutter template for Go command line tools. It scaffolds a Cobra CLI
-      built as a hexagon, wired for OpenTelemetry, tested at three levels, and set
-      up to run inside CI pipelines.
-    </p>
-
-    <div class="hero-actions">
-      <a class="btn btn--primary" href="{{ '/usage.html' | relative_url }}">
-        Get started
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a class="btn btn--ghost" href="{{ site.repository_url }}" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.86l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
-        View on GitHub
-      </a>
-    </div>
-
-    <div class="hero-code">
-      <div class="hero-code-bar" aria-hidden="true"><i></i><i></i><i></i><span>terminal</span></div>
-{% highlight sh %}
-pipx install cookiecutter
-cookiecutter gh:tarakm89/go-cli-go-template
-cd my-cli && ./scripts/bootstrap.sh
-make check
-{% endhighlight %}
-    </div>
-  </div>
-</section>
-
-<div class="wrap page-layout page-layout--landing">
-<main class="content" markdown="1">
-
 `make check` is green on a freshly generated project — formatting, linting,
 `go vet`, race-enabled unit tests, a functional suite and an end-to-end suite.
 That is the point. You start from something that already holds the line, and
@@ -84,15 +43,6 @@ you keep it there.
 </a>
 
 </div>
-
-<p class="card-secondary">
-  Also here:
-  <a href="{{ '/usage.html' | relative_url }}">Getting started</a> ·
-  <a href="{{ '/configured.html' | relative_url }}">What's configured</a> ·
-  <a href="{{ '/mentality.html' | relative_url }}">How we write code</a> ·
-  <a href="{{ '/docs/index.html' | relative_url }}">All documents</a> ·
-  <a href="{{ '/versions.html' | relative_url }}">Versions</a>
-</p>
 
 ## The shape
 
@@ -174,6 +124,3 @@ Expect(app.SpanNames()).To(ContainElement("probe api.example.com"))
 ```
 
 Everything else on this site is plumbing in service of that.
-
-</main>
-</div>
