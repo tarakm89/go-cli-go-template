@@ -13,7 +13,7 @@ permalink: /search.json
 {%- assign sep = "" -%}
 [
 {%- for p in site.pages -%}
-  {%- if p.url contains ".html" and p.title -%}
+  {%- if p.title and p.name contains ".md" -%}
     {{ sep }}{"kind":"page","title":{{ p.title | jsonify }},"context":{{ p.eyebrow | default: "Page" | jsonify }},"url":{{ p.url | relative_url | jsonify }},"text":{{ p.description | default: "" | jsonify }}}
     {%- assign sep = "," -%}
   {%- endif -%}
