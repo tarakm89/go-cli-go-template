@@ -7,9 +7,9 @@ doc_path: "docs/specs/README.md"
 doc_source: "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/specs/README.md"
 doc_history: "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/specs/README.md"
 doc_updated: "2026-08-27"
-doc_commit: "03b166d"
-doc_commit_url: "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
-doc_subject: "Add the spec-driven documentation set"
+doc_commit: "0e3a9dc"
+doc_commit_url: "https://github.com/tarakm89/go-cli-go-template/commit/0e3a9dc65c827c4f9a625bcbdf34344669ec5c0a"
+doc_subject: "Point the spec index at the generated list"
 doc_index: false
 ---
 
@@ -24,6 +24,12 @@ One document per capability, written before it is built.
 
 Start a new one by copying [`TEMPLATE.md`](TEMPLATE.html) to
 `NNNN-short-name.md`, taking the next free number.
+
+The table above is maintained by hand and is the one thing here that can go
+stale. The [published documentation
+index](https://tarakm89.github.io/go-cli-go-template/docs/index.html) is
+generated from the files themselves, along with when each last changed and
+which release carried it — trust that one if the two disagree.
 
 ## Status values
 
