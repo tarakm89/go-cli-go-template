@@ -13,7 +13,11 @@ permalink: /search.json
 {%- assign sep = "" -%}
 [
 {%- for p in site.pages -%}
-  {%- if p.title and p.name contains ".md" -%}
+  {%- comment -%}Generated reference pages are indexed below as packages and
+  commands, with their symbols; skip them here so they appear once.{%- endcomment -%}
+  {%- assign is_reference = false -%}
+  {%- if p.url contains "/docs/reference/api/" or p.url contains "/docs/reference/cli/" -%}{%- assign is_reference = true -%}{%- endif -%}
+  {%- if p.title and p.name contains ".md" and is_reference == false -%}
     {{ sep }}{"kind":"page","title":{{ p.title | jsonify }},"context":{{ p.eyebrow | default: "Page" | jsonify }},"url":{{ p.url | relative_url | jsonify }},"text":{{ p.description | default: "" | jsonify }}}
     {%- assign sep = "," -%}
   {%- endif -%}
