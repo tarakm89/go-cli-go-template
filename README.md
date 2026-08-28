@@ -11,7 +11,8 @@ request. The one exception is the version list, which is generated — see below
 
 | Path | What it is |
 | --- | --- |
-| `index.md` | Landing page: what the project is, and three entry points |
+| `index.md` | Landing page body; the hero lives in `_includes/hero.html` |
+| `_includes/hero.html` | The landing page's hero band |
 | `usage.md` | Generating a project, the prompts, day-to-day commands |
 | `configured.md` | Every moving part in a generated project, and why |
 | `mentality.md` | How we expect code to be written |
@@ -138,10 +139,21 @@ the light block and both dark blocks.
 with a full system fallback stack. The scale runs `--step--2` to `--step-6`;
 use a step rather than a raw `rem`.
 
-**Three layouts.** The landing page lays itself out full width; document and
-reference pages get a section navigation on the left and a table of contents
-on the right (`page-layout--docs`); everything else is content plus contents
-(`page-layout--plain`).
+**One layout.** Every page uses the same `.page-layout` grid: section
+navigation, content, contents. Below 1080px it collapses to a single column;
+the contents rail appears at 1360px, when there is room for all three. The
+landing page adds a hero band above the grid and changes nothing else — its
+text is indented to the content column so scrolling out of the hero does not
+move the reader sideways.
+
+This used to be three layouts, and the content column started in three
+different places depending on the page. Do not reintroduce a variant: if a
+page seems to need one, the answer is almost always that its content belongs
+in the same column as everything else.
+
+**The section navigation is on every page**, which is what keeps the shell
+identical. `_includes/docnav.html` always lists the guides and the three
+sections, then adds the specs, plans or packages when you are inside one.
 
 **Two grid traps, both of which bit here.** A grid item with `justify-self`
 and no `width` is sized to fit-content, so one wide descendant holds the whole
