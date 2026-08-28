@@ -1,5 +1,8 @@
 ---
-# Front matter so Jekyll processes this file. Keep it.
+# Front matter, so Jekyll renders this file rather than copying it verbatim.
+# `layout: none` matters: without it a site-wide default would wrap the
+# stylesheet in the page layout and serve HTML as CSS.
+layout: none
 ---
 
 /* ==========================================================================

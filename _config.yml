@@ -37,13 +37,6 @@ nav:
     title: Versions
     url: versions.html
 
-# Every page uses the custom layout; no need to repeat it in front matter.
-defaults:
-  - scope:
-      path: ""
-    values:
-      layout: default
-
 exclude:
   - README.md
   - scripts

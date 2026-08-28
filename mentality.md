@@ -1,4 +1,5 @@
 ---
+layout: default
 nav_id: mentality
 title: How we write code
 description: The expectations we hold each other to in a project generated from this template.

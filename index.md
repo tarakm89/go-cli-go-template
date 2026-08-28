@@ -1,4 +1,5 @@
 ---
+layout: default
 nav_id: overview
 title: go-cli-go-template
 description: A cookiecutter template for Go command line tools — hexagonal core, OpenTelemetry out of the box, three tiers of tests.

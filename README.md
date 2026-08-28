@@ -17,12 +17,19 @@ request. The one exception is the version list, which is generated — see below
 | `mentality.md` | How we expect code to be written |
 | `versions.md` | Intro text plus a `<!-- CHANGELOG -->` marker |
 | `_layouts/default.html` | The whole page shell |
-| `assets/css/style.css` | Theme tokens, typography, syntax colours |
+| `assets/css/main.css` | Theme tokens, typography, syntax colours |
 | `assets/js/site.js` | Theme toggle, TOC, copy buttons, diagrams |
 | `scripts/inject-changelog.py` | Splices `main`'s `CHANGELOG.md` into `versions.md` |
 
 There is no remote theme. `_layouts/default.html` plus `assets/` is the theme,
 so dark mode is ours to control rather than something to override.
+
+Two things to leave alone. The stylesheet is `main.css`, not `style.css`,
+because the `github-pages` gem always loads a default theme and that theme
+writes its own `assets/css/style.css` — same path, and it wins. And every page
+names its layout in front matter rather than through a site-wide `defaults`
+rule, because such a rule also matches `assets/css/main.css` and would wrap the
+stylesheet in the page layout.
 
 ## The version list is generated
 
