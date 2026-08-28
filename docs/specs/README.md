@@ -11,6 +11,12 @@ One document per capability, written before it is built.
 Start a new one by copying [`TEMPLATE.md`](TEMPLATE.md) to
 `NNNN-short-name.md`, taking the next free number.
 
+The table above is maintained by hand and is the one thing here that can go
+stale. The [published documentation
+index](https://tarakm89.github.io/go-cli-go-template/docs/index.html) is
+generated from the files themselves, along with when each last changed and
+which release carried it — trust that one if the two disagree.
+
 ## Status values
 
 | Status | Means |
