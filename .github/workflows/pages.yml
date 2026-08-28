@@ -2,12 +2,18 @@
 #
 # The repository's Pages source is "GitHub Actions", so a push to gh_pages is
 # published by this workflow rather than by Jekyll's built-in branch build.
+#
+# The version list is not stored here: it is pulled from CHANGELOG.md on main
+# at build time, so a release only ever has to be written down once.
 name: Deploy documentation site
 
 on:
   push:
     branches: ["gh_pages"]
+  # Cutting a release on main should refresh the version list here.
   workflow_dispatch:
+  repository_dispatch:
+    types: [changelog-updated]
 
 permissions:
   contents: read
@@ -23,15 +29,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout the site
         uses: actions/checkout@v4
+
+      - name: Checkout the changelog from main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: .main
+          sparse-checkout: CHANGELOG.md
+          sparse-checkout-cone-mode: false
+
+      - name: Render the changelog into the versions page
+        run: python3 scripts/inject-changelog.py
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 

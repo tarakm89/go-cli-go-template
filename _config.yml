@@ -1,13 +1,53 @@
 title: go-cli-go-template
+tagline: Go CLI scaffolding
 description: A cookiecutter template for Go command line tools — hexagonal core, OpenTelemetry out of the box, three tiers of tests.
 
-remote_theme: pages-themes/tactile@v0.2.0
-plugins:
-  - jekyll-remote-theme
+repository_url: https://github.com/tarakm89/go-cli-go-template
 
-# Repository furniture, not site content.
+# A custom layout in _layouts/default.html, so there is no remote theme to
+# fight with over dark mode.
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+# Diagrams. Mermaid renders in the browser and follows the page theme.
+# PlantUML is rendered by a server, so it is off unless you set one — the
+# diagram source is sent to whatever host you name here.
+mermaid_version: "11.12.0"
+plantuml_server: ""
+
+nav:
+  - id: overview
+    title: Overview
+    url: index.html
+  - id: usage
+    title: Getting started
+    url: usage.html
+  - id: configured
+    title: What's configured
+    url: configured.html
+  - id: mentality
+    title: How we write code
+    url: mentality.html
+  - id: versions
+    title: Versions
+    url: versions.html
+
+# Every page uses the custom layout; no need to repeat it in front matter.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
 exclude:
   - README.md
+  - scripts
   - LICENSE
   - .gitignore
   - .github
+  - .main

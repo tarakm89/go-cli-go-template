@@ -1,14 +1,8 @@
 ---
+nav_id: mentality
 title: How we write code
-description: The rules of thumb we expect you to follow in a project generated from this template.
+description: The expectations we hold each other to in a project generated from this template.
 ---
-
-[Home](index.html) · [Using the template](usage.html) · [What's configured](configured.html) · **How we write code**
-
----
-
-# How we write code
-
 The template gives you a shape. This page is the reasoning behind it, so that
 when you hit a case it does not cover you can work out what we would have done.
 
@@ -298,6 +292,19 @@ The recipe, in order:
 6. **Wire it** in `setup()`, wrapped in a telemetry decorator.
 7. **Functional spec** covering the command that uses it, and one e2e spec if
    there is a code path only the real binary has.
+
+```mermaid
+flowchart TD
+  A["1 · Port<br/><small>interface in domain types</small>"] --> B["2 · Use case<br/><small>written against the port</small>"]
+  B --> C{"Is the use case<br/>awkward to write?"}
+  C -- yes --> A2["Fix the port,<br/>not the use case"]
+  A2 --> A
+  C -- no --> D["3 · Unit test<br/><small>with a fake you write as you go</small>"]
+  D --> E["4 · Real adapter<br/><small>context, timeout, domain errors</small>"]
+  E --> F["5 · Fake adapter<br/><small>same commit</small>"]
+  F --> G["6 · Wire it in setup()<br/><small>wrapped in a telemetry decorator</small>"]
+  G --> H["7 · Functional spec<br/><small>plus e2e only if the binary differs</small>"]
+```
 
 If step 1 is hard, you do not understand the requirement yet. Do not skip ahead
 to step 4 to find out — writing the adapter first is how the boundary gets

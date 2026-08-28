@@ -1,14 +1,8 @@
 ---
-title: Using the template
-description: Generating a project, what the prompts mean, and the day-to-day commands.
+nav_id: usage
+title: Getting started
+description: Generating a project, what the prompts mean, and the commands you will use every day.
 ---
-
-[Home](index.html) · **Using the template** · [What's configured](configured.html) · [How we write code](mentality.html)
-
----
-
-# Using the template
-
 ## Prerequisites
 
 | Tool | Needed for | Install |

@@ -1,14 +1,8 @@
 ---
+nav_id: configured
 title: What's configured
-description: Every moving part in a generated project, and why it is set up that way.
+description: Every moving part in a generated project, and the reasoning behind it.
 ---
-
-[Home](index.html) · [Using the template](usage.html) · **What's configured** · [How we write code](mentality.html)
-
----
-
-# What's configured
-
 ## Layout
 
 ```
@@ -233,6 +227,34 @@ collector at all:
 ```sh
 my-cli check --otel-protocol stdout https://example.com
 ```
+
+### The shape of a run
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant CLI as cli.check
+  participant Svc as service.Health
+  participant Tel as telemetry decorator
+  participant HTTP as httpprobe
+  participant Ext as external system
+
+  CLI->>Svc: CheckAll(ctx, targets)
+  Note over Svc,Tel: span "check all"
+  loop bounded fan-out, one per target
+    Svc->>Tel: Probe(ctx, target)
+    Note over Tel: span "probe <target>"
+    Tel->>HTTP: Probe(ctx, target)
+    HTTP->>Ext: GET /healthz
+    Ext-->>HTTP: 200 / 5xx / refused
+    HTTP-->>Tel: domain.Probe or ErrUnreachable
+    Tel-->>Svc: same, plus span and metrics
+  end
+  Svc-->>CLI: []domain.Health, input order preserved
+```
+
+The decorator sits between the use case and the real adapter. Neither of them
+knows it is there, which is why instrumentation never appears in the core.
 
 ### Signals emitted
 
