@@ -11,6 +11,12 @@ push to `main`, so the site and the source can never disagree.
 | [`architecture.md`](architecture.md) | The shape of the system and the decisions behind it | *How is this built, and why that way?* |
 | [`specs/`](specs/) | One document per capability, written before it is built | *What should this do, and how will we know it does?* |
 | [`plans/`](plans/) | Implementation plans for work in flight | *How are we going to get there, in what order?* |
+| [Reference](reference/) | Package and command documentation, generated | *What does this package expose? What flags does this command take?* |
+
+The reference is not in this directory: it is generated in CI from the
+template's worked example, so it is only ever visible on the published site.
+`make docs` in your own project produces the same pages into `docs/api` and
+`docs/cli`.
 
 ## Spec-driven, in practice
 

@@ -1,11 +1,13 @@
-# Publish docs/ to the documentation site.
+# Publish the documentation site.
 #
-# The site lives on the gh_pages branch; the documents live here. On any push
-# that touches them, this renders them into that branch, commits, and asks the
-# site to rebuild.
+# The site's chrome lives on gh_pages; its content lives here. This renders
+# docs/ and the Go reference into that branch, commits, then builds and
+# deploys.
 #
-# It commits rather than letting the site pull at build time, so gh_pages is a
-# readable, diffable record of what was published — see docs/specs/0003.
+# It deploys itself rather than handing over to pages.yml on gh_pages: a push
+# made with GITHUB_TOKEN does not start another workflow, and neither does a
+# repository_dispatch sent with it, so there is no way to trigger that build
+# from here without a personal access token.
 name: Publish docs
 
 on:
@@ -14,20 +16,24 @@ on:
     paths:
       - 'docs/**'
       - 'CHANGELOG.md'
-      - 'scripts/sync-docs.py'
+      - 'scripts/**'
+      - '{{cookiecutter.project_slug}}/**'
+      - 'cookiecutter.json'
       - '.github/workflows/publish-docs.yml'
   workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: publish-docs
   cancel-in-progress: false
 
 jobs:
-  sync:
-    name: Sync docs to gh_pages
+  build:
+    name: Render and build
     runs-on: ubuntu-latest
     steps:
       # Full history and tags: the sync works out when each document last
@@ -43,8 +49,32 @@ jobs:
           ref: gh_pages
           path: .site
 
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.25'
+
       - name: Render the documents
         run: python3 scripts/sync-docs.py --site .site
+
+      # The scaffold is Jinja, so gomarkdoc cannot read it. Render the template
+      # and generate the reference from the result — the actual output of the
+      # pipeline a generated project runs.
+      - name: Render the template
+        run: |
+          pip install --upgrade cookiecutter
+          cookiecutter --no-input -o .out . \
+            project_name="Probe CLI" github_owner=acme \
+            author_name="Template CI" author_email=ci@example.com \
+            init_git_repo=no
+
+      - name: Generate the Go reference
+        run: |
+          make -C .out/probe-cli docs
+          python3 scripts/sync-reference.py --site .site --project .out/probe-cli
 
       - name: Commit to gh_pages
         id: commit
@@ -58,31 +88,53 @@ jobs:
 
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "documentation is unchanged; nothing to publish"
-            exit 0
+            echo "documentation is unchanged; nothing to commit"
+          else
+            git commit -m "docs: sync from ${GITHUB_SHA::12}"
+            git push origin HEAD:gh_pages
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-          git commit -m "docs: sync from ${GITHUB_SHA::12}
-
-          $(git diff --cached --name-status | head -20)"
-          git push origin HEAD:gh_pages
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-
-      # A push made with GITHUB_TOKEN does not start another workflow, but a
-      # repository_dispatch does, so this is what actually rebuilds the site.
-      - name: Ask the site to rebuild
-        if: steps.commit.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Runs after the commit: it rewrites versions.md in place, and that file
+      # must keep its marker on the branch.
+      - name: Render the changelog into the versions page
         run: |
-          gh api "repos/${GITHUB_REPOSITORY}/dispatches" \
-            -f event_type=docs-updated \
-            -F "client_payload[sha]=${GITHUB_SHA}"
+          mkdir -p .site/.main
+          cp CHANGELOG.md .site/.main/CHANGELOG.md
+          python3 .site/scripts/inject-changelog.py
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./.site
+          destination: ./_site
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
 
       - name: Summary
         run: |
           if [ "${{ steps.commit.outputs.changed }}" = "true" ]; then
-            echo "Synced \`docs/\` to \`gh_pages\` and triggered a rebuild." >> "$GITHUB_STEP_SUMMARY"
+            echo "Synced \`docs/\` and the reference to \`gh_pages\`." >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "No documentation changes to publish." >> "$GITHUB_STEP_SUMMARY"
+            echo "No documentation changes; rebuilt anyway." >> "$GITHUB_STEP_SUMMARY"
           fi
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # Shared with pages.yml on gh_pages, so the two can never deploy at once.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
