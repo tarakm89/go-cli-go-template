@@ -10,10 +10,9 @@ name: Deploy documentation site
 on:
   push:
     branches: ["gh_pages"]
-  # Sent by the publish-docs workflow on main after it syncs docs/ here.
+  # Content changes are published by publish-docs.yml on main, which deploys
+  # itself. This one covers edits to the site's own chrome, made here.
   workflow_dispatch:
-  repository_dispatch:
-    types: [docs-updated, changelog-updated]
 
 permissions:
   contents: read
@@ -21,6 +20,8 @@ permissions:
   id-token: write
 
 # Allow one concurrent deployment, and never cancel one in flight.
+# Shared with the deploy job of publish-docs.yml on main, so the two can never
+# deploy at once.
 concurrency:
   group: "pages"
   cancel-in-progress: false

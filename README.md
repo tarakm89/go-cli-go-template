@@ -22,6 +22,8 @@ request. The one exception is the version list, which is generated — see below
 | `scripts/inject-changelog.py` | Renders `main`'s `CHANGELOG.md` into the site |
 | `docs/` | **Generated.** Synced from `docs/` on `main` — do not edit here |
 | `_data/docs.json` | **Generated.** Document list and history, written by the sync |
+| `docs/reference/` | **Generated.** Go package and command documentation |
+| `_data/reference.json` | **Generated.** Package and command index |
 | `_layouts/doc.html` | Wraps a synced document with its status, history and source link |
 
 There is no remote theme. `_layouts/default.html` plus `assets/` is the theme,
@@ -80,16 +82,25 @@ matter, writes `_data/docs.json` with each document's last commit and the
 release that carried it, commits the result, and fires a `docs-updated`
 `repository_dispatch` that rebuilds the site.
 
-That runs on every push to `main` touching `docs/`, `CHANGELOG.md` or the sync
-script. It commits nothing when the rendered output is unchanged.
+The same workflow also publishes the **Go reference** under
+`docs/reference/`. The scaffold on `main` is Jinja, so gomarkdoc cannot read
+it; the workflow renders the template, runs `make docs` in the result, and
+publishes what comes out. That makes the reference the real output of the
+pipeline a generated project runs, rather than a description of it.
+
+It runs on every push to `main` touching `docs/`, `CHANGELOG.md`, `scripts/`
+or the scaffold. It commits nothing when the rendered output is unchanged.
 
 Two consequences worth knowing:
 
 - **Editing `docs/` here is pointless** — the next sync overwrites it. Edit on
   `main`.
-- A push made with `GITHUB_TOKEN` does not start another workflow, which is why
-  the sync ends in a `repository_dispatch` rather than relying on its own push
-  to trigger `pages.yml`.
+- **`publish-docs.yml` deploys the site itself.** A push made with
+  `GITHUB_TOKEN` does not start another workflow, and neither does a
+  `repository_dispatch` sent with it, so there is no way to hand over to
+  `pages.yml` from `main` without a personal access token. `pages.yml` still
+  exists for edits made to the site's own chrome on this branch. Both share the
+  `pages` concurrency group, so they can never deploy at once.
 
 ## Dark mode
 

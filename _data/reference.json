@@ -1,0 +1,133 @@
+{
+  "binary": "probe-cli",
+  "packages": [
+    {
+      "import_path": "cmd/probe-cli",
+      "name": "probe-cli",
+      "url": "/docs/reference/api/cmd/probe-cli.html",
+      "summary": "Command probe-cli is a command line application built with cobra and a hexagonal (ports & adapters) core."
+    },
+    {
+      "import_path": "internal/adapter/inbound/cli",
+      "name": "cli",
+      "url": "/docs/reference/api/internal/adapter/inbound/cli.html",
+      "summary": "Package cli is the driving adapter: it turns command line input into calls on the inbound port and hands the results to a reporter."
+    },
+    {
+      "import_path": "internal/adapter/outbound/fake",
+      "name": "fake",
+      "url": "/docs/reference/api/internal/adapter/outbound/fake.html",
+      "summary": "Package fake holds in-memory implementations of every outbound port."
+    },
+    {
+      "import_path": "internal/adapter/outbound/httpprobe",
+      "name": "httpprobe",
+      "url": "/docs/reference/api/internal/adapter/outbound/httpprobe.html",
+      "summary": "Package httpprobe is the driven adapter that talks to real external systems over HTTP."
+    },
+    {
+      "import_path": "internal/adapter/outbound/logging",
+      "name": "logging",
+      "url": "/docs/reference/api/internal/adapter/outbound/logging.html",
+      "summary": "Package logging adapts log/slog to the port.Logger outbound port."
+    },
+    {
+      "import_path": "internal/adapter/outbound/report",
+      "name": "report",
+      "url": "/docs/reference/api/internal/adapter/outbound/report.html",
+      "summary": "Package report contains the driven adapters that present results."
+    },
+    {
+      "import_path": "internal/adapter/outbound/telemetry",
+      "name": "telemetry",
+      "url": "/docs/reference/api/internal/adapter/outbound/telemetry.html",
+      "summary": "Package telemetry instruments the ports."
+    },
+    {
+      "import_path": "internal/bootstrap",
+      "name": "bootstrap",
+      "url": "/docs/reference/api/internal/bootstrap.html",
+      "summary": "Package bootstrap is the process-level entry point: it owns the signal handling, the lifetime of telemetry and the mapping from an error to an exit code."
+    },
+    {
+      "import_path": "internal/buildinfo",
+      "name": "buildinfo",
+      "url": "/docs/reference/api/internal/buildinfo.html",
+      "summary": "Package buildinfo carries the identity of the binary."
+    },
+    {
+      "import_path": "internal/core/domain",
+      "name": "domain",
+      "url": "/docs/reference/api/internal/core/domain.html",
+      "summary": "Package domain holds the entities, value objects and rules that make up the core of the hexagon."
+    },
+    {
+      "import_path": "internal/core/port",
+      "name": "port",
+      "url": "/docs/reference/api/internal/core/port.html",
+      "summary": "Package port declares the boundary of the hexagon."
+    },
+    {
+      "import_path": "internal/core/service",
+      "name": "service",
+      "url": "/docs/reference/api/internal/core/service.html",
+      "summary": "Package service implements the inbound ports."
+    },
+    {
+      "import_path": "internal/observability",
+      "name": "observability",
+      "url": "/docs/reference/api/internal/observability.html",
+      "summary": "Package observability boots the OpenTelemetry SDK \u2014 traces, metrics and logs \u2014 for a short-lived CLI process."
+    }
+  ],
+  "commands": [
+    {
+      "name": "probe-cli",
+      "url": "/docs/reference/cli/probe-cli.html",
+      "summary": "A command line application built with Cobra and a hexagonal (ports & adapters) core.",
+      "depth": 0
+    },
+    {
+      "name": "probe-cli check",
+      "url": "/docs/reference/cli/probe-cli_check.html",
+      "summary": "Check the health of one or more external systems",
+      "depth": 1
+    },
+    {
+      "name": "probe-cli completion",
+      "url": "/docs/reference/cli/probe-cli_completion.html",
+      "summary": "Generate the autocompletion script for the specified shell",
+      "depth": 1
+    },
+    {
+      "name": "probe-cli completion bash",
+      "url": "/docs/reference/cli/probe-cli_completion_bash.html",
+      "summary": "Generate the autocompletion script for bash",
+      "depth": 2
+    },
+    {
+      "name": "probe-cli completion fish",
+      "url": "/docs/reference/cli/probe-cli_completion_fish.html",
+      "summary": "Generate the autocompletion script for fish",
+      "depth": 2
+    },
+    {
+      "name": "probe-cli completion powershell",
+      "url": "/docs/reference/cli/probe-cli_completion_powershell.html",
+      "summary": "Generate the autocompletion script for powershell",
+      "depth": 2
+    },
+    {
+      "name": "probe-cli completion zsh",
+      "url": "/docs/reference/cli/probe-cli_completion_zsh.html",
+      "summary": "Generate the autocompletion script for zsh",
+      "depth": 2
+    },
+    {
+      "name": "probe-cli version",
+      "url": "/docs/reference/cli/probe-cli_version.html",
+      "summary": "Print build information",
+      "depth": 1
+    }
+  ]
+}
