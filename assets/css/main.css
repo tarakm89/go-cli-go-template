@@ -889,7 +889,7 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
   pointer-events: none;
 }
 
-.hero-inner { position: relative; z-index: 1; padding: var(--s-8) 0 var(--s-7); max-width: 52rem; }
+.hero-inner { position: relative; z-index: 1; padding: var(--s-8) 0 var(--s-7); }
 
 .hero-badge {
   display: inline-flex; align-items: center; gap: .45rem;
@@ -906,6 +906,7 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
   margin: 0 0 var(--s-4);
   font-size: clamp(2.1rem, 5.4vw, var(--step-6));
   font-weight: 720; letter-spacing: -.035em; line-height: 1.05;
+  max-width: 46rem;
 }
 .hero-title .grad {
   background: linear-gradient(100deg, var(--accent), color-mix(in srgb, var(--accent) 45%, #0ea5e9));
