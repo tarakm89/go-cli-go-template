@@ -217,18 +217,45 @@ function initTableScroll() {
 /* ------------------------------------------------------------ diagrams --- */
 
 /* Rouge has no lexer for `mermaid` or `plantuml`, so a fenced block of either
-   arrives as a plain highlighted <pre>. Pull the source back out of it and
-   hand it to a renderer. */
+   arrives as a plain code block. It arrives in one of two shapes, and both have
+   to be handled:
+
+     div.language-mermaid > div.highlight > pre > code   (a normal page)
+     pre > code.language-mermaid                          (inside markdown="1")
+
+   Kramdown drops the Rouge wrapper inside an HTML block carrying
+   markdown="1", which is how the landing page is written. Replacing the code
+   element alone left the rendered diagram nested inside the <pre>, framed like
+   a code listing and inheriting its colours. */
+function outermostBlock(node) {
+  let element = node;
+  while (element.parentElement) {
+    const parent = element.parentElement;
+    const isWrapper =
+      parent.tagName === 'PRE'
+      || parent.matches('div.highlight, pre.highlight, .code-block')
+      || /\blanguage-/.test(parent.getAttribute('class') || '');
+    if (!isWrapper) break;
+    element = parent;
+  }
+  return element;
+}
+
 function collectDiagrams(language) {
   const content = document.getElementById('content');
   if (!content) return [];
 
   const found = [];
-  const selector = `div.language-${language}, pre.language-${language}, code.language-${language}`;
+  const selector = [
+    `code[class*="language-${language}"]`,
+    `div[class*="language-${language}"]`,
+    `pre[class*="language-${language}"]`,
+  ].join(', ');
 
   for (const node of content.querySelectorAll(selector)) {
-    const block = node.closest('div.highlight, pre.highlight, div.language-' + language) ?? node;
-    const code = block.querySelector('code') ?? block;
+    if (!node.isConnected || node.closest('.diagram')) continue;
+
+    const code = node.tagName === 'CODE' ? node : (node.querySelector('code') ?? node);
     const source = code.innerText.replace(/\n$/, '');
     if (!source.trim()) continue;
 
@@ -237,8 +264,7 @@ function collectDiagrams(language) {
     host.dataset.state = 'loading';
     host.textContent = 'Rendering diagram…';
 
-    const outer = block.closest('.code-block') ?? block;
-    outer.replaceWith(host);
+    outermostBlock(code).replaceWith(host);
     found.push({ host, source });
   }
 
@@ -271,40 +297,60 @@ async function initMermaid() {
 
   let sequence = 0;
 
-  // Mermaid's palette is derived from the stylesheet's tokens rather than
-  // duplicated here, so a colour change in main.css reaches the diagrams.
-  const themeVariables = () => {
-    const css = getComputedStyle(document.documentElement);
-    const token = (name, fallback) => css.getPropertyValue(name).trim() || fallback;
+  /* Mermaid's palette is derived from the stylesheet's own tokens, so a colour
+     change in main.css reaches the diagrams. The fallbacks follow the active
+     theme: falling back to light values on a dark page produced diagrams with
+     light fills and light text, which is unreadable. */
+  const FALLBACK = {
+    light: {
+      surface: '#ffffff', raise: '#f1f5f9', bgSubtle: '#f8fafc',
+      border: '#e4e9f0', borderStrong: '#cbd5e1',
+      text: '#0f172a', muted: '#4a5568', faint: '#8b97a8',
+      accentSoft: '#eef2ff', accentBorder: '#c7d2fe',
+    },
+    dark: {
+      surface: '#101319', raise: '#161a22', bgSubtle: '#0c0e13',
+      border: '#1e2430', borderStrong: '#2d3543',
+      text: '#e9edf4', muted: '#9aa6b8', faint: '#66738a',
+      accentSoft: '#171a2e', accentBorder: '#333c6b',
+    },
+  };
 
-    const surface = token('--surface', '#ffffff');
-    const raise = token('--surface-raise', '#f2f4f7');
-    const border = token('--border', '#e4e7ec');
-    const borderStrong = token('--border-strong', '#d0d5dd');
-    const text = token('--text', '#16191d');
-    const muted = token('--text-muted', '#5b6472');
-    const faint = token('--text-faint', '#8a94a3');
-    const accentSoft = token('--accent-soft', '#eef2fe');
-    const accentBorder = token('--accent-border', '#c3d0f8');
+  const themeVariables = (theme) => {
+    const css = getComputedStyle(document.documentElement);
+    const fallback = FALLBACK[theme] ?? FALLBACK.light;
+    const token = (name, key) => css.getPropertyValue(name).trim() || fallback[key];
+
+    const surface = token('--surface', 'surface');
+    const raise = token('--surface-2', 'raise');
+    const bgSubtle = token('--bg-alt', 'bgSubtle');
+    const border = token('--border', 'border');
+    const borderStrong = token('--border-strong', 'borderStrong');
+    const text = token('--text', 'text');
+    const muted = token('--text-muted', 'muted');
+    const faint = token('--text-faint', 'faint');
+    const accentSoft = token('--accent-soft', 'accentSoft');
+    const accentBorder = token('--accent-border', 'accentBorder');
 
     return {
       background: surface,
       mainBkg: raise,
       nodeBorder: borderStrong,
+      nodeTextColor: text,
       primaryColor: raise,
       primaryTextColor: text,
       primaryBorderColor: borderStrong,
       secondaryColor: accentSoft,
       secondaryBorderColor: accentBorder,
       secondaryTextColor: text,
-      tertiaryColor: token('--bg-subtle', '#f7f8fa'),
+      tertiaryColor: bgSubtle,
       tertiaryBorderColor: border,
       tertiaryTextColor: muted,
       lineColor: faint,
       textColor: text,
       titleColor: muted,
       edgeLabelBackground: surface,
-      clusterBkg: token('--bg-subtle', '#f7f8fa'),
+      clusterBkg: bgSubtle,
       clusterBorder: border,
       // Sequence diagrams
       actorBkg: raise,
@@ -333,7 +379,7 @@ async function initMermaid() {
       // themes, so the diagrams match the page instead of merely coexisting.
       theme: 'base',
       fontFamily: getComputedStyle(document.body).fontFamily,
-      themeVariables: { darkMode: theme === 'dark', ...themeVariables() },
+      themeVariables: { darkMode: theme === 'dark', ...themeVariables(theme) },
     });
 
     for (const { host, source } of diagrams) {
