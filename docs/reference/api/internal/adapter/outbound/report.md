@@ -3,8 +3,14 @@ layout: "doc"
 nav_id: "reference"
 eyebrow: "Package"
 title: "internal/adapter/outbound/report"
+breadcrumb_section: "Reference"
+breadcrumb_url: "/docs/reference/index.html"
 doc_generated: true
 doc_generator: "gomarkdoc"
+doc_prev_url: "/docs/reference/api/internal/adapter/outbound/logging.html"
+doc_prev_title: "internal/adapter/outbound/logging"
+doc_next_url: "/docs/reference/api/internal/adapter/outbound/telemetry.html"
+doc_next_title: "internal/adapter/outbound/telemetry"
 ---
 
 {% raw %}

@@ -1,0 +1,37 @@
+---
+layout: none
+permalink: /search.json
+---
+{%- comment -%}
+  The search index. Pages contribute their title and description; the
+  reference contributes every package, exported symbol and command, so
+  searching for a type name lands on its documentation.
+
+  Commas are emitted by a separator flag rather than trimmed afterwards:
+  GitHub Pages builds with Liquid 4, which has no replace_last.
+{%- endcomment -%}
+{%- assign sep = "" -%}
+[
+{%- for p in site.pages -%}
+  {%- if p.url contains ".html" and p.title -%}
+    {{ sep }}{"kind":"page","title":{{ p.title | jsonify }},"context":{{ p.eyebrow | default: "Page" | jsonify }},"url":{{ p.url | relative_url | jsonify }},"text":{{ p.description | default: "" | jsonify }}}
+    {%- assign sep = "," -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if site.data.reference -%}
+  {%- for package in site.data.reference.packages -%}
+    {{ sep }}{"kind":"package","title":{{ package.import_path | jsonify }},"context":{{ package.layer | jsonify }},"url":{{ package.url | relative_url | jsonify }},"text":{{ package.summary | jsonify }}}
+    {%- assign sep = "," -%}
+    {%- for symbol in package.symbols -%}
+      {{ sep }}{"kind":{{ symbol.kind | jsonify }},"title":{{ symbol.name | jsonify }},"context":{{ package.import_path | jsonify }},"url":{{ package.url | append: "#" | append: symbol.anchor | relative_url | jsonify }},"text":""}
+      {%- for child in symbol.children -%}
+        ,{"kind":{{ child.kind | jsonify }},"title":{{ symbol.name | append: "." | append: child.name | jsonify }},"context":{{ package.import_path | jsonify }},"url":{{ package.url | append: "#" | append: child.anchor | relative_url | jsonify }},"text":""}
+      {%- endfor -%}
+    {%- endfor -%}
+  {%- endfor -%}
+  {%- for command in site.data.reference.commands -%}
+    {{ sep }}{"kind":"command","title":{{ command.name | jsonify }},"context":"Command","url":{{ command.url | relative_url | jsonify }},"text":{{ command.summary | jsonify }}}
+    {%- assign sep = "," -%}
+  {%- endfor -%}
+{%- endif -%}
+]

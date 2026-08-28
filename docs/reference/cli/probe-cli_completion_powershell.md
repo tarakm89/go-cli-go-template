@@ -3,8 +3,14 @@ layout: "doc"
 nav_id: "reference"
 eyebrow: "Command"
 title: "probe-cli completion powershell"
+breadcrumb_section: "Reference"
+breadcrumb_url: "/docs/reference/index.html"
 doc_generated: true
 doc_generator: "cobra"
+doc_prev_url: "/docs/reference/cli/probe-cli_completion_fish.html"
+doc_prev_title: "probe-cli completion fish"
+doc_next_url: "/docs/reference/cli/probe-cli_completion_zsh.html"
+doc_next_title: "probe-cli completion zsh"
 ---
 
 {% raw %}

@@ -12,6 +12,10 @@ doc_commit: "03b166d"
 doc_commit_url: "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
 doc_subject: "Add the spec-driven documentation set"
 doc_index: false
+breadcrumb_section: "Specification"
+breadcrumb_url: "/docs/specs/index.html"
+doc_next_url: "/docs/specs/0002-observability-in-ci.html"
+doc_next_title: "0002 — OpenTelemetry for tools that run inside pipelines"
 ---
 
 {% raw %}

@@ -3,8 +3,14 @@ layout: "doc"
 nav_id: "reference"
 eyebrow: "Command"
 title: "probe-cli check"
+breadcrumb_section: "Reference"
+breadcrumb_url: "/docs/reference/index.html"
 doc_generated: true
 doc_generator: "cobra"
+doc_prev_url: "/docs/reference/cli/probe-cli.html"
+doc_prev_title: "probe-cli"
+doc_next_url: "/docs/reference/cli/probe-cli_completion.html"
+doc_next_title: "probe-cli completion"
 ---
 
 {% raw %}

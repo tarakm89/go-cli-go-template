@@ -1,0 +1,90 @@
+{% comment %}
+  Section navigation for the document and reference sections. Every entry is
+  derived from _data/docs.json or _data/reference.json, both written by the
+  sync on main, so nothing here is a list anyone maintains.
+{% endcomment %}
+
+<div class="docnav-group">
+  <p class="docnav-title">Sections</p>
+  <ul class="docnav-list">
+    <li><a href="{{ '/docs/architecture.html' | relative_url }}"{% if page.nav_id == 'architecture' %} class="is-current"{% endif %}>Architecture</a></li>
+    <li><a href="{{ '/docs/specs/index.html' | relative_url }}"{% if page.nav_id == 'specification' %} class="is-current"{% endif %}>Specification</a></li>
+    <li><a href="{{ '/docs/reference/index.html' | relative_url }}"{% if page.nav_id == 'reference' %} class="is-current"{% endif %}>Reference</a></li>
+  </ul>
+</div>
+
+{% if page.nav_id == 'reference' and site.data.reference %}
+
+  <div class="docnav-group">
+    <p class="docnav-title">Reference</p>
+    <ul class="docnav-list">
+      <li><a href="{{ '/docs/reference/index.html' | relative_url }}"{% if page.url == '/docs/reference/index.html' %} class="is-current"{% endif %}>Overview</a></li>
+    </ul>
+  </div>
+
+  {% for layer in site.data.reference.layers %}
+  <div class="docnav-group">
+    <p class="docnav-title">{{ layer.name }}</p>
+    <ul class="docnav-list">
+      {% for package in layer.packages %}
+      <li><a href="{{ package.url | relative_url }}"{% if page.url == package.url %} class="is-current"{% endif %}>{{ package.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+
+  <div class="docnav-group">
+    <p class="docnav-title">Commands</p>
+    <ul class="docnav-list">
+      {% for command in site.data.reference.commands %}
+      <li><a href="{{ command.url | relative_url }}"{% if page.url == command.url %} class="is-current"{% endif %}>{{ command.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% elsif site.data.docs %}
+
+  {% assign specs = site.data.docs.documents | where: "section", "specs" %}
+  {% assign plans = site.data.docs.documents | where: "section", "plans" %}
+
+  <div class="docnav-group">
+    <p class="docnav-title">Documents</p>
+    <ul class="docnav-list">
+      <li><a href="{{ '/docs/index.html' | relative_url }}"{% if page.url == '/docs/index.html' %} class="is-current"{% endif %}>All documents</a></li>
+      <li><a href="{{ '/docs/architecture.html' | relative_url }}"{% if page.url == '/docs/architecture.html' %} class="is-current"{% endif %}>Architecture</a></li>
+    </ul>
+  </div>
+
+  {% if specs.size > 0 %}
+  <div class="docnav-group">
+    <p class="docnav-title">Specs</p>
+    <ul class="docnav-list">
+      {% for doc in specs %}
+      {% assign bits = doc.title | split: "—" %}
+      <li>
+        <a href="{{ doc.url | relative_url }}"{% if page.url == doc.url %} class="is-current"{% endif %}>
+          {% if bits.size > 1 %}<span class="docnav-num">{{ bits[0] | strip }}</span>{{ bits[1] | strip }}{% else %}{{ doc.title }}{% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if plans.size > 0 %}
+  <div class="docnav-group">
+    <p class="docnav-title">Plans</p>
+    <ul class="docnav-list">
+      {% for doc in plans %}
+      {% assign bits = doc.title | split: "—" %}
+      <li>
+        <a href="{{ doc.url | relative_url }}"{% if page.url == doc.url %} class="is-current"{% endif %}>
+          {% if bits.size > 1 %}<span class="docnav-num">{{ bits[0] | strip }}</span>{{ bits[1] | strip }}{% else %}{{ doc.title }}{% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+{% endif %}

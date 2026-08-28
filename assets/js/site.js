@@ -177,8 +177,25 @@ function initCopyButtons() {
       }
     });
 
+    const language = languageOf(block);
+    if (language) {
+      const chip = document.createElement('span');
+      chip.className = 'code-lang';
+      chip.textContent = language;
+      wrapper.append(chip);
+    }
+
     wrapper.append(button);
   }
+}
+
+/* Rouge wraps a fenced block in `language-<name> highlighter-rouge`. */
+function languageOf(block) {
+  const holder = block.closest('[class*="language-"]') ?? block;
+  const match = /language-([a-z0-9+#-]+)/i.exec(holder.className ?? '');
+  if (!match) return null;
+  const name = match[1].toLowerCase();
+  return name === 'plaintext' || name === 'text' ? null : name;
 }
 
 /* ---------------------------------------------------------- responsive --- */
@@ -371,10 +388,168 @@ function initPlantUML() {
   }
 }
 
+/* -------------------------------------------------------------- search --- */
+
+/* A command palette over a small index built at publish time: every page, and
+   every package, exported symbol and command in the reference. The index is
+   fetched on first open, so it costs nothing to visitors who never search. */
+function initSearch() {
+  const dialog = document.getElementById('search-dialog');
+  const input = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  const hint = document.getElementById('search-hint');
+  const trigger = document.getElementById('search-trigger');
+  const close = document.getElementById('search-close');
+  if (!dialog || !input || !results || !trigger) return;
+
+  let index = null;
+  let loading = null;
+  let active = -1;
+
+  const load = () => {
+    if (index) return Promise.resolve(index);
+    if (!loading) {
+      loading = fetch(config.searchIndex || 'search.json')
+        .then((response) => (response.ok ? response.json() : []))
+        .then((data) => { index = data; return index; })
+        .catch(() => { index = []; return index; });
+    }
+    return loading;
+  };
+
+  const open = () => {
+    load();
+    if (!dialog.open) dialog.showModal();
+    input.value = '';
+    render([]);
+    input.focus();
+  };
+
+  const shut = () => { if (dialog.open) dialog.close(); };
+
+  /* Rank on where the query lands: a title that starts with it beats one that
+     merely contains it, and both beat a match in the surrounding context. */
+  const score = (entry, query) => {
+    const title = entry.title.toLowerCase();
+    const context = (entry.context || '').toLowerCase();
+    const text = (entry.text || '').toLowerCase();
+
+    if (title === query) return 0;
+    if (title.startsWith(query)) return 1;
+
+    const word = title.split(/[\s./_-]+/).some((part) => part.startsWith(query));
+    if (word) return 2;
+    if (title.includes(query)) return 3;
+    if (context.includes(query)) return 5;
+    if (text.includes(query)) return 6;
+    return Infinity;
+  };
+
+  const highlight = (value, query) => {
+    const at = value.toLowerCase().indexOf(query);
+    if (at < 0) return escapeHtml(value);
+    return escapeHtml(value.slice(0, at))
+      + '<mark>' + escapeHtml(value.slice(at, at + query.length)) + '</mark>'
+      + escapeHtml(value.slice(at + query.length));
+  };
+
+  const render = (matches, query = '') => {
+    results.innerHTML = '';
+    active = matches.length ? 0 : -1;
+
+    if (!query) {
+      hint.hidden = false;
+      hint.textContent = 'Type to search pages, packages, types and commands.';
+      return;
+    }
+    if (!matches.length) {
+      hint.hidden = false;
+      hint.textContent = `Nothing matches “${query}”.`;
+      return;
+    }
+    hint.hidden = true;
+
+    for (const [position, entry] of matches.entries()) {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.className = 'search-result' + (position === 0 ? ' is-active' : '');
+      link.href = entry.url;
+      link.setAttribute('role', 'option');
+      link.innerHTML =
+        `<span class="search-kind">${escapeHtml(entry.kind)}</span>`
+        + '<span class="search-result-text">'
+        + `<span class="search-result-title">${highlight(entry.title, query)}</span>`
+        + `<span class="search-result-context">${escapeHtml(entry.context || '')}</span>`
+        + '</span>';
+      item.append(link);
+      results.append(item);
+    }
+  };
+
+  const move = (delta) => {
+    const links = [...results.querySelectorAll('.search-result')];
+    if (!links.length) return;
+    links[active]?.classList.remove('is-active');
+    active = (active + delta + links.length) % links.length;
+    links[active].classList.add('is-active');
+    links[active].scrollIntoView({ block: 'nearest' });
+  };
+
+  input.addEventListener('input', async () => {
+    const query = input.value.trim().toLowerCase();
+    if (!query) return render([]);
+
+    const entries = await load();
+    const matches = entries
+      .map((entry) => ({ entry, rank: score(entry, query) }))
+      .filter((scored) => scored.rank !== Infinity)
+      .sort((a, b) => a.rank - b.rank || a.entry.title.length - b.entry.title.length)
+      .slice(0, 40)
+      .map((scored) => scored.entry);
+
+    render(matches, query);
+  });
+
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowDown') { event.preventDefault(); move(1); }
+    else if (event.key === 'ArrowUp') { event.preventDefault(); move(-1); }
+    else if (event.key === 'Enter') {
+      const link = results.querySelectorAll('.search-result')[active];
+      if (link) { event.preventDefault(); window.location.href = link.href; }
+    }
+  });
+
+  trigger.addEventListener('click', open);
+  close?.addEventListener('click', shut);
+  dialog.addEventListener('click', (event) => { if (event.target === dialog) shut(); });
+
+  document.addEventListener('keydown', (event) => {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      dialog.open ? shut() : open();
+    } else if (event.key === '/' && !dialog.open && !isTyping(event.target)) {
+      event.preventDefault();
+      open();
+    }
+  });
+}
+
+function isTyping(target) {
+  return target instanceof HTMLElement
+    && (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName));
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[character]));
+}
+
 /* ----------------------------------------------------------------- boot -- */
 
 initTheme();
 initNav();
+initSearch();
 initVersionMenu();
 initPlantUML();
 initMermaid();

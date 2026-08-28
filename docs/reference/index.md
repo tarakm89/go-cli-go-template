@@ -3,6 +3,7 @@ layout: "doc"
 nav_id: "reference"
 eyebrow: "Reference"
 title: "Reference"
+description: "Package and command documentation, generated from the worked example."
 reference_index: true
 ---
 

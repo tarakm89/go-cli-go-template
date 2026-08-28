@@ -11,6 +11,8 @@ doc_commit: "c29c2bb"
 doc_commit_url: "https://github.com/tarakm89/go-cli-go-template/commit/c29c2bbca092e57be6cf66818d5b50d07bc8c5d9"
 doc_subject: "Give specification and reference their own sections"
 doc_index: false
+breadcrumb_section: "Specification"
+breadcrumb_url: "/docs/specs/index.html"
 ---
 
 {% raw %}

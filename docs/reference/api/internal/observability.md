@@ -3,8 +3,12 @@ layout: "doc"
 nav_id: "reference"
 eyebrow: "Package"
 title: "internal/observability"
+breadcrumb_section: "Reference"
+breadcrumb_url: "/docs/reference/index.html"
 doc_generated: true
 doc_generator: "gomarkdoc"
+doc_prev_url: "/docs/reference/api/internal/core/service.html"
+doc_prev_title: "internal/core/service"
 ---
 
 {% raw %}
