@@ -45,7 +45,7 @@ const DefaultTimeout = 5 * time.Second
 ```
 
 <a name="SystemClock"></a>
-## func [SystemClock](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/httpprobe/httpprobe.go#L107>)
+## func SystemClock
 
 ```go
 func SystemClock() port.Clock
@@ -54,7 +54,7 @@ func SystemClock() port.Clock
 SystemClock returns the wall\-clock implementation of port.Clock.
 
 <a name="Adapter"></a>
-## type [Adapter](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/httpprobe/httpprobe.go#L19-L23>)
+## type Adapter
 
 Adapter implements port.Prober against a live HTTP endpoint.
 
@@ -65,7 +65,7 @@ type Adapter struct {
 ```
 
 <a name="New"></a>
-### func [New](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/httpprobe/httpprobe.go#L66>)
+### func New
 
 ```go
 func New(opts ...Option) *Adapter
@@ -74,7 +74,7 @@ func New(opts ...Option) *Adapter
 New builds an HTTP prober.
 
 <a name="Adapter.Probe"></a>
-### func \(\*Adapter\) [Probe](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/httpprobe/httpprobe.go#L80>)
+### func \(\*Adapter\) Probe
 
 ```go
 func (a *Adapter) Probe(ctx context.Context, target domain.Target) (domain.Probe, error)
@@ -83,7 +83,7 @@ func (a *Adapter) Probe(ctx context.Context, target domain.Target) (domain.Probe
 Probe performs one GET and reports the transport facts. Every failure is wrapped in domain.ErrUnreachable so the core stays free of HTTP semantics.
 
 <a name="Option"></a>
-## type [Option](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/httpprobe/httpprobe.go#L26>)
+## type Option
 
 Option customises the adapter.
 
@@ -92,7 +92,7 @@ type Option func(*Adapter)
 ```
 
 <a name="WithClient"></a>
-### func [WithClient](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/httpprobe/httpprobe.go#L30>)
+### func WithClient
 
 ```go
 func WithClient(c *http.Client) Option
@@ -101,7 +101,7 @@ func WithClient(c *http.Client) Option
 WithClient supplies a pre\-configured HTTP client, for callers that need custom transports, proxies or TLS settings.
 
 <a name="WithClock"></a>
-### func [WithClock](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/httpprobe/httpprobe.go#L48>)
+### func WithClock
 
 ```go
 func WithClock(c port.Clock) Option
@@ -110,7 +110,7 @@ func WithClock(c port.Clock) Option
 WithClock replaces the clock used to measure latency.
 
 <a name="WithTimeout"></a>
-### func [WithTimeout](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/httpprobe/httpprobe.go#L39>)
+### func WithTimeout
 
 ```go
 func WithTimeout(d time.Duration) Option
@@ -119,7 +119,7 @@ func WithTimeout(d time.Duration) Option
 WithTimeout bounds each request.
 
 <a name="WithUserAgent"></a>
-### func [WithUserAgent](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/httpprobe/httpprobe.go#L57>)
+### func WithUserAgent
 
 ```go
 func WithUserAgent(ua string) Option

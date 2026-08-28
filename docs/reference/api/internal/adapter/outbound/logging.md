@@ -36,7 +36,7 @@ The logger it wraps is the one built by internal/observability, so every record 
 
 
 <a name="Adapter"></a>
-## type [Adapter](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/logging/slog.go#L16>)
+## type Adapter
 
 Adapter implements port.Logger on top of a \*slog.Logger.
 
@@ -47,7 +47,7 @@ type Adapter struct {
 ```
 
 <a name="New"></a>
-### func [New](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/logging/slog.go#L20>)
+### func New
 
 ```go
 func New(logger *slog.Logger) *Adapter
@@ -56,7 +56,7 @@ func New(logger *slog.Logger) *Adapter
 New wraps an slog logger. A nil logger yields a no\-op adapter, so callers never have to guard against one.
 
 <a name="Nop"></a>
-### func [Nop](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/logging/slog.go#L28>)
+### func Nop
 
 ```go
 func Nop() *Adapter
@@ -65,7 +65,7 @@ func Nop() *Adapter
 Nop returns a logger that discards everything.
 
 <a name="Adapter.Debug"></a>
-### func \(\*Adapter\) [Debug](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/logging/slog.go#L31>)
+### func \(\*Adapter\) Debug
 
 ```go
 func (a *Adapter) Debug(ctx context.Context, msg string, attrs ...any)
@@ -74,7 +74,7 @@ func (a *Adapter) Debug(ctx context.Context, msg string, attrs ...any)
 Debug implements port.Logger.
 
 <a name="Adapter.Error"></a>
-### func \(\*Adapter\) [Error](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/logging/slog.go#L46>)
+### func \(\*Adapter\) Error
 
 ```go
 func (a *Adapter) Error(ctx context.Context, msg string, attrs ...any)
@@ -83,7 +83,7 @@ func (a *Adapter) Error(ctx context.Context, msg string, attrs ...any)
 Error implements port.Logger.
 
 <a name="Adapter.Info"></a>
-### func \(\*Adapter\) [Info](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/logging/slog.go#L36>)
+### func \(\*Adapter\) Info
 
 ```go
 func (a *Adapter) Info(ctx context.Context, msg string, attrs ...any)
@@ -92,7 +92,7 @@ func (a *Adapter) Info(ctx context.Context, msg string, attrs ...any)
 Info implements port.Logger.
 
 <a name="Adapter.Warn"></a>
-### func \(\*Adapter\) [Warn](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/logging/slog.go#L41>)
+### func \(\*Adapter\) Warn
 
 ```go
 func (a *Adapter) Warn(ctx context.Context, msg string, attrs ...any)
