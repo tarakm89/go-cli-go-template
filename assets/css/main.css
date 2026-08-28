@@ -516,6 +516,9 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
   color: var(--text); font: inherit; font-size: var(--step-1);
 }
 .search-input::placeholder { color: var(--text-faint); }
+/* type=search draws its own clear button; the dialog already has a close. */
+.search-input::-webkit-search-cancel-button,
+.search-input::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
 
 .search-results { flex: 1 1 auto; overflow-y: auto; padding: var(--s-2); margin: 0; list-style: none; }
 .search-results:empty { display: none; }
