@@ -17,7 +17,7 @@ kramdown:
 # Diagrams. Mermaid renders in the browser and follows the page theme.
 # PlantUML is rendered by a server, so it is off unless you set one — the
 # diagram source is sent to whatever host you name here.
-mermaid_version: "11.12.0"
+mermaid_version: "11.17.2"
 plantuml_server: ""
 
 nav:
