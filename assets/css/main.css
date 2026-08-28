@@ -655,7 +655,7 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
   margin: 0 0 var(--s-3); padding: 0; list-style: none;
   font-size: var(--step--1); color: var(--text-faint);
 }
-.breadcrumbs li { display: flex; align-items: center; gap: .35rem; }
+.breadcrumbs li { display: flex; align-items: center; gap: .35rem; min-width: 0; overflow-wrap: anywhere; }
 .breadcrumbs li + li::before { content: "/"; color: var(--border-strong); }
 .breadcrumbs a { color: var(--text-muted); }
 .breadcrumbs a:hover { color: var(--accent); }
@@ -766,7 +766,10 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
   background: var(--surface-2); color: var(--code-text);
   padding: .12em .38em; border-radius: 5px;
   border: 1px solid var(--border);
-  word-break: break-word;
+  /* `anywhere` rather than `break-word`: only this one shrinks the element's
+     min-content size, which is what the grid column is measured against. A
+     long inline path was otherwise holding the whole column open. */
+  overflow-wrap: anywhere;
 }
 .content a code { color: inherit; border-color: var(--accent-border); }
 
@@ -1059,7 +1062,7 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
 }
 .map-package:hover { border-color: var(--border-strong); }
 .map-package-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem .75rem; margin: 0; }
-.map-package-head a { font-family: var(--font-mono); font-size: var(--step--1); font-weight: 550; letter-spacing: -.01em; }
+.map-package-head a { font-family: var(--font-mono); font-size: var(--step--1); font-weight: 550; letter-spacing: -.01em; overflow-wrap: anywhere; }
 .map-package-head span { font-size: var(--step--2); color: var(--text-faint); }
 
 .content ul.map-symbols, .content ul.map-children { list-style: none; margin: .65rem 0 0; padding: 0; }
