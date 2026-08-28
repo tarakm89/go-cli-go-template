@@ -134,6 +134,19 @@ Files under `.github/workflows/` in the template are listed in
 `{{ ... }}` would otherwise collide. Anything project-specific those workflows
 need comes from the `Makefile`, which *is* rendered.
 
+## Versions
+
+[`CHANGELOG.md`](CHANGELOG.md) records every release, and the
+[documentation site](https://tarakm89.github.io/go-cli-go-template/versions.html)
+renders it with links to the diffs.
+
+Versioning applies to the template, not to projects generated from it. To see
+what changed in the scaffold between two releases:
+
+```sh
+git diff v0.1.0..v0.2.0 -- '{{cookiecutter.project_slug}}'
+```
+
 ## Licence
 
 MIT.
