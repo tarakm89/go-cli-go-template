@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "specification"
 title: "Implementation plans"
 eyebrow: "Plan"
 doc_path: "docs/plans/README.md"

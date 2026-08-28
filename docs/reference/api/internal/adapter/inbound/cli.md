@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "reference"
 eyebrow: "Package"
 title: "internal/adapter/inbound/cli"
 doc_generated: true
@@ -41,7 +41,7 @@ const (
 ```
 
 <a name="NewRoot"></a>
-## func NewRoot
+## func [NewRoot](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/inbound/cli/cli.go#L90>)
 
 ```go
 func NewRoot(opts Options) (root *cobra.Command, shutdown func(context.Context) error)
@@ -50,7 +50,7 @@ func NewRoot(opts Options) (root *cobra.Command, shutdown func(context.Context) 
 NewRoot builds the command tree and a cleanup function. The cleanup flushes telemetry and must be called even when execution fails, so callers should defer it immediately.
 
 <a name="Options"></a>
-## type Options
+## type [Options](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/inbound/cli/cli.go#L42-L60>)
 
 Options configures a command tree. The adapter fields are the seams the functional suite uses: leave them nil for the real thing.
 

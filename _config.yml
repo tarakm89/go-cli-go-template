@@ -32,15 +32,15 @@ nav:
   - id: usage
     title: Getting started
     url: /usage.html
-  - id: configured
-    title: What's configured
-    url: /configured.html
-  - id: mentality
-    title: How we write code
-    url: /mentality.html
-  - id: docs
-    title: Docs
-    url: /docs/index.html
+  - id: architecture
+    title: Architecture
+    url: /docs/architecture.html
+  - id: specification
+    title: Specification
+    url: /docs/specs/index.html
+  - id: reference
+    title: Reference
+    url: /docs/reference/index.html
   - id: versions
     title: Versions
     url: /versions.html

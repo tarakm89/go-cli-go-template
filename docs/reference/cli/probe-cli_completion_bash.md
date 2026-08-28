@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "reference"
 eyebrow: "Command"
 title: "probe-cli completion bash"
 doc_generated: true

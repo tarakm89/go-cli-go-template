@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "reference"
 eyebrow: "Package"
 title: "internal/core/domain"
 doc_generated: true
@@ -46,7 +46,7 @@ var (
 ```
 
 <a name="Health"></a>
-## type Health
+## type [Health](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/domain/domain.go#L73-L78>)
 
 Health is the core's verdict about a target.
 
@@ -60,7 +60,7 @@ type Health struct {
 ```
 
 <a name="Unreachable"></a>
-### func Unreachable
+### func [Unreachable](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/domain/domain.go#L120>)
 
 ```go
 func Unreachable(target Target, cause error) Health
@@ -71,7 +71,7 @@ Unreachable builds the verdict for a target that could not be contacted.
 The ErrUnreachable prefix is stripped from the detail: the state column already says the target is down, so repeating it would only push the useful part of the message off the edge of a terminal.
 
 <a name="Probe"></a>
-## type Probe
+## type [Probe](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/domain/domain.go#L67-L70>)
 
 Probe is the raw observation an outbound adapter brings back from a target. It carries transport facts only; interpreting them is the core's job.
 
@@ -83,7 +83,7 @@ type Probe struct {
 ```
 
 <a name="State"></a>
-## type State
+## type [State](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/domain/domain.go#L24>)
 
 State is the health of a target as judged by the core.
 
@@ -102,7 +102,7 @@ const (
 ```
 
 <a name="Summary"></a>
-### func Summary
+### func [Summary](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/domain/domain.go#L130>)
 
 ```go
 func Summary(checks []Health) State
@@ -111,7 +111,7 @@ func Summary(checks []Health) State
 Summary aggregates a set of verdicts into the worst state observed. An empty set is reported as up: there is nothing broken.
 
 <a name="State.String"></a>
-### func \(State\) String
+### func \(State\) [String](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/domain/domain.go#L34>)
 
 ```go
 func (s State) String() string
@@ -120,7 +120,7 @@ func (s State) String() string
 String implements fmt.Stringer.
 
 <a name="Target"></a>
-## type Target
+## type [Target](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/domain/domain.go#L37-L42>)
 
 Target is an external system the application knows how to talk to.
 
@@ -134,7 +134,7 @@ type Target struct {
 ```
 
 <a name="NewTarget"></a>
-### func NewTarget
+### func [NewTarget](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/domain/domain.go#L45>)
 
 ```go
 func NewTarget(raw string) (Target, error)
@@ -143,7 +143,7 @@ func NewTarget(raw string) (Target, error)
 NewTarget validates raw user input and turns it into a Target.
 
 <a name="Thresholds"></a>
-## type Thresholds
+## type [Thresholds](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/domain/domain.go#L81-L84>)
 
 Thresholds decide when a reachable target is considered merely degraded.
 
@@ -155,7 +155,7 @@ type Thresholds struct {
 ```
 
 <a name="DefaultThresholds"></a>
-### func DefaultThresholds
+### func [DefaultThresholds](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/domain/domain.go#L87>)
 
 ```go
 func DefaultThresholds() Thresholds
@@ -164,7 +164,7 @@ func DefaultThresholds() Thresholds
 DefaultThresholds are used when the caller does not supply any.
 
 <a name="Thresholds.Evaluate"></a>
-### func \(Thresholds\) Evaluate
+### func \(Thresholds\) [Evaluate](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/domain/domain.go#L94>)
 
 ```go
 func (t Thresholds) Evaluate(target Target, probe Probe) Health

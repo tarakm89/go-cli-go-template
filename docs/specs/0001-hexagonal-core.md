@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "specification"
 title: "0001 — A hexagonal core with an enforced dependency rule"
 eyebrow: "Spec"
 doc_path: "docs/specs/0001-hexagonal-core.md"

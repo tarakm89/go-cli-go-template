@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "reference"
 eyebrow: "Package"
 title: "internal/observability"
 doc_generated: true
@@ -56,7 +56,7 @@ const DefaultShutdownTimeout = 5 * time.Second
 ```
 
 <a name="DetectCI"></a>
-## func DetectCI
+## func [DetectCI](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/ci.go#L16>)
 
 ```go
 func DetectCI() []attribute.KeyValue
@@ -67,7 +67,7 @@ DetectCI returns resource attributes describing the pipeline this process is run
 Nothing here fails: outside CI the slice comes back empty.
 
 <a name="LogFormats"></a>
-## func LogFormats
+## func [LogFormats](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/config.go#L62>)
 
 ```go
 func LogFormats() []string
@@ -76,7 +76,7 @@ func LogFormats() []string
 LogFormats lists every supported log format.
 
 <a name="ParseLevel"></a>
-## func ParseLevel
+## func [ParseLevel](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/config.go#L156>)
 
 ```go
 func ParseLevel(raw string) (slog.Level, error)
@@ -85,7 +85,7 @@ func ParseLevel(raw string) (slog.Level, error)
 ParseLevel validates a log level.
 
 <a name="ProcessAttributes"></a>
-## func ProcessAttributes
+## func [ProcessAttributes](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/ci.go#L76>)
 
 ```go
 func ProcessAttributes(command string, args []string) []attribute.KeyValue
@@ -94,7 +94,7 @@ func ProcessAttributes(command string, args []string) []attribute.KeyValue
 ProcessAttributes describes the invocation itself: which command ran and with what arguments.
 
 <a name="Protocols"></a>
-## func Protocols
+## func [Protocols](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/config.go#L43>)
 
 ```go
 func Protocols() []string
@@ -103,7 +103,7 @@ func Protocols() []string
 Protocols lists every supported protocol, for flag help and validation.
 
 <a name="Config"></a>
-## type Config
+## type [Config](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/config.go#L69-L91>)
 
 Config is everything the SDK needs. Build it with ConfigFromEnv and let command line flags override individual fields.
 
@@ -134,7 +134,7 @@ type Config struct {
 ```
 
 <a name="ConfigFromEnv"></a>
-### func ConfigFromEnv
+### func [ConfigFromEnv](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/config.go#L95>)
 
 ```go
 func ConfigFromEnv(serviceName, serviceVersion string) Config
@@ -143,7 +143,7 @@ func ConfigFromEnv(serviceName, serviceVersion string) Config
 ConfigFromEnv reads the standard OTEL\_\* environment variables and this application's own overrides, returning a Config that is safe to use as is.
 
 <a name="LogFormat"></a>
-## type LogFormat
+## type [LogFormat](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/config.go#L51>)
 
 LogFormat selects the console log encoding.
 
@@ -163,7 +163,7 @@ const (
 ```
 
 <a name="ParseLogFormat"></a>
-### func ParseLogFormat
+### func [ParseLogFormat](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/config.go#L146>)
 
 ```go
 func ParseLogFormat(raw string) (LogFormat, error)
@@ -172,7 +172,7 @@ func ParseLogFormat(raw string) (LogFormat, error)
 ParseLogFormat validates a console log format.
 
 <a name="Protocol"></a>
-## type Protocol
+## type [Protocol](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/config.go#L28>)
 
 Protocol selects how telemetry leaves the process.
 
@@ -196,7 +196,7 @@ const (
 ```
 
 <a name="ParseProtocol"></a>
-### func ParseProtocol
+### func [ParseProtocol](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/config.go#L134>)
 
 ```go
 func ParseProtocol(raw string) (Protocol, error)
@@ -205,7 +205,7 @@ func ParseProtocol(raw string) (Protocol, error)
 ParseProtocol validates a protocol name.
 
 <a name="Telemetry"></a>
-## type Telemetry
+## type [Telemetry](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/otel.go#L34-L49>)
 
 Telemetry is the handle a wired application holds onto. Everything on it is safe to use even when export is disabled: the providers are then no\-ops.
 
@@ -227,7 +227,7 @@ type Telemetry struct {
 ```
 
 <a name="Disabled"></a>
-### func Disabled
+### func [Disabled](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/otel.go#L117>)
 
 ```go
 func Disabled(cfg Config) *Telemetry
@@ -236,7 +236,7 @@ func Disabled(cfg Config) *Telemetry
 Disabled returns a fully functional handle that exports nothing. Use it when the SDK could not be built, or in tests that do not care about telemetry.
 
 <a name="Setup"></a>
-### func Setup
+### func [Setup](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/otel.go#L56>)
 
 ```go
 func Setup(ctx context.Context, cfg Config) (*Telemetry, error)
@@ -247,7 +247,7 @@ Setup builds the SDK from cfg and installs it as the process\-wide default.
 It never returns a partially installed SDK: if any provider fails to build, everything already created is shut down and the error is returned. Callers that would rather degrade than fail should log the error and call Disabled.
 
 <a name="WithProviders"></a>
-### func WithProviders
+### func [WithProviders](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/otel.go#L290>)
 
 ```go
 func WithProviders(name string, tracerProvider trace.TracerProvider, meterProvider metric.MeterProvider, logger *slog.Logger) *Telemetry
@@ -258,7 +258,7 @@ WithProviders builds a handle around providers the caller already owns.
 This is the seam the functional suite uses: it hands in an in\-memory span exporter and a manual metric reader, then asserts on the telemetry the run produced. Shutdown is a no\-op here — whoever supplied the providers is responsible for flushing them.
 
 <a name="Telemetry.ContextFromEnvironment"></a>
-### func \(\*Telemetry\) ContextFromEnvironment
+### func \(\*Telemetry\) [ContextFromEnvironment](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/otel.go#L170>)
 
 ```go
 func (t *Telemetry) ContextFromEnvironment(ctx context.Context) context.Context
@@ -267,7 +267,7 @@ func (t *Telemetry) ContextFromEnvironment(ctx context.Context) context.Context
 ContextFromEnvironment adopts a TRACEPARENT/TRACESTATE pair published by the surrounding CI system, so this process becomes a child span of the pipeline step rather than the root of its own trace.
 
 <a name="Telemetry.InjectIntoEnvironment"></a>
-### func \(\*Telemetry\) InjectIntoEnvironment
+### func \(\*Telemetry\) [InjectIntoEnvironment](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/otel.go#L185>)
 
 ```go
 func (t *Telemetry) InjectIntoEnvironment(ctx context.Context) []string
@@ -276,7 +276,7 @@ func (t *Telemetry) InjectIntoEnvironment(ctx context.Context) []string
 InjectIntoEnvironment renders the current span context as environment variables, ready to hand to a child process so the trace keeps going.
 
 <a name="Telemetry.Shutdown"></a>
-### func \(\*Telemetry\) Shutdown
+### func \(\*Telemetry\) [Shutdown](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/observability/otel.go#L145>)
 
 ```go
 func (t *Telemetry) Shutdown(ctx context.Context) error

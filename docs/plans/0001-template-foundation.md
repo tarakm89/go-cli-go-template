@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "specification"
 title: "0001 — Bringing the template to v0.1.0"
 eyebrow: "Plan"
 doc_path: "docs/plans/0001-template-foundation.md"

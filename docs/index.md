@@ -1,15 +1,15 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "specification"
 title: "Documentation"
 eyebrow: "Docs"
 doc_path: "docs/README.md"
 doc_source: "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/README.md"
 doc_history: "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/README.md"
 doc_updated: "2026-08-28"
-doc_commit: "f5232c7"
-doc_commit_url: "https://github.com/tarakm89/go-cli-go-template/commit/f5232c76e480ddf4d4e69c6e375826f44a251f1b"
-doc_subject: "Publish the Go reference, and deploy the site from this branch"
+doc_commit: "c29c2bb"
+doc_commit_url: "https://github.com/tarakm89/go-cli-go-template/commit/c29c2bbca092e57be6cf66818d5b50d07bc8c5d9"
+doc_subject: "Give specification and reference their own sections"
 doc_index: true
 ---
 
@@ -27,9 +27,9 @@ push to `main`, so the site and the source can never disagree.
 | [`plans/`](plans/) | Implementation plans for work in flight | *How are we going to get there, in what order?* |
 | [Reference](reference/) | Package and command documentation, generated | *What does this package expose? What flags does this command take?* |
 
-The reference is not in this directory: it is generated in CI from the
-template's worked example, so it is only ever visible on the published site.
-`make docs` in your own project produces the same pages into `docs/api` and
+The reference has a section of its own on the site and is not in this
+directory: it is generated in CI from the template's worked example. `make
+docs` in your own project produces the same pages into `docs/api` and
 `docs/cli`.
 
 ## Spec-driven, in practice

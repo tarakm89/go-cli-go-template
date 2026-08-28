@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "reference"
 eyebrow: "Package"
 title: "internal/buildinfo"
 doc_generated: true
@@ -33,7 +33,7 @@ const Name = "probe-cli"
 ```
 
 <a name="Info"></a>
-## type Info
+## type [Info](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/buildinfo/buildinfo.go#L22-L29>)
 
 Info describes the running binary.
 
@@ -49,7 +49,7 @@ type Info struct {
 ```
 
 <a name="Get"></a>
-### func Get
+### func [Get](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/buildinfo/buildinfo.go#L37>)
 
 ```go
 func Get() Info
@@ -58,7 +58,7 @@ func Get() Info
 Get assembles the build information, filling any gaps from the module's embedded VCS stamps.
 
 <a name="Info.String"></a>
-### func \(Info\) String
+### func \(Info\) [String](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/buildinfo/buildinfo.go#L72>)
 
 ```go
 func (i Info) String() string

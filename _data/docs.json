@@ -7,12 +7,12 @@
       "section": "root",
       "status": null,
       "commit": {
-        "sha": "f5232c76e480ddf4d4e69c6e375826f44a251f1b",
-        "short_sha": "f5232c7",
+        "sha": "c29c2bbca092e57be6cf66818d5b50d07bc8c5d9",
+        "short_sha": "c29c2bb",
         "date": "2026-08-28",
         "author": "tarakm89",
-        "subject": "Publish the Go reference, and deploy the site from this branch",
-        "url": "https://github.com/tarakm89/go-cli-go-template/commit/f5232c76e480ddf4d4e69c6e375826f44a251f1b"
+        "subject": "Give specification and reference their own sections",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/c29c2bbca092e57be6cf66818d5b50d07bc8c5d9"
       },
       "release": null,
       "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/README.md",
@@ -127,18 +127,18 @@
       "history_url": "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/specs/0003-spec-driven-docs.md"
     },
     {
-      "title": "Specs",
+      "title": "Specification",
       "path": "docs/specs/README.md",
       "url": "/docs/specs/index.html",
       "section": "specs",
       "status": null,
       "commit": {
-        "sha": "0e3a9dc65c827c4f9a625bcbdf34344669ec5c0a",
-        "short_sha": "0e3a9dc",
-        "date": "2026-08-27",
+        "sha": "c29c2bbca092e57be6cf66818d5b50d07bc8c5d9",
+        "short_sha": "c29c2bb",
+        "date": "2026-08-28",
         "author": "tarakm89",
-        "subject": "Point the spec index at the generated list",
-        "url": "https://github.com/tarakm89/go-cli-go-template/commit/0e3a9dc65c827c4f9a625bcbdf34344669ec5c0a"
+        "subject": "Give specification and reference their own sections",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/c29c2bbca092e57be6cf66818d5b50d07bc8c5d9"
       },
       "release": null,
       "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/specs/README.md",

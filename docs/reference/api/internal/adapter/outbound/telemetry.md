@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "reference"
 eyebrow: "Package"
 title: "internal/adapter/outbound/telemetry"
 doc_generated: true
@@ -32,7 +32,7 @@ This is the piece that keeps observability out of the hexagon: rather than scatt
 
 
 <a name="InstrumentedHealthChecker"></a>
-## type InstrumentedHealthChecker
+## type [InstrumentedHealthChecker](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/telemetry/telemetry.go#L137-L141>)
 
 InstrumentedHealthChecker wraps the inbound port so that a whole run shows up as one span with a child per target.
 
@@ -43,7 +43,7 @@ type InstrumentedHealthChecker struct {
 ```
 
 <a name="NewHealthChecker"></a>
-### func NewHealthChecker
+### func [NewHealthChecker](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/telemetry/telemetry.go#L144>)
 
 ```go
 func NewHealthChecker(next port.HealthChecker, tracer trace.Tracer, instruments *Instruments) *InstrumentedHealthChecker
@@ -52,7 +52,7 @@ func NewHealthChecker(next port.HealthChecker, tracer trace.Tracer, instruments 
 NewHealthChecker decorates next.
 
 <a name="InstrumentedHealthChecker.Check"></a>
-### func \(\*InstrumentedHealthChecker\) Check
+### func \(\*InstrumentedHealthChecker\) [Check](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/telemetry/telemetry.go#L149>)
 
 ```go
 func (h *InstrumentedHealthChecker) Check(ctx context.Context, target domain.Target) domain.Health
@@ -61,7 +61,7 @@ func (h *InstrumentedHealthChecker) Check(ctx context.Context, target domain.Tar
 Check implements port.HealthChecker.
 
 <a name="InstrumentedHealthChecker.CheckAll"></a>
-### func \(\*InstrumentedHealthChecker\) CheckAll
+### func \(\*InstrumentedHealthChecker\) [CheckAll](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/telemetry/telemetry.go#L161>)
 
 ```go
 func (h *InstrumentedHealthChecker) CheckAll(ctx context.Context, targets []domain.Target) []domain.Health
@@ -70,7 +70,7 @@ func (h *InstrumentedHealthChecker) CheckAll(ctx context.Context, targets []doma
 CheckAll implements port.HealthChecker.
 
 <a name="InstrumentedProber"></a>
-## type InstrumentedProber
+## type [InstrumentedProber](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/telemetry/telemetry.go#L77-L82>)
 
 InstrumentedProber wraps an outbound prober with a span, a duration histogram and an outcome counter.
 
@@ -81,7 +81,7 @@ type InstrumentedProber struct {
 ```
 
 <a name="NewProber"></a>
-### func NewProber
+### func [NewProber](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/telemetry/telemetry.go#L86>)
 
 ```go
 func NewProber(next port.Prober, tracer trace.Tracer, instruments *Instruments, logger port.Logger) *InstrumentedProber
@@ -90,7 +90,7 @@ func NewProber(next port.Prober, tracer trace.Tracer, instruments *Instruments, 
 NewProber decorates next. A nil tracer, instrument set or logger is tolerated, so this is safe to apply unconditionally.
 
 <a name="InstrumentedProber.Probe"></a>
-### func \(\*InstrumentedProber\) Probe
+### func \(\*InstrumentedProber\) [Probe](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/telemetry/telemetry.go#L91>)
 
 ```go
 func (p *InstrumentedProber) Probe(ctx context.Context, target domain.Target) (domain.Probe, error)
@@ -99,7 +99,7 @@ func (p *InstrumentedProber) Probe(ctx context.Context, target domain.Target) (d
 Probe implements port.Prober.
 
 <a name="Instruments"></a>
-## type Instruments
+## type [Instruments](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/telemetry/telemetry.go#L33-L37>)
 
 Instruments holds the metric instruments used by the decorators. Building them once and passing them around keeps the hot path free of lookups.
 
@@ -110,7 +110,7 @@ type Instruments struct {
 ```
 
 <a name="NewInstruments"></a>
-### func NewInstruments
+### func [NewInstruments](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/telemetry/telemetry.go#L40>)
 
 ```go
 func NewInstruments(meter metric.Meter) (*Instruments, error)

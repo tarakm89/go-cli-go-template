@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "specification"
 title: "0002 — OpenTelemetry for tools that run inside pipelines"
 eyebrow: "Spec"
 doc_path: "docs/specs/0002-observability-in-ci.md"

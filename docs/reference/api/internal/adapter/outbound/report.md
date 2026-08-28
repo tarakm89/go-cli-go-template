@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "reference"
 eyebrow: "Package"
 title: "internal/adapter/outbound/report"
 doc_generated: true
@@ -28,7 +28,7 @@ Package report contains the driven adapters that present results. Two adapters s
 
 
 <a name="Formats"></a>
-## func Formats
+## func [Formats](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/report/report.go#L28>)
 
 ```go
 func Formats() []string
@@ -37,7 +37,7 @@ func Formats() []string
 Formats lists every supported format, for flag help and validation.
 
 <a name="New"></a>
-## func New
+## func [New](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/report/report.go#L31>)
 
 ```go
 func New(format string, w io.Writer) (port.Reporter, error)
@@ -46,7 +46,7 @@ func New(format string, w io.Writer) (port.Reporter, error)
 New returns the reporter for the named format.
 
 <a name="Format"></a>
-## type Format
+## type [Format](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/report/report.go#L19>)
 
 Format selects a reporter implementation.
 
@@ -64,7 +64,7 @@ const (
 ```
 
 <a name="JSON"></a>
-## type JSON
+## type [JSON](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/report/report.go#L76>)
 
 JSON renders a machine readable document, so the CLI composes with jq and with whatever runs it in CI.
 
@@ -75,7 +75,7 @@ type JSON struct {
 ```
 
 <a name="JSON.Report"></a>
-### func \(\*JSON\) Report
+### func \(\*JSON\) [Report](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/report/report.go#L92>)
 
 ```go
 func (j *JSON) Report(checks []domain.Health) error
@@ -84,7 +84,7 @@ func (j *JSON) Report(checks []domain.Health) error
 Report implements port.Reporter.
 
 <a name="Text"></a>
-## type Text
+## type [Text](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/report/report.go#L43>)
 
 Text renders a human readable table.
 
@@ -95,7 +95,7 @@ type Text struct {
 ```
 
 <a name="Text.Report"></a>
-### func \(\*Text\) Report
+### func \(\*Text\) [Report](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/adapter/outbound/report/report.go#L46>)
 
 ```go
 func (t *Text) Report(checks []domain.Health) error

@@ -4,80 +4,1555 @@
     {
       "import_path": "cmd/probe-cli",
       "name": "probe-cli",
+      "layer": "Entry point",
       "url": "/docs/reference/api/cmd/probe-cli.html",
-      "summary": "Command probe-cli is a command line application built with cobra and a hexagonal (ports & adapters) core."
+      "summary": "Command probe-cli is a command line application built with cobra and a hexagonal (ports & adapters) core.",
+      "symbols": []
     },
     {
       "import_path": "internal/adapter/inbound/cli",
       "name": "cli",
+      "layer": "Driving adapters",
       "url": "/docs/reference/api/internal/adapter/inbound/cli.html",
-      "summary": "Package cli is the driving adapter: it turns command line input into calls on the inbound port and hands the results to a reporter."
+      "summary": "Package cli is the driving adapter: it turns command line input into calls on the inbound port and hands the results to a reporter.",
+      "symbols": [
+        {
+          "kind": "constants",
+          "name": "Constants",
+          "anchor": "constants",
+          "children": []
+        },
+        {
+          "kind": "func",
+          "name": "NewRoot",
+          "anchor": "NewRoot",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "Options",
+          "anchor": "Options",
+          "children": []
+        }
+      ]
     },
     {
       "import_path": "internal/adapter/outbound/fake",
       "name": "fake",
+      "layer": "Driven adapters",
       "url": "/docs/reference/api/internal/adapter/outbound/fake.html",
-      "summary": "Package fake holds in-memory implementations of every outbound port."
+      "summary": "Package fake holds in-memory implementations of every outbound port.",
+      "symbols": [
+        {
+          "kind": "type",
+          "name": "Clock",
+          "anchor": "Clock",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "NewClock",
+              "anchor": "NewClock"
+            },
+            {
+              "kind": "method",
+              "name": "Advance",
+              "anchor": "Clock.Advance"
+            },
+            {
+              "kind": "method",
+              "name": "Now",
+              "anchor": "Clock.Now"
+            },
+            {
+              "kind": "method",
+              "name": "Since",
+              "anchor": "Clock.Since"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Logger",
+          "anchor": "Logger",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "NewLogger",
+              "anchor": "NewLogger"
+            },
+            {
+              "kind": "method",
+              "name": "Debug",
+              "anchor": "Logger.Debug"
+            },
+            {
+              "kind": "method",
+              "name": "Error",
+              "anchor": "Logger.Error"
+            },
+            {
+              "kind": "method",
+              "name": "Info",
+              "anchor": "Logger.Info"
+            },
+            {
+              "kind": "method",
+              "name": "Messages",
+              "anchor": "Logger.Messages"
+            },
+            {
+              "kind": "method",
+              "name": "Records",
+              "anchor": "Logger.Records"
+            },
+            {
+              "kind": "method",
+              "name": "Warn",
+              "anchor": "Logger.Warn"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Prober",
+          "anchor": "Prober",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "NewProber",
+              "anchor": "NewProber"
+            },
+            {
+              "kind": "method",
+              "name": "CallCount",
+              "anchor": "Prober.CallCount"
+            },
+            {
+              "kind": "method",
+              "name": "Calls",
+              "anchor": "Prober.Calls"
+            },
+            {
+              "kind": "method",
+              "name": "Probe",
+              "anchor": "Prober.Probe"
+            },
+            {
+              "kind": "method",
+              "name": "Reset",
+              "anchor": "Prober.Reset"
+            },
+            {
+              "kind": "method",
+              "name": "With",
+              "anchor": "Prober.With"
+            },
+            {
+              "kind": "method",
+              "name": "WithFailure",
+              "anchor": "Prober.WithFailure"
+            },
+            {
+              "kind": "method",
+              "name": "WithFallback",
+              "anchor": "Prober.WithFallback"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Record",
+          "anchor": "Record",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "Reporter",
+          "anchor": "Reporter",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "NewReporter",
+              "anchor": "NewReporter"
+            },
+            {
+              "kind": "method",
+              "name": "Last",
+              "anchor": "Reporter.Last"
+            },
+            {
+              "kind": "method",
+              "name": "Report",
+              "anchor": "Reporter.Report"
+            },
+            {
+              "kind": "method",
+              "name": "Reports",
+              "anchor": "Reporter.Reports"
+            },
+            {
+              "kind": "method",
+              "name": "WithError",
+              "anchor": "Reporter.WithError"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Response",
+          "anchor": "Response",
+          "children": []
+        }
+      ]
     },
     {
       "import_path": "internal/adapter/outbound/httpprobe",
       "name": "httpprobe",
+      "layer": "Driven adapters",
       "url": "/docs/reference/api/internal/adapter/outbound/httpprobe.html",
-      "summary": "Package httpprobe is the driven adapter that talks to real external systems over HTTP."
+      "summary": "Package httpprobe is the driven adapter that talks to real external systems over HTTP.",
+      "symbols": [
+        {
+          "kind": "constants",
+          "name": "Constants",
+          "anchor": "constants",
+          "children": []
+        },
+        {
+          "kind": "func",
+          "name": "SystemClock",
+          "anchor": "SystemClock",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "Adapter",
+          "anchor": "Adapter",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "New",
+              "anchor": "New"
+            },
+            {
+              "kind": "method",
+              "name": "Probe",
+              "anchor": "Adapter.Probe"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Option",
+          "anchor": "Option",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "WithClient",
+              "anchor": "WithClient"
+            },
+            {
+              "kind": "constructor",
+              "name": "WithClock",
+              "anchor": "WithClock"
+            },
+            {
+              "kind": "constructor",
+              "name": "WithTimeout",
+              "anchor": "WithTimeout"
+            },
+            {
+              "kind": "constructor",
+              "name": "WithUserAgent",
+              "anchor": "WithUserAgent"
+            }
+          ]
+        }
+      ]
     },
     {
       "import_path": "internal/adapter/outbound/logging",
       "name": "logging",
+      "layer": "Driven adapters",
       "url": "/docs/reference/api/internal/adapter/outbound/logging.html",
-      "summary": "Package logging adapts log/slog to the port.Logger outbound port."
+      "summary": "Package logging adapts log/slog to the port.Logger outbound port.",
+      "symbols": [
+        {
+          "kind": "type",
+          "name": "Adapter",
+          "anchor": "Adapter",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "New",
+              "anchor": "New"
+            },
+            {
+              "kind": "constructor",
+              "name": "Nop",
+              "anchor": "Nop"
+            },
+            {
+              "kind": "method",
+              "name": "Debug",
+              "anchor": "Adapter.Debug"
+            },
+            {
+              "kind": "method",
+              "name": "Error",
+              "anchor": "Adapter.Error"
+            },
+            {
+              "kind": "method",
+              "name": "Info",
+              "anchor": "Adapter.Info"
+            },
+            {
+              "kind": "method",
+              "name": "Warn",
+              "anchor": "Adapter.Warn"
+            }
+          ]
+        }
+      ]
     },
     {
       "import_path": "internal/adapter/outbound/report",
       "name": "report",
+      "layer": "Driven adapters",
       "url": "/docs/reference/api/internal/adapter/outbound/report.html",
-      "summary": "Package report contains the driven adapters that present results."
+      "summary": "Package report contains the driven adapters that present results.",
+      "symbols": [
+        {
+          "kind": "func",
+          "name": "Formats",
+          "anchor": "Formats",
+          "children": []
+        },
+        {
+          "kind": "func",
+          "name": "New",
+          "anchor": "New",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "Format",
+          "anchor": "Format",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "JSON",
+          "anchor": "JSON",
+          "children": [
+            {
+              "kind": "method",
+              "name": "Report",
+              "anchor": "JSON.Report"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Text",
+          "anchor": "Text",
+          "children": [
+            {
+              "kind": "method",
+              "name": "Report",
+              "anchor": "Text.Report"
+            }
+          ]
+        }
+      ]
     },
     {
       "import_path": "internal/adapter/outbound/telemetry",
       "name": "telemetry",
+      "layer": "Driven adapters",
       "url": "/docs/reference/api/internal/adapter/outbound/telemetry.html",
-      "summary": "Package telemetry instruments the ports."
+      "summary": "Package telemetry instruments the ports.",
+      "symbols": [
+        {
+          "kind": "type",
+          "name": "InstrumentedHealthChecker",
+          "anchor": "InstrumentedHealthChecker",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "NewHealthChecker",
+              "anchor": "NewHealthChecker"
+            },
+            {
+              "kind": "method",
+              "name": "Check",
+              "anchor": "InstrumentedHealthChecker.Check"
+            },
+            {
+              "kind": "method",
+              "name": "CheckAll",
+              "anchor": "InstrumentedHealthChecker.CheckAll"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "InstrumentedProber",
+          "anchor": "InstrumentedProber",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "NewProber",
+              "anchor": "NewProber"
+            },
+            {
+              "kind": "method",
+              "name": "Probe",
+              "anchor": "InstrumentedProber.Probe"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Instruments",
+          "anchor": "Instruments",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "NewInstruments",
+              "anchor": "NewInstruments"
+            }
+          ]
+        }
+      ]
     },
     {
       "import_path": "internal/bootstrap",
       "name": "bootstrap",
+      "layer": "Infrastructure",
       "url": "/docs/reference/api/internal/bootstrap.html",
-      "summary": "Package bootstrap is the process-level entry point: it owns the signal handling, the lifetime of telemetry and the mapping from an error to an exit code."
+      "summary": "Package bootstrap is the process-level entry point: it owns the signal handling, the lifetime of telemetry and the mapping from an error to an exit code.",
+      "symbols": [
+        {
+          "kind": "func",
+          "name": "Run",
+          "anchor": "Run",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "Options",
+          "anchor": "Options",
+          "children": []
+        }
+      ]
     },
     {
       "import_path": "internal/buildinfo",
       "name": "buildinfo",
+      "layer": "Infrastructure",
       "url": "/docs/reference/api/internal/buildinfo.html",
-      "summary": "Package buildinfo carries the identity of the binary."
+      "summary": "Package buildinfo carries the identity of the binary.",
+      "symbols": [
+        {
+          "kind": "constants",
+          "name": "Constants",
+          "anchor": "constants",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "Info",
+          "anchor": "Info",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "Get",
+              "anchor": "Get"
+            },
+            {
+              "kind": "method",
+              "name": "String",
+              "anchor": "Info.String"
+            }
+          ]
+        }
+      ]
     },
     {
       "import_path": "internal/core/domain",
       "name": "domain",
+      "layer": "Core",
       "url": "/docs/reference/api/internal/core/domain.html",
-      "summary": "Package domain holds the entities, value objects and rules that make up the core of the hexagon."
+      "summary": "Package domain holds the entities, value objects and rules that make up the core of the hexagon.",
+      "symbols": [
+        {
+          "kind": "variables",
+          "name": "Variables",
+          "anchor": "variables",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "Health",
+          "anchor": "Health",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "Unreachable",
+              "anchor": "Unreachable"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Probe",
+          "anchor": "Probe",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "State",
+          "anchor": "State",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "Summary",
+              "anchor": "Summary"
+            },
+            {
+              "kind": "method",
+              "name": "String",
+              "anchor": "State.String"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Target",
+          "anchor": "Target",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "NewTarget",
+              "anchor": "NewTarget"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Thresholds",
+          "anchor": "Thresholds",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "DefaultThresholds",
+              "anchor": "DefaultThresholds"
+            },
+            {
+              "kind": "method",
+              "name": "Evaluate",
+              "anchor": "Thresholds.Evaluate"
+            }
+          ]
+        }
+      ]
     },
     {
       "import_path": "internal/core/port",
       "name": "port",
+      "layer": "Core",
       "url": "/docs/reference/api/internal/core/port.html",
-      "summary": "Package port declares the boundary of the hexagon."
+      "summary": "Package port declares the boundary of the hexagon.",
+      "symbols": [
+        {
+          "kind": "type",
+          "name": "Clock",
+          "anchor": "Clock",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "HealthChecker",
+          "anchor": "HealthChecker",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "Logger",
+          "anchor": "Logger",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "Prober",
+          "anchor": "Prober",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "Reporter",
+          "anchor": "Reporter",
+          "children": []
+        }
+      ]
     },
     {
       "import_path": "internal/core/service",
       "name": "service",
+      "layer": "Core",
       "url": "/docs/reference/api/internal/core/service.html",
-      "summary": "Package service implements the inbound ports."
+      "summary": "Package service implements the inbound ports.",
+      "symbols": [
+        {
+          "kind": "type",
+          "name": "Health",
+          "anchor": "Health",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "NewHealth",
+              "anchor": "NewHealth"
+            },
+            {
+              "kind": "method",
+              "name": "Check",
+              "anchor": "Health.Check"
+            },
+            {
+              "kind": "method",
+              "name": "CheckAll",
+              "anchor": "Health.CheckAll"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Option",
+          "anchor": "Option",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "WithConcurrency",
+              "anchor": "WithConcurrency"
+            },
+            {
+              "kind": "constructor",
+              "name": "WithThresholds",
+              "anchor": "WithThresholds"
+            }
+          ]
+        }
+      ]
     },
     {
       "import_path": "internal/observability",
       "name": "observability",
+      "layer": "Infrastructure",
       "url": "/docs/reference/api/internal/observability.html",
-      "summary": "Package observability boots the OpenTelemetry SDK \u2014 traces, metrics and logs \u2014 for a short-lived CLI process."
+      "summary": "Package observability boots the OpenTelemetry SDK \u2014 traces, metrics and logs \u2014 for a short-lived CLI process.",
+      "symbols": [
+        {
+          "kind": "constants",
+          "name": "Constants",
+          "anchor": "constants",
+          "children": []
+        },
+        {
+          "kind": "func",
+          "name": "DetectCI",
+          "anchor": "DetectCI",
+          "children": []
+        },
+        {
+          "kind": "func",
+          "name": "LogFormats",
+          "anchor": "LogFormats",
+          "children": []
+        },
+        {
+          "kind": "func",
+          "name": "ParseLevel",
+          "anchor": "ParseLevel",
+          "children": []
+        },
+        {
+          "kind": "func",
+          "name": "ProcessAttributes",
+          "anchor": "ProcessAttributes",
+          "children": []
+        },
+        {
+          "kind": "func",
+          "name": "Protocols",
+          "anchor": "Protocols",
+          "children": []
+        },
+        {
+          "kind": "type",
+          "name": "Config",
+          "anchor": "Config",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "ConfigFromEnv",
+              "anchor": "ConfigFromEnv"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "LogFormat",
+          "anchor": "LogFormat",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "ParseLogFormat",
+              "anchor": "ParseLogFormat"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Protocol",
+          "anchor": "Protocol",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "ParseProtocol",
+              "anchor": "ParseProtocol"
+            }
+          ]
+        },
+        {
+          "kind": "type",
+          "name": "Telemetry",
+          "anchor": "Telemetry",
+          "children": [
+            {
+              "kind": "constructor",
+              "name": "Disabled",
+              "anchor": "Disabled"
+            },
+            {
+              "kind": "constructor",
+              "name": "Setup",
+              "anchor": "Setup"
+            },
+            {
+              "kind": "constructor",
+              "name": "WithProviders",
+              "anchor": "WithProviders"
+            },
+            {
+              "kind": "method",
+              "name": "ContextFromEnvironment",
+              "anchor": "Telemetry.ContextFromEnvironment"
+            },
+            {
+              "kind": "method",
+              "name": "InjectIntoEnvironment",
+              "anchor": "Telemetry.InjectIntoEnvironment"
+            },
+            {
+              "kind": "method",
+              "name": "Shutdown",
+              "anchor": "Telemetry.Shutdown"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "name": "Core",
+      "packages": [
+        {
+          "import_path": "internal/core/domain",
+          "name": "domain",
+          "layer": "Core",
+          "url": "/docs/reference/api/internal/core/domain.html",
+          "summary": "Package domain holds the entities, value objects and rules that make up the core of the hexagon.",
+          "symbols": [
+            {
+              "kind": "variables",
+              "name": "Variables",
+              "anchor": "variables",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "Health",
+              "anchor": "Health",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "Unreachable",
+                  "anchor": "Unreachable"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Probe",
+              "anchor": "Probe",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "State",
+              "anchor": "State",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "Summary",
+                  "anchor": "Summary"
+                },
+                {
+                  "kind": "method",
+                  "name": "String",
+                  "anchor": "State.String"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Target",
+              "anchor": "Target",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "NewTarget",
+                  "anchor": "NewTarget"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Thresholds",
+              "anchor": "Thresholds",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "DefaultThresholds",
+                  "anchor": "DefaultThresholds"
+                },
+                {
+                  "kind": "method",
+                  "name": "Evaluate",
+                  "anchor": "Thresholds.Evaluate"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "import_path": "internal/core/port",
+          "name": "port",
+          "layer": "Core",
+          "url": "/docs/reference/api/internal/core/port.html",
+          "summary": "Package port declares the boundary of the hexagon.",
+          "symbols": [
+            {
+              "kind": "type",
+              "name": "Clock",
+              "anchor": "Clock",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "HealthChecker",
+              "anchor": "HealthChecker",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "Logger",
+              "anchor": "Logger",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "Prober",
+              "anchor": "Prober",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "Reporter",
+              "anchor": "Reporter",
+              "children": []
+            }
+          ]
+        },
+        {
+          "import_path": "internal/core/service",
+          "name": "service",
+          "layer": "Core",
+          "url": "/docs/reference/api/internal/core/service.html",
+          "summary": "Package service implements the inbound ports.",
+          "symbols": [
+            {
+              "kind": "type",
+              "name": "Health",
+              "anchor": "Health",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "NewHealth",
+                  "anchor": "NewHealth"
+                },
+                {
+                  "kind": "method",
+                  "name": "Check",
+                  "anchor": "Health.Check"
+                },
+                {
+                  "kind": "method",
+                  "name": "CheckAll",
+                  "anchor": "Health.CheckAll"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Option",
+              "anchor": "Option",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "WithConcurrency",
+                  "anchor": "WithConcurrency"
+                },
+                {
+                  "kind": "constructor",
+                  "name": "WithThresholds",
+                  "anchor": "WithThresholds"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Driving adapters",
+      "packages": [
+        {
+          "import_path": "internal/adapter/inbound/cli",
+          "name": "cli",
+          "layer": "Driving adapters",
+          "url": "/docs/reference/api/internal/adapter/inbound/cli.html",
+          "summary": "Package cli is the driving adapter: it turns command line input into calls on the inbound port and hands the results to a reporter.",
+          "symbols": [
+            {
+              "kind": "constants",
+              "name": "Constants",
+              "anchor": "constants",
+              "children": []
+            },
+            {
+              "kind": "func",
+              "name": "NewRoot",
+              "anchor": "NewRoot",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "Options",
+              "anchor": "Options",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Driven adapters",
+      "packages": [
+        {
+          "import_path": "internal/adapter/outbound/fake",
+          "name": "fake",
+          "layer": "Driven adapters",
+          "url": "/docs/reference/api/internal/adapter/outbound/fake.html",
+          "summary": "Package fake holds in-memory implementations of every outbound port.",
+          "symbols": [
+            {
+              "kind": "type",
+              "name": "Clock",
+              "anchor": "Clock",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "NewClock",
+                  "anchor": "NewClock"
+                },
+                {
+                  "kind": "method",
+                  "name": "Advance",
+                  "anchor": "Clock.Advance"
+                },
+                {
+                  "kind": "method",
+                  "name": "Now",
+                  "anchor": "Clock.Now"
+                },
+                {
+                  "kind": "method",
+                  "name": "Since",
+                  "anchor": "Clock.Since"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Logger",
+              "anchor": "Logger",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "NewLogger",
+                  "anchor": "NewLogger"
+                },
+                {
+                  "kind": "method",
+                  "name": "Debug",
+                  "anchor": "Logger.Debug"
+                },
+                {
+                  "kind": "method",
+                  "name": "Error",
+                  "anchor": "Logger.Error"
+                },
+                {
+                  "kind": "method",
+                  "name": "Info",
+                  "anchor": "Logger.Info"
+                },
+                {
+                  "kind": "method",
+                  "name": "Messages",
+                  "anchor": "Logger.Messages"
+                },
+                {
+                  "kind": "method",
+                  "name": "Records",
+                  "anchor": "Logger.Records"
+                },
+                {
+                  "kind": "method",
+                  "name": "Warn",
+                  "anchor": "Logger.Warn"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Prober",
+              "anchor": "Prober",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "NewProber",
+                  "anchor": "NewProber"
+                },
+                {
+                  "kind": "method",
+                  "name": "CallCount",
+                  "anchor": "Prober.CallCount"
+                },
+                {
+                  "kind": "method",
+                  "name": "Calls",
+                  "anchor": "Prober.Calls"
+                },
+                {
+                  "kind": "method",
+                  "name": "Probe",
+                  "anchor": "Prober.Probe"
+                },
+                {
+                  "kind": "method",
+                  "name": "Reset",
+                  "anchor": "Prober.Reset"
+                },
+                {
+                  "kind": "method",
+                  "name": "With",
+                  "anchor": "Prober.With"
+                },
+                {
+                  "kind": "method",
+                  "name": "WithFailure",
+                  "anchor": "Prober.WithFailure"
+                },
+                {
+                  "kind": "method",
+                  "name": "WithFallback",
+                  "anchor": "Prober.WithFallback"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Record",
+              "anchor": "Record",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "Reporter",
+              "anchor": "Reporter",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "NewReporter",
+                  "anchor": "NewReporter"
+                },
+                {
+                  "kind": "method",
+                  "name": "Last",
+                  "anchor": "Reporter.Last"
+                },
+                {
+                  "kind": "method",
+                  "name": "Report",
+                  "anchor": "Reporter.Report"
+                },
+                {
+                  "kind": "method",
+                  "name": "Reports",
+                  "anchor": "Reporter.Reports"
+                },
+                {
+                  "kind": "method",
+                  "name": "WithError",
+                  "anchor": "Reporter.WithError"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Response",
+              "anchor": "Response",
+              "children": []
+            }
+          ]
+        },
+        {
+          "import_path": "internal/adapter/outbound/httpprobe",
+          "name": "httpprobe",
+          "layer": "Driven adapters",
+          "url": "/docs/reference/api/internal/adapter/outbound/httpprobe.html",
+          "summary": "Package httpprobe is the driven adapter that talks to real external systems over HTTP.",
+          "symbols": [
+            {
+              "kind": "constants",
+              "name": "Constants",
+              "anchor": "constants",
+              "children": []
+            },
+            {
+              "kind": "func",
+              "name": "SystemClock",
+              "anchor": "SystemClock",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "Adapter",
+              "anchor": "Adapter",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "New",
+                  "anchor": "New"
+                },
+                {
+                  "kind": "method",
+                  "name": "Probe",
+                  "anchor": "Adapter.Probe"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Option",
+              "anchor": "Option",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "WithClient",
+                  "anchor": "WithClient"
+                },
+                {
+                  "kind": "constructor",
+                  "name": "WithClock",
+                  "anchor": "WithClock"
+                },
+                {
+                  "kind": "constructor",
+                  "name": "WithTimeout",
+                  "anchor": "WithTimeout"
+                },
+                {
+                  "kind": "constructor",
+                  "name": "WithUserAgent",
+                  "anchor": "WithUserAgent"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "import_path": "internal/adapter/outbound/logging",
+          "name": "logging",
+          "layer": "Driven adapters",
+          "url": "/docs/reference/api/internal/adapter/outbound/logging.html",
+          "summary": "Package logging adapts log/slog to the port.Logger outbound port.",
+          "symbols": [
+            {
+              "kind": "type",
+              "name": "Adapter",
+              "anchor": "Adapter",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "New",
+                  "anchor": "New"
+                },
+                {
+                  "kind": "constructor",
+                  "name": "Nop",
+                  "anchor": "Nop"
+                },
+                {
+                  "kind": "method",
+                  "name": "Debug",
+                  "anchor": "Adapter.Debug"
+                },
+                {
+                  "kind": "method",
+                  "name": "Error",
+                  "anchor": "Adapter.Error"
+                },
+                {
+                  "kind": "method",
+                  "name": "Info",
+                  "anchor": "Adapter.Info"
+                },
+                {
+                  "kind": "method",
+                  "name": "Warn",
+                  "anchor": "Adapter.Warn"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "import_path": "internal/adapter/outbound/report",
+          "name": "report",
+          "layer": "Driven adapters",
+          "url": "/docs/reference/api/internal/adapter/outbound/report.html",
+          "summary": "Package report contains the driven adapters that present results.",
+          "symbols": [
+            {
+              "kind": "func",
+              "name": "Formats",
+              "anchor": "Formats",
+              "children": []
+            },
+            {
+              "kind": "func",
+              "name": "New",
+              "anchor": "New",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "Format",
+              "anchor": "Format",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "JSON",
+              "anchor": "JSON",
+              "children": [
+                {
+                  "kind": "method",
+                  "name": "Report",
+                  "anchor": "JSON.Report"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Text",
+              "anchor": "Text",
+              "children": [
+                {
+                  "kind": "method",
+                  "name": "Report",
+                  "anchor": "Text.Report"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "import_path": "internal/adapter/outbound/telemetry",
+          "name": "telemetry",
+          "layer": "Driven adapters",
+          "url": "/docs/reference/api/internal/adapter/outbound/telemetry.html",
+          "summary": "Package telemetry instruments the ports.",
+          "symbols": [
+            {
+              "kind": "type",
+              "name": "InstrumentedHealthChecker",
+              "anchor": "InstrumentedHealthChecker",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "NewHealthChecker",
+                  "anchor": "NewHealthChecker"
+                },
+                {
+                  "kind": "method",
+                  "name": "Check",
+                  "anchor": "InstrumentedHealthChecker.Check"
+                },
+                {
+                  "kind": "method",
+                  "name": "CheckAll",
+                  "anchor": "InstrumentedHealthChecker.CheckAll"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "InstrumentedProber",
+              "anchor": "InstrumentedProber",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "NewProber",
+                  "anchor": "NewProber"
+                },
+                {
+                  "kind": "method",
+                  "name": "Probe",
+                  "anchor": "InstrumentedProber.Probe"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Instruments",
+              "anchor": "Instruments",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "NewInstruments",
+                  "anchor": "NewInstruments"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Infrastructure",
+      "packages": [
+        {
+          "import_path": "internal/bootstrap",
+          "name": "bootstrap",
+          "layer": "Infrastructure",
+          "url": "/docs/reference/api/internal/bootstrap.html",
+          "summary": "Package bootstrap is the process-level entry point: it owns the signal handling, the lifetime of telemetry and the mapping from an error to an exit code.",
+          "symbols": [
+            {
+              "kind": "func",
+              "name": "Run",
+              "anchor": "Run",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "Options",
+              "anchor": "Options",
+              "children": []
+            }
+          ]
+        },
+        {
+          "import_path": "internal/buildinfo",
+          "name": "buildinfo",
+          "layer": "Infrastructure",
+          "url": "/docs/reference/api/internal/buildinfo.html",
+          "summary": "Package buildinfo carries the identity of the binary.",
+          "symbols": [
+            {
+              "kind": "constants",
+              "name": "Constants",
+              "anchor": "constants",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "Info",
+              "anchor": "Info",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "Get",
+                  "anchor": "Get"
+                },
+                {
+                  "kind": "method",
+                  "name": "String",
+                  "anchor": "Info.String"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "import_path": "internal/observability",
+          "name": "observability",
+          "layer": "Infrastructure",
+          "url": "/docs/reference/api/internal/observability.html",
+          "summary": "Package observability boots the OpenTelemetry SDK \u2014 traces, metrics and logs \u2014 for a short-lived CLI process.",
+          "symbols": [
+            {
+              "kind": "constants",
+              "name": "Constants",
+              "anchor": "constants",
+              "children": []
+            },
+            {
+              "kind": "func",
+              "name": "DetectCI",
+              "anchor": "DetectCI",
+              "children": []
+            },
+            {
+              "kind": "func",
+              "name": "LogFormats",
+              "anchor": "LogFormats",
+              "children": []
+            },
+            {
+              "kind": "func",
+              "name": "ParseLevel",
+              "anchor": "ParseLevel",
+              "children": []
+            },
+            {
+              "kind": "func",
+              "name": "ProcessAttributes",
+              "anchor": "ProcessAttributes",
+              "children": []
+            },
+            {
+              "kind": "func",
+              "name": "Protocols",
+              "anchor": "Protocols",
+              "children": []
+            },
+            {
+              "kind": "type",
+              "name": "Config",
+              "anchor": "Config",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "ConfigFromEnv",
+                  "anchor": "ConfigFromEnv"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "LogFormat",
+              "anchor": "LogFormat",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "ParseLogFormat",
+                  "anchor": "ParseLogFormat"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Protocol",
+              "anchor": "Protocol",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "ParseProtocol",
+                  "anchor": "ParseProtocol"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Telemetry",
+              "anchor": "Telemetry",
+              "children": [
+                {
+                  "kind": "constructor",
+                  "name": "Disabled",
+                  "anchor": "Disabled"
+                },
+                {
+                  "kind": "constructor",
+                  "name": "Setup",
+                  "anchor": "Setup"
+                },
+                {
+                  "kind": "constructor",
+                  "name": "WithProviders",
+                  "anchor": "WithProviders"
+                },
+                {
+                  "kind": "method",
+                  "name": "ContextFromEnvironment",
+                  "anchor": "Telemetry.ContextFromEnvironment"
+                },
+                {
+                  "kind": "method",
+                  "name": "InjectIntoEnvironment",
+                  "anchor": "Telemetry.InjectIntoEnvironment"
+                },
+                {
+                  "kind": "method",
+                  "name": "Shutdown",
+                  "anchor": "Telemetry.Shutdown"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Entry point",
+      "packages": [
+        {
+          "import_path": "cmd/probe-cli",
+          "name": "probe-cli",
+          "layer": "Entry point",
+          "url": "/docs/reference/api/cmd/probe-cli.html",
+          "summary": "Command probe-cli is a command line application built with cobra and a hexagonal (ports & adapters) core.",
+          "symbols": []
+        }
+      ]
     }
   ],
   "commands": [

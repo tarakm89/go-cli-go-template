@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "specification"
 title: "0003 — Publish these documents, and show what changed"
 eyebrow: "Spec"
 doc_path: "docs/specs/0003-spec-driven-docs.md"

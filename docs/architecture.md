@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "architecture"
 title: "Architecture"
 eyebrow: "Docs"
 doc_path: "docs/architecture.md"

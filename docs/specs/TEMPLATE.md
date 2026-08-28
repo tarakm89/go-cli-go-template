@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "specification"
 title: "NNNN — Short title"
 eyebrow: "Spec"
 doc_path: "docs/specs/TEMPLATE.md"

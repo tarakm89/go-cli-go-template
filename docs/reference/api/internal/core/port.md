@@ -1,6 +1,6 @@
 ---
 layout: "doc"
-nav_id: "docs"
+nav_id: "reference"
 eyebrow: "Package"
 title: "internal/core/port"
 doc_generated: true
@@ -30,7 +30,7 @@ Every signature here is expressed in domain types and the standard library only.
 
 
 <a name="Clock"></a>
-## type Clock
+## type [Clock](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/port/port.go#L43-L46>)
 
 Clock is an outbound port over the passage of time, so that latency is deterministic under test.
 
@@ -42,7 +42,7 @@ type Clock interface {
 ```
 
 <a name="HealthChecker"></a>
-## type HealthChecker
+## type [HealthChecker](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/port/port.go#L20-L26>)
 
 HealthChecker is the inbound port: the use case the CLI drives.
 
@@ -57,7 +57,7 @@ type HealthChecker interface {
 ```
 
 <a name="Logger"></a>
-## type Logger
+## type [Logger](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/port/port.go#L54-L59>)
 
 Logger is an outbound port over structured logging. The core logs through this interface rather than through log/slog directly, so that a test can assert on what was logged and so that the choice of backend stays in the composition root.
 
@@ -73,7 +73,7 @@ type Logger interface {
 ```
 
 <a name="Prober"></a>
-## type Prober
+## type [Prober](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/port/port.go#L31-L33>)
 
 Prober is an outbound port: it reaches an external system and reports what it saw. Implementations must map every transport failure to an error that wraps domain.ErrUnreachable, so the core never sees an HTTP or DNS error.
 
@@ -84,7 +84,7 @@ type Prober interface {
 ```
 
 <a name="Reporter"></a>
-## type Reporter
+## type [Reporter](<https://github.com/tarakm89/go-cli-go-template/blob/main/%7B%7Bcookiecutter.project_slug%7D%7D/internal/core/port/port.go#L37-L39>)
 
 Reporter is an outbound port for presenting results. Rendering is a detail, so it sits behind a port like any other external concern.
 

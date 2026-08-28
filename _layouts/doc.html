@@ -121,6 +121,54 @@ layout: default
   </tbody>
 </table>
 
+<h2 id="code-map">Code map</h2>
+
+<p>
+  Every exported type, method and function, grouped the way the
+  <a href="{{ '/docs/architecture.html' | relative_url }}">architecture</a>
+  describes them. gomarkdoc's output mirrors what <code>go/doc</code> derives
+  from the syntax tree, so this is the package surface as the compiler sees it
+  — not a list someone maintains.
+</p>
+
+{% for layer in site.data.reference.layers %}
+<div class="map-layer">
+  <h3 id="layer-{{ layer.name | slugify }}">{{ layer.name }}</h3>
+
+  {% for package in layer.packages %}
+  <div class="map-package">
+    <p class="map-package-head">
+      <a href="{{ package.url | relative_url }}">{{ package.import_path }}</a>
+      <span>{{ package.summary }}</span>
+    </p>
+
+    {% if package.symbols.size > 0 %}
+    <ul class="map-symbols">
+      {% for symbol in package.symbols %}
+      <li>
+        <span class="sym sym--{{ symbol.kind }}">{{ symbol.kind }}</span>
+        <a href="{{ package.url | relative_url }}#{{ symbol.anchor }}">{{ symbol.name }}</a>
+        {% if symbol.children.size > 0 %}
+        <ul class="map-children">
+          {% for child in symbol.children %}
+          <li>
+            <span class="sym sym--{{ child.kind }}">{{ child.kind }}</span>
+            <a href="{{ package.url | relative_url }}#{{ child.anchor }}">{{ child.name }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="map-empty">Nothing exported.</p>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
+
 <h2 id="commands">Commands</h2>
 
 <table class="doc-table">
