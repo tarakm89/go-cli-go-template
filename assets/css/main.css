@@ -394,6 +394,11 @@ img, svg, video { max-width: 100%; }
 .version-menu[open] > summary svg { transform: rotate(180deg); }
 .version-tag { font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
 
+/* An absolutely positioned child of a closed <details> is still laid out in
+   Chrome, and this one was wide enough to scroll the whole page sideways on a
+   phone. Hide it explicitly. */
+.version-menu:not([open]) .version-panel { display: none; }
+
 .version-panel {
   position: absolute; top: calc(100% + .5rem); left: 0; z-index: 70;
   min-width: 20rem; max-width: min(24rem, calc(100vw - 2rem));
@@ -434,6 +439,10 @@ img, svg, video { max-width: 100%; }
   font-size: var(--step--1); font-weight: 550; color: var(--accent);
 }
 .version-panel-foot:hover { text-decoration: none; background: var(--surface-2); border-radius: var(--radius-sm); }
+
+@media (max-width: 640px) {
+  .version-panel { left: auto; right: 0; min-width: 0; width: calc(100vw - 2rem); }
+}
 
 /* Compact header ---------------------------------------------------------- */
 
@@ -920,7 +929,11 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
 }
 .hero-code-bar i { width: .55rem; height: .55rem; border-radius: 99px; background: var(--border-strong); }
 .hero-code-bar span { margin-left: .4rem; font-size: var(--step--2); color: var(--text-faint); font-family: var(--font-mono); }
-.hero-code pre { margin: 0; border: 0; border-radius: 0; background: transparent; }
+.hero-code pre {
+  margin: 0; border: 0; border-radius: 0; background: transparent;
+  padding: .95rem 1.05rem; overflow-x: auto; line-height: 1.65;
+}
+.hero-code code { font-family: var(--font-mono); font-size: var(--step--1); white-space: pre; }
 
 /* Entry cards ------------------------------------------------------------- */
 
