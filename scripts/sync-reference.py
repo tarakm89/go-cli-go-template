@@ -21,27 +21,37 @@ REPO = "https://github.com/tarakm89/go-cli-go-template"
 
 
 LEADING_HEADING = re.compile(r"\A\s*(#{1,2})\s+(.+?)\s*$", flags=re.MULTILINE)
+# gomarkdoc opens with `<!-- Code generated ... -->`, which has to be stepped
+# over before the heading is reachable.
+LEADING_COMMENT = re.compile(r"\A\s*(<!--.*?-->\s*)+", flags=re.DOTALL)
+
+
+def without_preamble(text: str) -> tuple[str, str]:
+    """Split any leading HTML comments off the front of the document."""
+    match = LEADING_COMMENT.match(text)
+    return (match.group(0), text[match.end():]) if match else ("", text.lstrip())
 
 
 def title_of(text: str, fallback: str) -> str:
     """The page's own heading. gomarkdoc opens with an H1, Cobra with an H2."""
-    match = LEADING_HEADING.match(text.lstrip())
+    _, body = without_preamble(text)
+    match = LEADING_HEADING.match(body)
     return match.group(2) if match else fallback
 
 
 def strip_title(text: str) -> str:
     """Remove the leading heading; the layout renders it from the front matter."""
-    stripped = text.lstrip()
+    preamble, stripped = without_preamble(text)
     match = LEADING_HEADING.match(stripped)
     if not match:
-        return text
+        return preamble + stripped
     body = stripped[match.end():].lstrip("\n")
     # Cobra nests everything under its H2, which would leave the page with no
     # H2s at all and an empty table of contents. Promote one level.
     if match.group(1) == "##":
         body = re.sub(r"^(#{3,6})\s", lambda m: "#" * (len(m.group(1)) - 1) + " ",
                       body, flags=re.MULTILINE)
-    return body
+    return preamble + body
 
 
 def front_matter(fields: dict) -> str:
