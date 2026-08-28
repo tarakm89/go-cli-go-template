@@ -1,32 +1,14 @@
-# If you prefer the allow list template instead of the deny list, see community template:
-# https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
-#
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+# Jekyll output
+_site/
+.jekyll-cache/
+.jekyll-metadata
 
-# Test binary, built with `go test -c`
-*.test
+# Generated at build time from CHANGELOG.md on main by
+# scripts/inject-changelog.py — never committed, so main's changelog stays the
+# single source of truth for what has been released.
+_data/versions.json
 
-# Code coverage profiles and other test artifacts
-*.out
-coverage.*
-*.coverprofile
-profile.cov
+# Where the Pages workflow checks main's changelog out.
+.main/
 
-# Dependency directories (remove the comment below to include it)
-# vendor/
-
-# Go workspace file
-go.work
-go.work.sum
-
-# env file
-.env
-
-# Editor/IDE
-# .idea/
-# .vscode/
+.DS_Store

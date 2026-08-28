@@ -61,6 +61,27 @@ function initNav() {
   });
 }
 
+/* ------------------------------------------------------ version menu ----- */
+
+/* <details> handles opening and keyboard access on its own. All that is
+   missing is the behaviour people expect from a menu: it should close when
+   they click elsewhere or press Escape. */
+function initVersionMenu() {
+  const menu = document.querySelector('.version-menu');
+  if (!menu) return;
+
+  document.addEventListener('click', (event) => {
+    if (menu.open && !menu.contains(event.target)) menu.open = false;
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu.open) {
+      menu.open = false;
+      menu.querySelector('summary')?.focus();
+    }
+  });
+}
+
 /* ------------------------------------------------- table of contents ----- */
 
 function initToc() {
@@ -354,6 +375,7 @@ function initPlantUML() {
 
 initTheme();
 initNav();
+initVersionMenu();
 initPlantUML();
 initMermaid();
 initHeadingAnchors();

@@ -235,6 +235,96 @@ a:hover { color: var(--accent-hover); text-decoration: underline; text-underline
 }
 
 /* ==========================================================================
+   Version menu
+
+   A <details> element, so it opens on click and from the keyboard without
+   any script; site.js only adds outside-click and Escape.
+   ========================================================================== */
+
+.version-menu { position: relative; flex: 0 0 auto; }
+
+.version-menu > summary {
+  display: flex; align-items: center; gap: .3rem;
+  padding: .3rem .5rem .3rem .6rem;
+  font-size: .8rem; font-weight: 550; color: var(--text-muted);
+  background: var(--surface-raise); border: 1px solid var(--border);
+  border-radius: 999px; cursor: pointer; list-style: none; user-select: none;
+  white-space: nowrap;
+}
+.version-menu > summary::-webkit-details-marker { display: none; }
+.version-menu > summary:hover { color: var(--text); border-color: var(--border-strong); }
+.version-menu[open] > summary { color: var(--text); border-color: var(--accent-border); background: var(--accent-soft); }
+.version-menu > summary svg {
+  width: .85rem; height: .85rem; fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  transition: transform .15s ease;
+}
+.version-menu[open] > summary svg { transform: rotate(180deg); }
+.version-tag { font-variant-numeric: tabular-nums; }
+
+.version-panel {
+  position: absolute; top: calc(100% + .5rem); left: 0; z-index: 60;
+  min-width: 19rem; max-width: min(24rem, calc(100vw - 2rem));
+  max-height: min(26rem, 70vh); overflow-y: auto;
+  padding: .5rem; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 8px 28px rgba(16, 24, 40, .12), 0 2px 6px rgba(16, 24, 40, .08);
+}
+:root[data-theme="dark"] .version-panel { box-shadow: 0 10px 34px rgba(0, 0, 0, .55); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .version-panel { box-shadow: 0 10px 34px rgba(0, 0, 0, .55); }
+}
+
+.version-panel-title {
+  margin: .15rem .55rem .4rem; font-size: .68rem; font-weight: 650;
+  text-transform: uppercase; letter-spacing: .07em; color: var(--text-faint);
+}
+
+.version-list { list-style: none; margin: 0; padding: 0; }
+.version-list li {
+  display: flex; align-items: center; gap: .5rem;
+  border-radius: var(--radius-sm);
+}
+.version-list li:hover { background: var(--surface-raise); }
+
+.version-link {
+  display: flex; align-items: baseline; gap: .55rem; flex: 1 1 auto; min-width: 0;
+  padding: .45rem .55rem; color: var(--text); font-size: .85rem;
+}
+.version-link:hover { text-decoration: none; }
+.version-name { font-weight: 560; font-variant-numeric: tabular-nums; }
+.version-date { margin-left: auto; font-size: .74rem; color: var(--text-faint); white-space: nowrap; }
+
+.version-badge {
+  margin-left: .35rem; padding: .05rem .35rem;
+  font-size: .62rem; font-weight: 650; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--accent); background: var(--accent-soft);
+  border: 1px solid var(--accent-border); border-radius: 999px;
+  vertical-align: .06em;
+}
+
+.version-links { display: flex; gap: .1rem; padding-right: .35rem; }
+.version-links a {
+  padding: .2rem .4rem; font-size: .72rem; color: var(--text-faint); border-radius: 4px;
+}
+.version-links a:hover { color: var(--accent); background: var(--accent-soft); text-decoration: none; }
+
+.version-panel-foot {
+  display: block; margin-top: .35rem; padding: .5rem .55rem .3rem;
+  border-top: 1px solid var(--border);
+  font-size: .78rem; font-weight: 550; color: var(--accent);
+}
+.version-panel-foot:hover { text-decoration: none; background: var(--surface-raise); border-radius: var(--radius-sm); }
+
+@media (max-width: 820px) {
+  .version-menu { margin-left: auto; }
+  .version-panel { left: auto; right: 0; }
+}
+@media (max-width: 420px) {
+  .version-menu > summary { padding: .3rem .45rem; }
+}
+
+/* ==========================================================================
    Layout
    ========================================================================== */
 

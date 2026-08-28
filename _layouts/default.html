@@ -40,6 +40,38 @@
       </span>
     </a>
 
+    {% assign versions = site.data.versions %}
+    {% if versions and versions.releases.size > 0 %}
+    <details class="version-menu">
+      <summary title="Releases">
+        <span class="version-tag">{% if versions.latest %}v{{ versions.latest }}{% else %}releases{% endif %}</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+      </summary>
+
+      <div class="version-panel">
+        <p class="version-panel-title">Releases</p>
+        <ul class="version-list">
+          {% for release in versions.releases %}
+          <li>
+            <a class="version-link" href="versions.html#{{ release.anchor }}">
+              <span class="version-name">
+                {{ release.name }}
+                {% if release.tag and release.tag == versions.latest_tag %}<span class="version-badge">latest</span>{% endif %}
+              </span>
+              {% if release.date %}<span class="version-date">{{ release.date }}</span>{% endif %}
+            </a>
+            <span class="version-links">
+              {% if release.tag_url %}<a href="{{ release.tag_url }}" rel="noopener" title="Tag {{ release.tag }} on GitHub">tag</a>{% endif %}
+              {% if release.compare %}<a href="{{ release.compare }}" rel="noopener" title="What changed in {{ release.name }}">diff</a>{% endif %}
+            </span>
+          </li>
+          {% endfor %}
+        </ul>
+        <a class="version-panel-foot" href="versions.html">Full changelog &rarr;</a>
+      </div>
+    </details>
+    {% endif %}
+
     <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>

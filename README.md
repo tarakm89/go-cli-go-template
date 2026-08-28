@@ -19,7 +19,7 @@ request. The one exception is the version list, which is generated — see below
 | `_layouts/default.html` | The whole page shell |
 | `assets/css/main.css` | Theme tokens, typography, syntax colours |
 | `assets/js/site.js` | Theme toggle, TOC, copy buttons, diagrams |
-| `scripts/inject-changelog.py` | Splices `main`'s `CHANGELOG.md` into `versions.md` |
+| `scripts/inject-changelog.py` | Renders `main`'s `CHANGELOG.md` into the site |
 
 There is no remote theme. `_layouts/default.html` plus `assets/` is the theme,
 so dark mode is ours to control rather than something to override.
@@ -35,10 +35,30 @@ stylesheet in the page layout.
 
 `versions.md` holds only the introduction and a `<!-- CHANGELOG -->` marker. At
 build time the workflow checks out `CHANGELOG.md` from `main` and
-`scripts/inject-changelog.py` splices it in, linking each release heading to
-its tag and pointing *Unreleased* at the diff since the last one.
+`scripts/inject-changelog.py` produces two things from it:
+
+- **`versions.md`** — the marker is replaced by the release sections, each
+  heading linked to its tag and given a stable `{#release-1-2-3}` anchor, with
+  *Unreleased* pointing at the diff since the last tag.
+- **`_data/versions.json`** — the release list, which `_layouts/default.html`
+  turns into the version menu in the header. Every entry links to its section
+  on the versions page, its tag on GitHub, and the diff against the release
+  before it.
 
 So a release is written down in exactly one place: `CHANGELOG.md` on `main`.
+Neither output is committed; both are rebuilt on every deploy. To see the menu
+while previewing locally, run the script first:
+
+```sh
+mkdir -p .main && git show main:CHANGELOG.md > .main/CHANGELOG.md
+python3 scripts/inject-changelog.py
+```
+
+It rewrites `versions.md` in place, so restore it with `git checkout
+versions.md` when you are done.
+
+Without `_data/versions.json` the layout simply omits the menu, so a build that
+skips the script still succeeds.
 
 Because that file is on another branch, a push to `main` does **not** rebuild
 this site. After tagging a release, refresh the page with either:
