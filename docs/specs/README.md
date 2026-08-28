@@ -1,6 +1,11 @@
-# Specs
+# Specification
 
-One document per capability, written before it is built.
+What this project should do, and how we will know it does. One document per
+capability, written before it is built.
+
+A change of any size starts here rather than on a branch: a spec is cheap to
+argue with, an implementation is not. The acceptance criteria in each one
+become the tests — usually a functional spec in `test/functional`.
 
 | Spec | Status | What it covers |
 | --- | --- | --- |
@@ -29,3 +34,15 @@ which release carried it — trust that one if the two disagree.
 
 Nothing is deleted and numbers are never reused: a rejected spec is a record of
 a decision, and that is worth as much as an accepted one.
+
+## Related
+
+- **[Architecture](../architecture.md)** — the shape these specs are built
+  into, and the decisions behind it.
+- **[Plans](../plans/README.md)** — how the larger specs were actually carried
+  out, in what order, and what went differently than intended.
+- **[All documents](../README.md)** — every document with its status, and what
+  changed in each release.
+- **[Reference](https://tarakm89.github.io/go-cli-go-template/docs/reference/index.html)**
+  — the packages and commands these specs became. Generated, so it only exists
+  on the site.

@@ -102,6 +102,15 @@ def changed_between(old: str | None, new: str) -> list[dict]:
     return sorted(changes, key=lambda c: c["path"])
 
 
+def nav_id_for(relative: pathlib.Path) -> str:
+    """Which top-level section of the site this document belongs to."""
+    if relative.parts[0] in ("specs", "plans"):
+        return "specification"
+    if relative.as_posix() == "architecture.md":
+        return "architecture"
+    return "specification"
+
+
 def page_url(relative: pathlib.Path) -> str:
     """Where this document will live on the site."""
     stem = relative.with_suffix("")
@@ -197,7 +206,7 @@ def main() -> int:
         target.write_text(
             front_matter({
                 "layout": "doc",
-                "nav_id": "docs",
+                "nav_id": nav_id_for(relative),
                 "title": document["title"],
                 "eyebrow": {"specs": "Spec", "plans": "Plan"}.get(document["section"], "Docs"),
                 "doc_path": document["path"],

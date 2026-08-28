@@ -13,9 +13,9 @@ push to `main`, so the site and the source can never disagree.
 | [`plans/`](plans/) | Implementation plans for work in flight | *How are we going to get there, in what order?* |
 | [Reference](reference/) | Package and command documentation, generated | *What does this package expose? What flags does this command take?* |
 
-The reference is not in this directory: it is generated in CI from the
-template's worked example, so it is only ever visible on the published site.
-`make docs` in your own project produces the same pages into `docs/api` and
+The reference has a section of its own on the site and is not in this
+directory: it is generated in CI from the template's worked example. `make
+docs` in your own project produces the same pages into `docs/api` and
 `docs/cli`.
 
 ## Spec-driven, in practice
