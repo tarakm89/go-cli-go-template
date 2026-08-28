@@ -889,7 +889,7 @@ dialog.search-dialog[open] { display: flex; flex-direction: column; animation: p
   pointer-events: none;
 }
 
-.hero-inner { position: relative; z-index: 1; padding: var(--s-8) 0 var(--s-7); }
+.hero-inner { position: relative; z-index: 1; padding-top: var(--s-8); padding-bottom: var(--s-7); }
 
 .hero-badge {
   display: inline-flex; align-items: center; gap: .45rem;
