@@ -39,6 +39,10 @@ To bring an existing project up to date with a newer template, read the diff of
 the scaffold and apply what is relevant by hand. Regenerating over a project
 you have already changed will overwrite your work.
 
+For the reasoning rather than the diff, [the documents that changed in each
+release](docs/index.html#what-changed) are listed alongside the specs and plans
+they belong to.
+
 <!-- CHANGELOG -->
 
 ## Bringing this list up to date

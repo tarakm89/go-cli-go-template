@@ -11,7 +11,7 @@
 <meta property="og:description" content="{{ page.description | default: site.description | strip_newlines }}">
 <meta property="og:type" content="website">
 
-<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>⬡</text></svg>">
 
 <!-- Resolve the theme before first paint, so there is no flash of the wrong one. -->
@@ -32,7 +32,7 @@
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="index.html">
+    <a class="brand" href="{{ '/index.html' | relative_url }}">
       <span class="brand-mark" aria-hidden="true">⬡</span>
       <span class="brand-text">
         <span class="brand-name">{{ site.title }}</span>
@@ -53,7 +53,7 @@
         <ul class="version-list">
           {% for release in versions.releases %}
           <li>
-            <a class="version-link" href="versions.html#{{ release.anchor }}">
+            <a class="version-link" href="{{ '/versions.html' | relative_url }}#{{ release.anchor }}">
               <span class="version-name">
                 {{ release.name }}
                 {% if release.tag and release.tag == versions.latest_tag %}<span class="version-badge">latest</span>{% endif %}
@@ -67,7 +67,7 @@
           </li>
           {% endfor %}
         </ul>
-        <a class="version-panel-foot" href="versions.html">Full changelog &rarr;</a>
+        <a class="version-panel-foot" href="{{ '/versions.html' | relative_url }}">Full changelog &rarr;</a>
       </div>
     </details>
     {% endif %}
@@ -78,7 +78,7 @@
 
     <nav class="site-nav" id="site-nav" aria-label="Primary">
       {% for item in site.nav %}
-      <a href="{{ item.url }}"{% if page.nav_id == item.id %} class="is-active" aria-current="page"{% endif %}>{{ item.title }}</a>
+      <a href="{{ item.url | relative_url }}"{% if page.nav_id == item.id %} class="is-active" aria-current="page"{% endif %}>{{ item.title }}</a>
       {% endfor %}
       <a class="nav-external" href="{{ site.repository_url }}" rel="noopener">GitHub&nbsp;↗</a>
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch between light and dark">
@@ -116,7 +116,7 @@
       <code>gh_pages</code> branch.
     </p>
     <p class="footer-meta">
-      <a href="versions.html">Changelog</a> ·
+      <a href="{{ '/versions.html' | relative_url }}">Changelog</a> ·
       <a href="{{ site.repository_url }}/blob/main/CHANGELOG.md" rel="noopener">Source</a> ·
       MIT licensed
     </p>
@@ -129,6 +129,6 @@
   "plantumlServer": {{ site.plantuml_server | default: "" | jsonify }}
 }
 </script>
-<script src="assets/js/site.js" type="module"></script>
+<script src="{{ '/assets/js/site.js' | relative_url }}" type="module"></script>
 </body>
 </html>

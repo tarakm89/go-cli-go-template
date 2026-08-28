@@ -485,6 +485,63 @@ a:hover { color: var(--accent-hover); text-decoration: underline; text-underline
 .highlight .gs { font-weight: 600; }
 
 /* ==========================================================================
+   Synced documents
+   ========================================================================== */
+
+.doc-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem;
+  margin: -1.25rem 0 2.25rem; padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  font-size: .82rem; color: var(--text-muted);
+}
+.doc-updated code { font-size: .82em; }
+
+.doc-status {
+  padding: .1rem .5rem; border-radius: 999px;
+  font-size: .7rem; font-weight: 650; letter-spacing: .03em; text-transform: uppercase;
+  color: var(--text-muted); background: var(--surface-raise); border: 1px solid var(--border);
+}
+.doc-status--accepted,
+.doc-status--implemented,
+.doc-status--done { color: var(--ok); background: color-mix(in srgb, var(--ok) 12%, transparent); border-color: color-mix(in srgb, var(--ok) 35%, transparent); }
+.doc-status--draft { color: var(--warn); background: color-mix(in srgb, var(--warn) 12%, transparent); border-color: color-mix(in srgb, var(--warn) 35%, transparent); }
+.doc-status--rejected { color: var(--danger); background: color-mix(in srgb, var(--danger) 12%, transparent); border-color: color-mix(in srgb, var(--danger) 35%, transparent); }
+
+.content .doc-table td:first-child { white-space: normal; }
+
+.doc-release { margin: 0 0 1.25rem; }
+.doc-release-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .75rem;
+  margin: 0 0 .4rem; font-size: .95rem;
+}
+.doc-release-head a { font-size: .8rem; font-weight: 500; }
+
+.content ul.doc-changes { list-style: none; margin: 0; padding: 0; }
+.doc-changes li {
+  display: flex; align-items: baseline; gap: .6rem;
+  padding: .3rem 0; border-bottom: 1px solid var(--border);
+  font-size: .88rem;
+}
+.doc-changes li:last-child { border-bottom: 0; }
+
+.doc-change {
+  flex: 0 0 4.6rem;
+  font-size: .68rem; font-weight: 650; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+.doc-change--added { color: var(--ok); }
+.doc-change--updated { color: var(--accent); }
+.doc-change--removed { color: var(--danger); }
+
+.doc-changes-empty { margin: 0; font-size: .86rem; color: var(--text-faint); }
+
+.doc-footer {
+  margin: 3rem 0 0; padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: .82rem; color: var(--text-muted);
+}
+
+/* ==========================================================================
    Diagrams
    ========================================================================== */
 

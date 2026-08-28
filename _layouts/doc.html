@@ -1,0 +1,115 @@
+---
+layout: default
+---
+
+{% comment %}
+  Wraps a document synced from docs/ on main. Everything below the content
+  comes from _data/docs.json, which scripts/sync-docs.py writes; none of it is
+  maintained by hand.
+{% endcomment %}
+
+{% if page.doc_updated %}
+<p class="doc-meta">
+  {% if page.doc_status %}
+  <span class="doc-status doc-status--{{ page.doc_status | slugify }}">{{ page.doc_status }}</span>
+  {% endif %}
+  <span class="doc-updated">
+    Updated {{ page.doc_updated }}
+    {% if page.doc_commit_url %}
+      in <a href="{{ page.doc_commit_url }}" rel="noopener" title="{{ page.doc_subject }}"><code>{{ page.doc_commit }}</code></a>
+    {% endif %}
+    {% if page.doc_release %}· released in <a href="{{ '/versions.html' | relative_url }}#release-{{ page.doc_release | remove_first: 'v' | replace: '.', '-' }}">{{ page.doc_release }}</a>
+    {% else %}· not yet released{% endif %}
+  </span>
+</p>
+{% endif %}
+
+{{ content }}
+
+{% if page.doc_index and site.data.docs %}
+
+<h2 id="all-documents">All documents</h2>
+
+{% assign sections = site.data.docs.documents | group_by: "section" %}
+{% for section in sections %}
+<h3 id="section-{{ section.name }}">
+  {% case section.name %}
+    {% when 'specs' %}Specs
+    {% when 'plans' %}Plans
+    {% else %}Overview
+  {% endcase %}
+</h3>
+
+<table class="doc-table">
+  <thead><tr><th>Document</th><th>Status</th><th>Updated</th></tr></thead>
+  <tbody>
+    {% for document in section.items %}
+    <tr>
+      <td><a href="{{ document.url | relative_url }}">{{ document.title }}</a></td>
+      <td>{% if document.status %}<span class="doc-status doc-status--{{ document.status | slugify }}">{{ document.status }}</span>{% else %}—{% endif %}</td>
+      <td>{{ document.commit.date | default: "—" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+
+<h2 id="what-changed">What changed, by release</h2>
+
+<p>
+  Generated from the git history of <code>docs/</code>. Each release links to
+  its full diff.
+</p>
+
+{% assign pending = site.data.docs.unreleased %}
+{% if pending.changes.size > 0 %}
+<div class="doc-release">
+  <p class="doc-release-head">
+    <strong>Unreleased</strong>
+    {% if pending.compare_url %}<a href="{{ pending.compare_url }}" rel="noopener">diff since {{ pending.previous }} &rarr;</a>{% endif %}
+  </p>
+  <ul class="doc-changes">
+    {% for change in pending.changes %}
+    {% assign target = site.data.docs.documents | where: "path", change.path | first %}
+    <li>
+      <span class="doc-change doc-change--{{ change.status }}">{{ change.status }}</span>
+      {% if target %}<a href="{{ target.url | relative_url }}">{{ target.title }}</a>{% else %}<code>{{ change.path }}</code>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{% for release in site.data.docs.releases %}
+<div class="doc-release">
+  <p class="doc-release-head">
+    <strong>{{ release.tag }}</strong>
+    <a href="{{ release.compare_url }}" rel="noopener">
+      {% if release.previous %}diff against {{ release.previous }}{% else %}release{% endif %} &rarr;
+    </a>
+  </p>
+  {% if release.changes.size > 0 %}
+  <ul class="doc-changes">
+    {% for change in release.changes %}
+    {% assign target = site.data.docs.documents | where: "path", change.path | first %}
+    <li>
+      <span class="doc-change doc-change--{{ change.status }}">{{ change.status }}</span>
+      {% if target %}<a href="{{ target.url | relative_url }}">{{ target.title }}</a>{% else %}<code>{{ change.path }}</code>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="doc-changes-empty">No documentation changed in this release.</p>
+  {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if page.doc_source %}
+<p class="doc-footer">
+  This page is generated from
+  <a href="{{ page.doc_source }}" rel="noopener"><code>{{ page.doc_path }}</code></a>
+  on <code>main</code>. Edit it there —
+  <a href="{{ page.doc_history }}" rel="noopener">history</a>.
+</p>
+{% endif %}

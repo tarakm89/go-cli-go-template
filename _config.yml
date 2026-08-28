@@ -4,6 +4,11 @@ description: A cookiecutter template for Go command line tools — hexagonal cor
 
 repository_url: https://github.com/tarakm89/go-cli-go-template
 
+# Needed now that pages live under /docs/: relative links would resolve
+# against the subdirectory. Every link in the layout uses `relative_url`.
+url: https://tarakm89.github.io
+baseurl: /go-cli-go-template
+
 # A custom layout in _layouts/default.html, so there is no remote theme to
 # fight with over dark mode.
 markdown: kramdown
@@ -23,19 +28,22 @@ plantuml_server: ""
 nav:
   - id: overview
     title: Overview
-    url: index.html
+    url: /index.html
   - id: usage
     title: Getting started
-    url: usage.html
+    url: /usage.html
   - id: configured
     title: What's configured
-    url: configured.html
+    url: /configured.html
   - id: mentality
     title: How we write code
-    url: mentality.html
+    url: /mentality.html
+  - id: docs
+    title: Docs
+    url: /docs/index.html
   - id: versions
     title: Versions
-    url: versions.html
+    url: /versions.html
 
 exclude:
   - README.md

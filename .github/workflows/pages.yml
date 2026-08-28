@@ -10,10 +10,10 @@ name: Deploy documentation site
 on:
   push:
     branches: ["gh_pages"]
-  # Cutting a release on main should refresh the version list here.
+  # Sent by the publish-docs workflow on main after it syncs docs/ here.
   workflow_dispatch:
   repository_dispatch:
-    types: [changelog-updated]
+    types: [docs-updated, changelog-updated]
 
 permissions:
   contents: read

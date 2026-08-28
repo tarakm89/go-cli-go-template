@@ -1,0 +1,226 @@
+{
+  "documents": [
+    {
+      "title": "Documentation",
+      "path": "docs/README.md",
+      "url": "/docs/index.html",
+      "section": "root",
+      "status": null,
+      "commit": {
+        "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
+        "short_sha": "03b166d",
+        "date": "2026-08-27",
+        "author": "tarakm89",
+        "subject": "Add the spec-driven documentation set",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
+      },
+      "release": null,
+      "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/README.md",
+      "history_url": "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/README.md"
+    },
+    {
+      "title": "Architecture",
+      "path": "docs/architecture.md",
+      "url": "/docs/architecture.html",
+      "section": "root",
+      "status": null,
+      "commit": {
+        "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
+        "short_sha": "03b166d",
+        "date": "2026-08-27",
+        "author": "tarakm89",
+        "subject": "Add the spec-driven documentation set",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
+      },
+      "release": null,
+      "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/architecture.md",
+      "history_url": "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/architecture.md"
+    },
+    {
+      "title": "0001 \u2014 Bringing the template to v0.1.0",
+      "path": "docs/plans/0001-template-foundation.md",
+      "url": "/docs/plans/0001-template-foundation.html",
+      "section": "plans",
+      "status": "Done",
+      "commit": {
+        "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
+        "short_sha": "03b166d",
+        "date": "2026-08-27",
+        "author": "tarakm89",
+        "subject": "Add the spec-driven documentation set",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
+      },
+      "release": null,
+      "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/plans/0001-template-foundation.md",
+      "history_url": "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/plans/0001-template-foundation.md"
+    },
+    {
+      "title": "Implementation plans",
+      "path": "docs/plans/README.md",
+      "url": "/docs/plans/index.html",
+      "section": "plans",
+      "status": null,
+      "commit": {
+        "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
+        "short_sha": "03b166d",
+        "date": "2026-08-27",
+        "author": "tarakm89",
+        "subject": "Add the spec-driven documentation set",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
+      },
+      "release": null,
+      "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/plans/README.md",
+      "history_url": "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/plans/README.md"
+    },
+    {
+      "title": "0001 \u2014 A hexagonal core with an enforced dependency rule",
+      "path": "docs/specs/0001-hexagonal-core.md",
+      "url": "/docs/specs/0001-hexagonal-core.html",
+      "section": "specs",
+      "status": "Implemented",
+      "commit": {
+        "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
+        "short_sha": "03b166d",
+        "date": "2026-08-27",
+        "author": "tarakm89",
+        "subject": "Add the spec-driven documentation set",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
+      },
+      "release": null,
+      "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/specs/0001-hexagonal-core.md",
+      "history_url": "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/specs/0001-hexagonal-core.md"
+    },
+    {
+      "title": "0002 \u2014 OpenTelemetry for tools that run inside pipelines",
+      "path": "docs/specs/0002-observability-in-ci.md",
+      "url": "/docs/specs/0002-observability-in-ci.html",
+      "section": "specs",
+      "status": "Implemented",
+      "commit": {
+        "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
+        "short_sha": "03b166d",
+        "date": "2026-08-27",
+        "author": "tarakm89",
+        "subject": "Add the spec-driven documentation set",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
+      },
+      "release": null,
+      "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/specs/0002-observability-in-ci.md",
+      "history_url": "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/specs/0002-observability-in-ci.md"
+    },
+    {
+      "title": "0003 \u2014 Publish these documents, and show what changed",
+      "path": "docs/specs/0003-spec-driven-docs.md",
+      "url": "/docs/specs/0003-spec-driven-docs.html",
+      "section": "specs",
+      "status": "Implemented",
+      "commit": {
+        "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
+        "short_sha": "03b166d",
+        "date": "2026-08-27",
+        "author": "tarakm89",
+        "subject": "Add the spec-driven documentation set",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
+      },
+      "release": null,
+      "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/specs/0003-spec-driven-docs.md",
+      "history_url": "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/specs/0003-spec-driven-docs.md"
+    },
+    {
+      "title": "Specs",
+      "path": "docs/specs/README.md",
+      "url": "/docs/specs/index.html",
+      "section": "specs",
+      "status": null,
+      "commit": {
+        "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
+        "short_sha": "03b166d",
+        "date": "2026-08-27",
+        "author": "tarakm89",
+        "subject": "Add the spec-driven documentation set",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
+      },
+      "release": null,
+      "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/specs/README.md",
+      "history_url": "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/specs/README.md"
+    },
+    {
+      "title": "NNNN \u2014 Short title",
+      "path": "docs/specs/TEMPLATE.md",
+      "url": "/docs/specs/TEMPLATE.html",
+      "section": "specs",
+      "status": "Draft",
+      "commit": {
+        "sha": "03b166df3b4acf244c5c193e648964b04d76df59",
+        "short_sha": "03b166d",
+        "date": "2026-08-27",
+        "author": "tarakm89",
+        "subject": "Add the spec-driven documentation set",
+        "url": "https://github.com/tarakm89/go-cli-go-template/commit/03b166df3b4acf244c5c193e648964b04d76df59"
+      },
+      "release": null,
+      "source_url": "https://github.com/tarakm89/go-cli-go-template/blob/main/docs/specs/TEMPLATE.md",
+      "history_url": "https://github.com/tarakm89/go-cli-go-template/commits/main/docs/specs/TEMPLATE.md"
+    }
+  ],
+  "releases": [
+    {
+      "tag": "v0.1.0",
+      "previous": null,
+      "compare_url": "https://github.com/tarakm89/go-cli-go-template/releases/tag/v0.1.0",
+      "changes": []
+    }
+  ],
+  "unreleased": {
+    "tag": null,
+    "previous": "v0.1.0",
+    "compare_url": "https://github.com/tarakm89/go-cli-go-template/compare/v0.1.0...main",
+    "changes": [
+      {
+        "status": "added",
+        "path": "docs/README.md",
+        "name": "README.md"
+      },
+      {
+        "status": "added",
+        "path": "docs/architecture.md",
+        "name": "architecture.md"
+      },
+      {
+        "status": "added",
+        "path": "docs/plans/0001-template-foundation.md",
+        "name": "0001-template-foundation.md"
+      },
+      {
+        "status": "added",
+        "path": "docs/plans/README.md",
+        "name": "README.md"
+      },
+      {
+        "status": "added",
+        "path": "docs/specs/0001-hexagonal-core.md",
+        "name": "0001-hexagonal-core.md"
+      },
+      {
+        "status": "added",
+        "path": "docs/specs/0002-observability-in-ci.md",
+        "name": "0002-observability-in-ci.md"
+      },
+      {
+        "status": "added",
+        "path": "docs/specs/0003-spec-driven-docs.md",
+        "name": "0003-spec-driven-docs.md"
+      },
+      {
+        "status": "added",
+        "path": "docs/specs/README.md",
+        "name": "README.md"
+      },
+      {
+        "status": "added",
+        "path": "docs/specs/TEMPLATE.md",
+        "name": "TEMPLATE.md"
+      }
+    ]
+  }
+}

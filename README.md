@@ -20,6 +20,9 @@ request. The one exception is the version list, which is generated — see below
 | `assets/css/main.css` | Theme tokens, typography, syntax colours |
 | `assets/js/site.js` | Theme toggle, TOC, copy buttons, diagrams |
 | `scripts/inject-changelog.py` | Renders `main`'s `CHANGELOG.md` into the site |
+| `docs/` | **Generated.** Synced from `docs/` on `main` — do not edit here |
+| `_data/docs.json` | **Generated.** Document list and history, written by the sync |
+| `_layouts/doc.html` | Wraps a synced document with its status, history and source link |
 
 There is no remote theme. `_layouts/default.html` plus `assets/` is the theme,
 so dark mode is ours to control rather than something to override.
@@ -68,6 +71,25 @@ gh workflow run "Deploy documentation site" --ref gh_pages
 gh api repos/tarakm89/go-cli-go-template/dispatches \
   -f event_type=changelog-updated
 ```
+
+## The documents are synced from `main`
+
+`docs/` on this branch is not written here. `scripts/sync-docs.py` on `main`
+renders every Markdown file under `docs/` into this branch with Jekyll front
+matter, writes `_data/docs.json` with each document's last commit and the
+release that carried it, commits the result, and fires a `docs-updated`
+`repository_dispatch` that rebuilds the site.
+
+That runs on every push to `main` touching `docs/`, `CHANGELOG.md` or the sync
+script. It commits nothing when the rendered output is unchanged.
+
+Two consequences worth knowing:
+
+- **Editing `docs/` here is pointless** — the next sync overwrites it. Edit on
+  `main`.
+- A push made with `GITHUB_TOKEN` does not start another workflow, which is why
+  the sync ends in a `repository_dispatch` rather than relying on its own push
+  to trigger `pages.yml`.
 
 ## Dark mode
 
