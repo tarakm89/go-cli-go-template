@@ -1,0 +1,16 @@
+{
+  "project_name": "My CLI",
+  "project_slug": "{{ cookiecutter.project_name|lower|replace(' ', '-')|replace('_', '-')|trim }}",
+  "binary_name": "{{ cookiecutter.project_slug }}",
+  "project_description": "A command line application built with Cobra and a hexagonal (ports & adapters) core.",
+  "github_owner": "your-org",
+  "module_path": "github.com/{{ cookiecutter.github_owner }}/{{ cookiecutter.project_slug }}",
+  "author_name": "Your Name",
+  "author_email": "you@example.com",
+  "go_version": "1.25.0",
+  "license": ["MIT", "None"],
+  "init_git_repo": ["yes", "no"],
+  "_copy_without_render": [
+    ".github/workflows/*.yml"
+  ]
+}

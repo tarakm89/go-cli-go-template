@@ -1,0 +1,118 @@
+# Continuous integration.
+#
+# Every step is driven by the `go` command rather than by make, so the same
+# workflow runs unchanged on Linux, macOS and Windows runners.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Keep in step with GOLANGCI_LINT_VERSION in the Makefile.
+  GOLANGCI_LINT_VERSION: v2.10.1
+
+jobs:
+  lint:
+    name: Lint and format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Check the pinned tool versions agree
+        run: make tools-sync
+
+      - name: Install golangci-lint
+        run: go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@${{ env.GOLANGCI_LINT_VERSION }}
+
+      - name: Formatting
+        run: golangci-lint fmt --diff
+
+      - name: Lint
+        run: golangci-lint run
+
+      - name: go vet
+        run: go vet ./...
+
+      - name: go mod tidy is up to date
+        run: |
+          go mod tidy
+          git diff --exit-code -- go.mod go.sum
+
+  test:
+    name: Tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Build
+        run: go build ./...
+
+      # Unit tests: the domain rules and each adapter in isolation.
+      - name: Unit tests
+        run: go test -race -coverprofile=coverage.out -covermode=atomic ./internal/...
+
+      # Functional tests: the whole application in-process, external systems
+      # replaced by fake adapters. No network, so these are safe everywhere.
+      - name: Functional tests
+        run: go tool ginkgo --randomize-all --fail-on-pending --keep-going --timeout=10m -p ./test/functional
+
+      # End to end: the compiled binary against a real local HTTP server.
+      - name: End-to-end tests
+        run: go tool ginkgo --randomize-all --fail-on-pending --keep-going --timeout=10m ./test/e2e
+
+      - name: Upload coverage
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage.out
+          if-no-files-found: warn
+
+  docs-current:
+    name: Generated docs are current
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      # A flag added without regenerating the docs is a documentation bug, and
+      # this is the cheapest place to catch it.
+      - name: Regenerate and compare
+        run: |
+          make docs
+          # --porcelain rather than `git diff`, so a page that was added but
+          # never committed is caught as well as one that changed.
+          if [ -n "$(git status --porcelain -- docs/)" ]; then
+            echo "::error::docs/ is out of date; run 'make docs' and commit the result"
+            git status --short -- docs/
+            exit 1
+          fi
+          echo "documentation is up to date"

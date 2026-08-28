@@ -1,0 +1,39 @@
+# Binaries
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test and coverage output
+*.test
+*.out
+coverage.*
+*.coverprofile
+profile.cov
+
+# Ginkgo
+*.coverprofile
+ginkgo.report
+
+# Go workspace
+go.work
+go.work.sum
+
+# Local environment
+.env
+.envrc
+
+# Editors
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# The docs workflow checks the pages branch out here.
+.pages/
+
+# docs/cli and docs/api are generated but committed on purpose: the CI job
+# `docs-current` diffs them, which is what stops the published reference from
+# drifting away from the flags the binary actually has.

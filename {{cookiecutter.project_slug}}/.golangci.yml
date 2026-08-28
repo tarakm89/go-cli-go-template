@@ -1,0 +1,104 @@
+# golangci-lint v2 configuration.
+#
+# `golangci-lint run` lints; `golangci-lint fmt` formats. Both are wired into
+# the Makefile and into .pre-commit-config.yaml, so a commit cannot introduce
+# unformatted or unlinted code.
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  default: standard
+  enable:
+    - bodyclose      # a leaked response body in a CLI that fans out is a real leak
+    - copyloopvar
+    - depguard       # keeps the hexagon's dependency rule honest, see below
+    - errorlint      # errors.Is/As instead of == and type assertions
+    - gocritic
+    - goconst
+    - misspell
+    - nilerr
+    - noctx          # every outbound call must carry a context
+    - nolintlint
+    - revive
+    - unconvert
+    - usestdlibvars
+    - whitespace
+
+  settings:
+    depguard:
+      rules:
+        # The dependency rule of a hexagonal architecture: the core may not
+        # know about anything on the outside. Without this, the boundary is
+        # only a convention and the first deadline erases it.
+        core:
+          files:
+            - "**/internal/core/**"
+            # Test files are exempt: a unit test for the core is *expected* to
+            # import the in-memory adapters from internal/adapter/outbound/fake.
+            - "!$test"
+          deny:
+            - pkg: "{{ cookiecutter.module_path }}/internal/adapter"
+              desc: "the core must not import adapters; depend on a port instead"
+            - pkg: "{{ cookiecutter.module_path }}/internal/observability"
+              desc: "the core must not import the telemetry SDK; instrument it with a decorator in internal/adapter/outbound/telemetry"
+            - pkg: "{{ cookiecutter.module_path }}/internal/bootstrap"
+              desc: "the core must not import the composition root"
+            - pkg: "github.com/spf13/cobra"
+              desc: "cobra belongs to the inbound CLI adapter"
+            - pkg: "net/http"
+              desc: "HTTP is a transport detail; keep it in an outbound adapter"
+            - pkg: "go.opentelemetry.io"
+              desc: "instrument the core from outside, by decorating its ports"
+
+        # Nothing outside the CLI adapter should be reaching for Cobra either.
+        adapters:
+          files:
+            - "**/internal/adapter/outbound/**"
+          deny:
+            - pkg: "github.com/spf13/cobra"
+              desc: "outbound adapters are driven by the core, not by the CLI"
+
+    revive:
+      rules:
+        - name: exported
+          arguments:
+            - disableStutteringCheck
+
+    gocritic:
+      enabled-tags:
+        - diagnostic
+        - style
+        - performance
+      disabled-checks:
+        - hugeParam
+
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      # Test code repeats fixture strings; that is not a magic-constant problem.
+      - path: '_test\.go'
+        linters:
+          - goconst
+          - noctx
+      # The dot-imports below are the documented way to write Ginkgo specs.
+      - path: 'test/(e2e|functional)/'
+        linters:
+          - revive
+        text: "dot-imports"
+
+formatters:
+  enable:
+    - gofumpt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - "{{ cookiecutter.module_path }}"

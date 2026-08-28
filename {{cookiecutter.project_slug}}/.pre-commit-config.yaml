@@ -1,0 +1,77 @@
+# Local hooks only: nothing here is fetched from another repository, so a
+# commit never depends on someone else's tag moving, and the checks are exactly
+# the ones `make check` runs in CI.
+#
+# Install with `make hooks` (or `pre-commit install --install-hooks`).
+#
+# The Go tools are installed by pre-commit itself into an isolated environment,
+# which is what makes these hooks behave identically on Windows, macOS and
+# Linux — no PATH juggling and no .exe suffix to worry about.
+default_install_hook_types:
+  - pre-commit
+  - pre-push
+default_stages:
+  - pre-commit
+minimum_pre_commit_version: "3.5.0"
+
+repos:
+  - repo: local
+    hooks:
+      # ---------------------------------------------------------------- format
+      - id: golangci-lint-fmt
+        name: format (gofumpt + goimports)
+        description: Rewrites Go files with the formatters configured in .golangci.yml.
+        language: golang
+        # Keep this version in step with GOLANGCI_LINT_VERSION in the Makefile.
+        additional_dependencies:
+          - github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.10.1
+        entry: golangci-lint fmt
+        types: [go]
+        pass_filenames: false
+
+      # ------------------------------------------------------------------ lint
+      - id: golangci-lint
+        name: lint (golangci-lint)
+        description: Runs the full linter set, including the hexagon's dependency rule.
+        language: golang
+        additional_dependencies:
+          - github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.10.1
+        entry: golangci-lint run --fix
+        types: [go]
+        pass_filenames: false
+
+      # ---------------------------------------------------------------- module
+      - id: go-mod-tidy
+        name: go mod tidy
+        description: Fails the commit if go.mod or go.sum is out of date.
+        language: system
+        entry: go mod tidy
+        files: '(\.go$|^go\.mod$|^go\.sum$)'
+        pass_filenames: false
+
+      - id: go-build
+        name: go build
+        language: system
+        entry: go build ./...
+        types: [go]
+        pass_filenames: false
+
+      # ----------------------------------------------------------------- tests
+      # Unit and functional tests are fast because they use fake adapters, but
+      # they still belong on push rather than on every commit.
+      - id: go-test
+        name: go test (unit + functional)
+        language: system
+        entry: go test ./internal/... ./test/functional/...
+        types: [go]
+        pass_filenames: false
+        stages: [pre-push]
+
+      # ------------------------------------------------------------------ docs
+      - id: cli-docs
+        name: regenerate CLI docs
+        description: Keeps docs/cli in step with the flags the binary actually has.
+        language: system
+        entry: go run ./cmd/{{ cookiecutter.binary_name }} docs
+        files: '^internal/adapter/inbound/cli/.*\.go$'
+        pass_filenames: false

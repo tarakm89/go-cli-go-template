@@ -1,0 +1,84 @@
+# Publish the generated documentation to the gh-pages branch.
+#
+# Both halves of docs/ are generated from the code — the CLI reference from the
+# Cobra tree, the package reference from the doc comments with gomarkdoc — so
+# what is published can never drift from what was shipped.
+name: Docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.go'
+      - 'go.mod'
+      - 'go.sum'
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: docs-pages
+  cancel-in-progress: false
+
+env:
+  PAGES_BRANCH: gh-pages
+
+jobs:
+  publish:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Generate documentation
+        run: make docs
+
+      - name: Publish to ${{ env.PAGES_BRANCH }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          # Check out the pages branch beside the working tree, creating it as
+          # an orphan the first time so it never inherits the source history.
+          if git ls-remote --exit-code --heads origin "$PAGES_BRANCH" >/dev/null 2>&1; then
+            git fetch origin "$PAGES_BRANCH:$PAGES_BRANCH"
+            git worktree add .pages "$PAGES_BRANCH"
+          else
+            git worktree add --detach .pages
+            git -C .pages checkout --orphan "$PAGES_BRANCH"
+            git -C .pages rm -rf . >/dev/null 2>&1 || true
+          fi
+
+          # Replace the published tree wholesale so deleted pages disappear.
+          find .pages -mindepth 1 -maxdepth 1 -not -name '.git' -exec rm -rf {} +
+          cp -R docs/. .pages/
+
+          cd .pages
+          git add -A
+          if git diff --cached --quiet; then
+            echo "documentation is unchanged; nothing to publish"
+            exit 0
+          fi
+
+          git commit -m "docs: publish from ${GITHUB_SHA::12}"
+          git push origin "HEAD:$PAGES_BRANCH"
+
+      - name: Summary
+        run: |
+          echo "Published to the \`$PAGES_BRANCH\` branch." >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Enable GitHub Pages for this repository with **Settings -> Pages -> Deploy from a branch -> \`$PAGES_BRANCH\` / root**." >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,141 @@
+# The template's own CI.
+#
+# There is only one thing worth asserting about a project template: that the
+# project it produces passes its own checks. So this workflow renders the
+# template and then hands over to the generated project's Makefile.
+name: Template CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: template-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate-and-check:
+    name: Generated project passes its checks (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.25'
+
+      - name: Install cookiecutter
+        run: pip install --upgrade cookiecutter
+
+      - name: Render the template
+        run: >
+          cookiecutter --no-input -o .out .
+          project_name="Probe CLI"
+          github_owner=acme
+          author_name="Template CI"
+          author_email=ci@example.com
+          init_git_repo=no
+
+      - name: The rendered tree has no unsubstituted variables left
+        shell: bash
+        run: |
+          if grep -rIn --exclude-dir=.git -e '{{ *cookiecutter' -e '{% *raw' .out; then
+            echo "::error::the rendered project still contains template markers"
+            exit 1
+          fi
+          echo "no template markers remain"
+
+      - name: Build
+        working-directory: .out/probe-cli
+        run: go build ./...
+
+      - name: Unit tests
+        working-directory: .out/probe-cli
+        run: go test -race ./internal/...
+
+      - name: Functional tests
+        working-directory: .out/probe-cli
+        run: go tool ginkgo --randomize-all --fail-on-pending --timeout=10m -p ./test/functional
+
+      - name: End-to-end tests
+        working-directory: .out/probe-cli
+        run: go tool ginkgo --randomize-all --fail-on-pending --timeout=10m ./test/e2e
+
+  lint-generated:
+    name: Generated project lints clean
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.25'
+
+      - name: Install cookiecutter
+        run: pip install --upgrade cookiecutter
+
+      - name: Render the template
+        run: >
+          cookiecutter --no-input -o .out .
+          project_name="Probe CLI"
+          github_owner=acme
+          author_name="Template CI"
+          author_email=ci@example.com
+          init_git_repo=no
+
+      - name: Run the generated project's own checks
+        working-directory: .out/probe-cli
+        run: |
+          make tools-sync
+          make lint
+          make fmt-check
+          make vet
+          make docs
+          git --no-pager diff --stat || true
+
+  hooks:
+    name: Pre-commit hooks run clean on a generated project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.25'
+
+      - name: Install cookiecutter and pre-commit
+        run: pip install --upgrade cookiecutter pre-commit
+
+      - name: Render the template
+        run: >
+          cookiecutter --no-input -o .out .
+          project_name="Probe CLI"
+          github_owner=acme
+          author_name="Template CI"
+          author_email=ci@example.com
+          init_git_repo=yes
+
+      - name: Run every hook
+        working-directory: .out/probe-cli
+        run: pre-commit run --all-files --show-diff-on-failure
